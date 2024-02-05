@@ -1,0 +1,6 @@
+@mixin error-validation {
+  display: flex;
+  justify-content: end;
+  font-size: 15px;
+  color: red;
+}

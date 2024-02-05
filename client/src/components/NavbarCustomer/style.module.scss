@@ -1,0 +1,186 @@
+@import '@styles/base';
+
+.headerWrapper {
+  background-color: var(--color-bg) !important;
+  box-shadow: 0 0.25rem 0.75rem rgba(25, 49, 83, 0.2) !important;
+  position: sticky;
+  z-index: 10;
+  width: 100%;
+  top: 0;
+  .contentWrapper {
+    .menu {
+      display: flex;
+      gap: 20px;
+    }
+
+    .dropdown-wrapper {
+      @include directionX;
+    }
+
+    @include directionX;
+
+    color: var(--color-text);
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1rem;
+
+    .logoImage {
+      @include directionX;
+      cursor: pointer;
+      align-items: center;
+
+      .logo {
+        width: 15%;
+        height: 100%;
+        margin-right: 0.5rem;
+        @include apply-at-xl-size {
+          width: 15%;
+          padding-left: 20px;
+        }
+      }
+      .title {
+        font-weight: 700;
+      }
+    }
+
+    .toolbar {
+      @include directionX;
+      .theme {
+        @include directionX;
+        align-items: center;
+        margin-right: 0.5rem;
+        cursor: pointer;
+      }
+
+      .toggle {
+        @include directionX;
+        align-items: center;
+        cursor: pointer;
+
+        .photo-profile {
+          width: 1.5rem;
+          height: 1.5rem;
+          border-radius: 100%;
+        }
+
+        .avatar {
+          width: 1.2rem;
+          height: 1.2rem;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+          margin-right: 0.5rem;
+        }
+
+        .lang {
+          font-family: Poppins, Arial, Helvetica, sans-serif;
+          font-weight: 700;
+          font-size: 1rem;
+          text-transform: uppercase;
+        }
+
+        .arrow {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+.logedIn {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  top: 0;
+  .contentWrapper {
+    .dropdown-wrapper {
+      @include directionX;
+    }
+
+    @include directionX;
+
+    color: var(--color-text);
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1rem;
+
+    .logoImage {
+      @include directionX;
+      cursor: pointer;
+      align-items: center;
+
+      .logo {
+        width: 60%;
+        height: 100%;
+        margin-right: 0.5rem;
+        @include apply-at-xl-size {
+          width: 100%;
+          padding-left: 20px;
+        }
+      }
+    }
+    .unloggedin-wrapper {
+      display: flex;
+      gap: 10px;
+      .toolbar {
+        @include directionX;
+        .theme {
+          @include directionX;
+          align-items: center;
+          margin-right: 0.5rem;
+          cursor: pointer;
+        }
+
+        .toggle {
+          @include directionX;
+          align-items: center;
+          cursor: pointer;
+
+          .photo-profile {
+            width: 1.5rem;
+            height: 1.5rem;
+          }
+
+          .avatar {
+            width: 1.2rem;
+            height: 1.2rem;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            margin-right: 0.5rem;
+          }
+
+          .lang {
+            font-family: Poppins, Arial, Helvetica, sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+          }
+
+          .arrow {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+.menu {
+  @include directionX;
+  align-items: center;
+
+  .menuAvatar {
+    width: 1rem;
+    height: 1rem;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin-right: 0.5rem;
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
+  .menuLang {
+    font-family: Poppins, Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+  }
+}

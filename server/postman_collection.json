@@ -1,0 +1,758 @@
+{
+	"info": {
+		"_postman_id": "c04f9751-5154-4786-a932-dcdb579ee530",
+		"name": "PHINCON (AUTH) 2-2-2024",
+		"description": "Backend app ini diperuntukan untuk sebuah perusahaan / shop rental buku. dimana penggunaan aplikasi hanya dapat dioperasikan oleh admin yang bekerja di toko tersebut. customer hanya dapat mengakses informasi pribadinya, melihat list buku, melihat list peminjaman, dan melihat detail buku. sehingga ketika customer ingin melakukan perubahan data, pembuatan anggota baru, dan sebagainya, customer harus mendaftarkan dirinya melalui admin yang telah tersedia.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26453564"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "[POST] Login All Role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"cristine@gmail.com\",\r\n    \"password\": \"Phincon123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"login"
+							]
+						},
+						"description": "pada endpoint ini akan mendapatkan token untuk dapat mengakses endpoint selanjutnya. user diminta untuk mengirim request body berupa email dan password"
+					},
+					"response": []
+				},
+				{
+					"name": "[POST] Register Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"SuperAdmin_3\",\r\n    \"email\": \"super_admin_3@gmail.com\",\r\n    \"password\": \"Phincon123!\",\r\n    \"confirmPassword\": \"Phincon123!\",\r\n    \"phone\": \"0123192421\",\r\n    \"address\": \"Jl Kota Kasablanka\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/register-admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"register-admin"
+							]
+						},
+						"description": "pembuatan admin baru tidak ada credential apapun karena diasumsikan bahwa aplikasi ini digunakan secara internal oleh toko rental buku. akan tetapi, pada iterasi selanjutnya, pada fitur ini dapat disempurnakan dengan menambahkan role Super Admin yang memang hanya ada 1 user yang berperan sebagai Super Admin. sehingga Super Admin dapat menjalankan peran untuk membuat admin admin biasa lainnya."
+					},
+					"response": []
+				},
+				{
+					"name": "[POST] Forgot Password",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"super_admin@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/forgot-password",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"forgot-password"
+							]
+						},
+						"description": "pada backend ini pada iterasi selanjutnya akan disempurnakan dengan scheduler yang dapat men-generate credential expires. sehingga credential yang digunakan untuk forgot password dapat menjadi null ketika sudah melebihi waktunya. saya sudah siapkan logic dan function nya. akan tetap belum sempurna. perlu waktu untuk menyesuaikan hasilnya."
+					},
+					"response": []
+				},
+				{
+					"name": "[PATCH] Reset Password",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"credential\": \"616642\",\r\n    \"email\": \"super_admin@gmail.com\",\r\n    \"newPassword\": \"Password123!\",\r\n    \"confirmPassword\":\"Password123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/reset-password",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"reset-password"
+							]
+						},
+						"description": "untuk melakukan reset password, user diminta untuk memberikan credential sebagai hal wajib akurat. dan ketika sudah selesai melakukan reset password, credential yang telah digunakan akan menjadi null sehingga tidak dapat digunakan dua kali."
+					},
+					"response": []
+				},
+				{
+					"name": "[POST] Change Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newPassword\": \"Phincon123!\",\r\n    \"confirmPassword\": \"Phincon123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/change-password",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"change-password"
+							]
+						},
+						"description": "change password berbeda dengan reset password. dikarenakan change password meminta headers berupa authorization bearer token. sehingga user perlu melakukan login terlebih dahulu untuk menggunakan endpoint ini."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "[GET] Get All Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/customer/?name=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": ""
+								}
+							]
+						},
+						"description": "hanya dapat diakses oleh admin. dikarenakan hal ini bersifat private untuk keperluan administrasi toko. data pengguna / customer lain tidak boleh di ekspose kepada customer lain yang tidak memiliki kepentingan.\n\npada endpoint ini juga sudah dilengkapi dengan query params sehingga kita dapat melakukan search menggunakan nama."
+					},
+					"response": []
+				},
+				{
+					"name": "[POST] Create Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"aka\",\r\n    \"email\": \"\",\r\n    \"password\": \"\",\r\n    \"confirmPassword\": \"\",\r\n    \"phone\": \"04231246\",\r\n    \"address\": \"Jl Raya\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer"
+							]
+						},
+						"description": "hanya dapat dilakukan oleh admin. sehingga seorang calon customer baru harus melakukan pendaftaran langsung kepada admin di toko rental buku tersebut."
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Get Customer Detail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/customer/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						},
+						"description": "hanya dapat diakses oleh admin. dikarenakan path variable yang diminta berupa id. sehingga customer lain yang tidak berkepentingan dilarang untuk mengakses informasi detail customer lain. ini hanya diperuntukan untuk kebutuhan admin saja."
+					},
+					"response": []
+				},
+				{
+					"name": "[PATCH] Update Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Usaid Aka\",\r\n    \"phone\": \"\",\r\n    \"address\": \"aasdasd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/customer/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						},
+						"description": "hanya dapat diakses oleh admin. jika customer ingin melakukan perubahan data, maka wajib untuk meng-hubungi admin. customer tidak boleh merubah data dirinya sendiri agar tidak ada kesalahan pencatatan. request.body yang disediakan pun tidak include email karena email dilarang untuk di-edit untuk memudahkan pencatatan dan record kedepannya."
+					},
+					"response": []
+				},
+				{
+					"name": "[DEL] Delete Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/customer/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"customer",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						},
+						"description": "hanya dapat diakses oleh admin. sehingga jika user ingin mengundurkan diri dari list pelanggan / pengguna shop rental buku harus mengubungi admin untuk dihapuskan. dan akan ada pengecekan, apakah customer telah mengembalikan semua bukunya atau belum. jika belum, maka tidak bisa dihapus karena harus dikembalikan terlebih dahulu"
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Get Customer Profile By Login",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "[GET] Get All Book",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/book/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book",
+								""
+							],
+							"query": [
+								{
+									"key": "author",
+									"value": "testss",
+									"disabled": true
+								}
+							]
+						},
+						"description": "dapat diakses oleh semua orang"
+					},
+					"response": []
+				},
+				{
+					"name": "[POST] Create Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"tast\",\r\n    \"author\": \"tast\",\r\n    \"idCategory\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/book/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book",
+								""
+							]
+						},
+						"description": "hanya dapat diakses oleh admin. agar penambahan list buku lebih tertata pencatatannya."
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Get Book Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/book/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						},
+						"description": "dapat diakses oleh semua role"
+					},
+					"response": []
+				},
+				{
+					"name": "[PATCH] Update Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"tesss\",\r\n    \"author\":\"asd\",\r\n    \"idCategory\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/book/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						},
+						"description": "hanya dapat diakses oleh admin. agar penambahan list buku lebih tertata pencatatannya."
+					},
+					"response": []
+				},
+				{
+					"name": "[DEL] Delete Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/book/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"book",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						},
+						"description": "hanya dapat diakses oleh admin. agar penambahan list buku lebih tertata pencatatannya."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lending",
+			"item": [
+				{
+					"name": "[GET] Get All Lending Data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/lending/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"lending",
+								""
+							]
+						},
+						"description": "hanya dapat diakses oleh admin. agar kerahasiaan data peminjaman customer terjaga."
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Get Customer Lending Book List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/lending/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"lending",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "12"
+								}
+							]
+						},
+						"description": "hanya dapat diakses oleh admin. agar kerahasiaan data peminjaman customer terjaga."
+					},
+					"response": []
+				},
+				{
+					"name": "[POST] Create Lending",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerName\": \"Aka\",\r\n    \"bookName\" : \"tesss\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/lending/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"lending",
+								""
+							]
+						},
+						"description": "hanya dapat diakses oleh admin. agar customer yang ingin meminjam harus terkonfimasi langsung oleh admin"
+					},
+					"response": []
+				},
+				{
+					"name": "[DEL] Delete Lending (Return Book)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"\",\r\n    \"idBook\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/lending/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"lending",
+								""
+							]
+						},
+						"description": "hanya dapat diakses oleh admin. agar customer yang ingin mengembalikan buku harus terkonfimasi langsung oleh admin"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkNyaXN0aW5lIEFsYmVydG8iLCJlbWFpbCI6ImNyaXN0aW5lQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MDY4NTY2ODcsImV4cCI6MTcwNjk0MzA4N30.TpwrMQk1i4dFWvujNHj5B7mdNe-y3aGiZBBU_W0Jr-U",
+			"type": "string"
+		},
+		{
+			"key": "API_URL",
+			"value": "http://localhost:8080/api",
+			"type": "string"
+		}
+	]
+}

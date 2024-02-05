@@ -1,0 +1,73 @@
+@import '../../styles/base.scss';
+
+.container {
+  display: flex;
+  height: 100vh;
+
+  .decoration {
+    display: none;
+    @include apply-at-md-size {
+      display: flex;
+      width: 60%;
+      height: 100%;
+
+      background: url('../../assets/background.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    @include apply-at-lg-size {
+      display: block;
+      width: 70%;
+      height: 100%;
+    }
+  }
+
+  .form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+
+    @include apply-at-md-size {
+      width: 40%;
+      background-color: white;
+    }
+    @include apply-at-lg-size {
+      width: 30%;
+      background-color: white;
+    }
+
+    form {
+      background-color: $color-fade;
+      border-radius: 10px;
+      width: 100%;
+      padding: 20px;
+
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        label {
+          margin-top: 20px;
+        }
+
+        input {
+          height: 40px;
+          border: 2px $color-white-fade solid;
+          outline: 2px $color-white-fade solid;
+          border-radius: 6px;
+          padding-left: 10px;
+        }
+      }
+
+      button {
+        margin-top: 20px;
+        margin-left: auto;
+        display: flex;
+      }
+    }
+  }
+}
