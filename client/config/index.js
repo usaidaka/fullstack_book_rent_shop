@@ -10,7 +10,7 @@ const config = {
   api: {
     host: env.API_HOST,
     image_customer: env.API_GET_IMAGE_CUSTOMER,
-    image_book: env.BOOK,
+    image_book: env.API_GET_IMAGE_BOOK,
   },
   encryption: {
     cryptoSecret: env.CRYPTO_SECRET,

@@ -1,0 +1,166 @@
+@import '../../styles/base.scss';
+
+.container {
+  width: 100%;
+  height: 100%;
+  @include apply-at-xl-size {
+    padding: 20px;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 20px;
+    justify-content: space-evenly;
+    justify-items: center;
+    align-content: space-evenly;
+    align-items: center;
+
+    @include apply-at-md-size {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @include apply-at-lg-size {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @include apply-at-xl-size {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      position: relative;
+      border: 2px $color-card-background solid;
+      border-radius: 6px;
+      width: 150px;
+      height: 280px;
+      padding: 10px;
+
+      @include apply-at-md-size {
+        width: 220px;
+        height: 370px;
+      }
+
+      @include apply-at-lg-size {
+        width: 220px;
+        height: 370px;
+      }
+
+      @include apply-at-xl-size {
+        width: 220px;
+        height: 370px;
+      }
+      .title {
+        height: 60px;
+        max-height: 60px;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        padding: 0px 20px;
+      }
+
+      .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .image {
+          padding: 2px;
+          width: 150px;
+          height: 150px;
+          justify-content: center;
+          object-fit: cover;
+
+          @include apply-at-md-size {
+            width: 220px;
+            height: 220px;
+          }
+        }
+      }
+
+      .desc {
+        font-size: 10px;
+        width: 100%;
+
+        .author {
+          font-size: 15px;
+
+          font-weight: 700;
+          @include apply-at-md-size {
+            font-size: 20px;
+          }
+          @include apply-at-lg-size {
+            font-size: 15px;
+          }
+          @include apply-at-xl-size {
+            font-size: 20px;
+          }
+        }
+
+        .info {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .card:hover {
+      border: none;
+      -webkit-box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 1);
+      -moz-box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 1);
+      box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 1);
+    }
+
+    .drop {
+      display: flex;
+      justify-content: end;
+      top: 0;
+      right: 0;
+      padding: 5px;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      button {
+        height: 20px;
+      }
+
+      .toolbar {
+        box-shadow: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25px;
+        height: 25px;
+        border-radius: 100%;
+        background-color: $color-card-background;
+        @include directionX;
+        .theme {
+          @include directionX;
+          align-items: center;
+          margin-right: 0.5rem;
+          cursor: pointer;
+        }
+        .toggle {
+          @include directionX;
+          align-items: center;
+          cursor: pointer;
+
+          .arrow {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+}

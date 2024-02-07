@@ -1,7 +1,7 @@
-import { SET_USER } from './constants';
+import { SET_ADMIN } from './constants';
 
 export const doRegister = (user, cb) => ({
-  type: SET_USER,
+  type: SET_ADMIN,
   user,
   cb,
 });

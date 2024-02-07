@@ -19,6 +19,9 @@ module.exports = {
         author: "Tere Liye",
         idCategory: 2,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2010,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -29,6 +32,9 @@ module.exports = {
         author: "Tere Liye",
         idCategory: 4,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2012,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -39,6 +45,9 @@ module.exports = {
         author: "Tere Liye",
         idCategory: 2,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2013,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -49,6 +58,9 @@ module.exports = {
         author: "Tere Liye",
         idCategory: 5,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2015,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -59,6 +71,9 @@ module.exports = {
         author: "Tere Liye",
         idCategory: 5,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2012,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -69,6 +84,9 @@ module.exports = {
         author: "Tere Liye",
         idCategory: 1,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2011,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -79,6 +97,9 @@ module.exports = {
         author: "Robert Kiyosaki",
         idCategory: 4,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2022,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -89,6 +110,9 @@ module.exports = {
         author: "Robert Kiyosaki",
         idCategory: 6,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2023,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -99,6 +123,9 @@ module.exports = {
         author: "Robert Kiyosaki",
         idCategory: 7,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2011,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -109,6 +136,9 @@ module.exports = {
         author: "Robert Kiyosaki",
         idCategory: 2,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2010,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -119,6 +149,9 @@ module.exports = {
         author: "Harun Yahya",
         idCategory: 4,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2016,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -129,6 +162,9 @@ module.exports = {
         author: "Harun Yahya",
         idCategory: 5,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2010,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -139,6 +175,9 @@ module.exports = {
         author: "Harun Yahya",
         idCategory: 6,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2019,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -149,6 +188,9 @@ module.exports = {
         author: "Harun Yahya",
         idCategory: 2,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2020,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -159,6 +201,9 @@ module.exports = {
         author: "Harun Yahya",
         idCategory: 8,
         image: "default.jpeg",
+        synopsis:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+        publishAt: 2011,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,

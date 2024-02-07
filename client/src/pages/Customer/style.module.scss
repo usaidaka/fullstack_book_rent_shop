@@ -1,0 +1,106 @@
+@import '../../styles/base.scss';
+
+.container {
+  width: 100%;
+  height: 100%;
+  @include apply-at-xl-size {
+    padding: 20px;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .card-container {
+    display: grid;
+    gap: 10px;
+    @include apply-at-lg-size {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @include apply-at-xl-size {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .card {
+      border: 2px $color-card-background solid;
+      border-radius: 6px;
+      height: 150px;
+      width: 100%;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+
+      .image {
+        width: 30%;
+        height: 100px;
+
+        img {
+          border-radius: 100%;
+          object-fit: cover;
+          width: 100px;
+          height: 100px;
+        }
+      }
+
+      .data {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        overflow-wrap: break-word;
+        max-height: 150px;
+      }
+
+      .drop {
+        display: flex;
+        justify-content: end;
+        top: 0;
+        right: 0;
+        padding: 5px;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        button {
+          height: 20px;
+        }
+
+        .toolbar {
+          box-shadow: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 25px;
+          height: 25px;
+          border-radius: 100%;
+          background-color: $color-card-background;
+          @include directionX;
+          .theme {
+            @include directionX;
+            align-items: center;
+            margin-right: 0.5rem;
+            cursor: pointer;
+          }
+          .toggle {
+            @include directionX;
+            align-items: center;
+            cursor: pointer;
+
+            .arrow {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+    }
+    .card:hover {
+      border: none;
+      -webkit-box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 1);
+      -moz-box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 1);
+      box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 1);
+    }
+  }
+}

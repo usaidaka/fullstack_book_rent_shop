@@ -54,6 +54,11 @@ const addBook = (data) => {
     idCategory: Joi.number()
       .required()
       .description("address; i.e. Jl TB Simatupang"),
+    synopsis: Joi.string()
+      .min(3)
+      .required()
+      .description("synopsis; i.e. Lorem ipsum dolor met"),
+    publishAt: Joi.number().required().description("publish at; i.e. 2023"),
   });
   if (schema.validate(data).error) {
     throw Boom.badRequest(schema.validate(data).error);
@@ -192,6 +197,24 @@ const changePassword = (data) => {
   }
 };
 
+const editProfile = (data) => {
+  const schema = Joi.object({
+    name: Joi.string().optional().description("Name; i.e. Usaid Aka"),
+    phone: Joi.string().optional().description("Phone; i.e. 089652433206  "),
+    address: Joi.string()
+      .optional()
+      .description("Address; i.e.Jl TB Simatupang"),
+  });
+
+  if (schema.validate(data).error) {
+    throw Boom.badRequest(schema.validate(data).error);
+  }
+
+  if (schema.validate(data).error) {
+    throw Boom.badRequest(schema.validate(data).error);
+  }
+};
+
 module.exports = {
   addCustomer,
   editCustomer,
@@ -203,4 +226,5 @@ module.exports = {
   resetPassword,
   changePassword,
   addLending,
+  editProfile,
 };

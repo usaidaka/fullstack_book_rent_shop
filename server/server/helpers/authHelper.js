@@ -8,6 +8,8 @@ const moment = require("moment");
 
 const db = require("../../models");
 const GeneralHelper = require("./generalHelper");
+const { getCustomerDetail } = require("./customerHelper");
+const isExist = require("../../utils/isExist");
 
 const jwtSecretToken = process.env.JWT_SECRET_TOKEN || "super_strong_key";
 const jwtExpiresIn = process.env.JWT_EXPIRES_IN || "24h";
@@ -114,6 +116,8 @@ const login = async (dataObject) => {
         id: customer.id,
         name: customer.name,
         email: customer.email,
+        phone: customer.phone,
+        address: customer.address,
         role: customer.role,
         image: customer.image,
       },
@@ -264,10 +268,79 @@ const changePassword = async (dataObject) => {
   }
 };
 
+const patchProfile = async (id, data, image) => {
+  let response = {};
+
+  const transaction = await db.sequelize.transaction();
+  try {
+    console.log(data, "<<< data");
+    const { name, phone, address } = data;
+    const isCustomerExist = await getCustomerDetail(id);
+
+    if (!isCustomerExist.ok) {
+      response = {
+        ok: false,
+        message: "Customer Not Found",
+      };
+      await transaction.rollback();
+      return response;
+    }
+
+    const isDataExist = await isExist.isCustomerExist(data);
+
+    if (!isDataExist.ok) {
+      response = {
+        ok: isDataExist.ok,
+        message: isDataExist.message,
+      };
+      await transaction.rollback();
+      return response;
+    }
+
+    if (image) {
+      if (isCustomerExist.result.image !== "default.png") {
+        await isExist.isPrevImageExist(
+          "customer",
+          isCustomerExist.result.image
+        );
+      } else {
+        await db.Customer.update({ image }, { where: { id }, transaction });
+      }
+    }
+
+    const result = await db.Customer.update(
+      { name, phone, address, image },
+      { where: { id }, transaction }
+    );
+
+    if (!result) {
+      response = {
+        ok: false,
+        message: "Edit customer failed!",
+      };
+      await transaction.rollback();
+      return response;
+    }
+
+    response = {
+      ok: true,
+      message: `Congrats! Customer : ${isCustomerExist.result?.name}'s data successfully updated `,
+      result: data,
+    };
+    await transaction.commit();
+    return response;
+  } catch (err) {
+    await transaction.rollback();
+    console.log([fileName, "patch customer", "ERROR"], { info: `${err}` });
+    return Promise.reject(GeneralHelper.errorResponse(err));
+  }
+};
+
 module.exports = {
   createAdmin,
   login,
   forgotPassword,
   resetPassword,
   changePassword,
+  patchProfile,
 };

@@ -4,21 +4,15 @@ import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { useRef, useState } from 'react';
 import { createStructuredSelector } from 'reselect';
 import { selectUser } from '@containers/Client/selectors';
 
 import classes from './style.module.scss';
 import { doRegister } from './actions';
-import empty from '../../assets/empty.jpg';
 
 const RegisterAdmin = ({ user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const fileRef = useRef();
-
-  const [image, setImage] = useState(null);
-  const [showImage, setShowImage] = useState(false);
 
   console.log(user);
 
@@ -29,14 +23,7 @@ const RegisterAdmin = ({ user }) => {
     watch,
   } = useForm();
 
-  const handleFile = (e) => {
-    const selectedImage = e.target.files[0];
-    setShowImage(URL.createObjectURL(selectedImage));
-    setImage(selectedImage);
-  };
-
   const onSubmit = (data) => {
-    console.log(image);
     dispatch(
       doRegister(data, () => {
         navigate('/admin/dashboard');
@@ -53,12 +40,6 @@ const RegisterAdmin = ({ user }) => {
       </div>
       <div className={classes.form}>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <div className={classes.image}>
-            <input type="file" name="" id="" ref={fileRef} onChange={handleFile} />
-            <div onClick={() => fileRef.current.click()}>
-              <img src={showImage || empty} alt="" />
-            </div>
-          </div>
           <div className={classes['main-wrapper']}>
             <div className={classes.wrapper}>
               <label htmlFor="">
@@ -96,7 +77,6 @@ const RegisterAdmin = ({ user }) => {
           </div>
 
           <div className={classes['main-wrapper']}>
-            {' '}
             <div className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="phone" />

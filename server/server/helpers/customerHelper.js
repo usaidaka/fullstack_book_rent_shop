@@ -1,8 +1,6 @@
 const { Op } = require("sequelize");
 const _ = require("lodash");
-const fs = require("fs");
 const Boom = require("boom");
-const path = require("path");
 const db = require("../../models");
 const isExist = require("../../utils/isExist");
 const GeneralHelper = require("./generalHelper");
@@ -256,6 +254,52 @@ const deleteCustomer = async (id, idAuth) => {
   }
 };
 
+const getRoleCustomer = async () => {
+  try {
+    const customer = await db.Customer.findAll({
+      where: { role: "Customer" },
+      attributes: {
+        exclude: [
+          "deletedAt",
+          "updatedAt",
+          "createdAt",
+          "credential",
+          "credentialExpAt",
+          "password",
+        ],
+      },
+    });
+
+    return Promise.resolve({ ok: true, result: customer });
+  } catch (err) {
+    console.log([fileName, "login", "ERROR"], { info: `${err}` });
+    return Promise.reject(GeneralHelper.errorResponse(err));
+  }
+};
+
+const getRoleAdmin = async () => {
+  try {
+    const customer = await db.Customer.findAll({
+      where: { role: "Admin" },
+      attributes: {
+        exclude: [
+          "deletedAt",
+          "updatedAt",
+          "createdAt",
+          "credential",
+          "credentialExpAt",
+          "password",
+        ],
+      },
+    });
+
+    return Promise.resolve({ ok: true, result: customer });
+  } catch (err) {
+    console.log([fileName, "login", "ERROR"], { info: `${err}` });
+    return Promise.reject(GeneralHelper.errorResponse(err));
+  }
+};
+
 module.exports = {
   getCustomerList,
   createCustomer,
@@ -263,4 +307,6 @@ module.exports = {
   patchCustomer,
   deleteCustomer,
   getCustomerProfile,
+  getRoleCustomer,
+  getRoleAdmin,
 };

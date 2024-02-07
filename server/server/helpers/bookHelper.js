@@ -36,7 +36,7 @@ const getBookList = async (title) => {
       message: "Retrieving book list successful!",
       result,
     };
-    return response;
+    return Promise.resolve(response);
   } catch (err) {
     console.log([fileName, "getBlogList", "ERROR"], { info: `${err}` });
     return Promise.reject(GeneralHelper.errorResponse(err));
@@ -74,11 +74,11 @@ const getBookDetail = async (id) => {
   }
 };
 
-const createBook = async (data) => {
+const createBook = async (data, image) => {
   let response = {};
   const transaction = await db.sequelize.transaction();
   try {
-    const { title, author, idCategory } = data;
+    const { title, author, idCategory, synopsis, publishAt } = data;
 
     const isDataExist = await isExist.isBookExist(data);
 
@@ -91,10 +91,32 @@ const createBook = async (data) => {
       return response;
     }
 
-    const result = await db.Book.create(
-      { title, author, idCategory, image: "default.jpeg" },
-      { transaction }
-    );
+    let result = {};
+    if (image) {
+      result = await db.Book.create(
+        {
+          title,
+          author,
+          idCategory: Number(idCategory),
+          image,
+          synopsis,
+          publishAt: Number(publishAt),
+        },
+        { transaction }
+      );
+    } else {
+      result = await db.Book.create(
+        {
+          title,
+          author,
+          idCategory: Number(idCategory),
+          image: "default.jpeg",
+          synopsis,
+          publishAt: Number(publishAt),
+        },
+        { transaction }
+      );
+    }
 
     response = {
       ok: true,

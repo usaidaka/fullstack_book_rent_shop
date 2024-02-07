@@ -41,10 +41,11 @@ const bookDetail = async (request, reply) => {
 const addBook = async (request, reply) => {
   try {
     const data = request.body;
+    const image = request.file?.filename;
 
     Validation.addBook(data);
 
-    const response = await BookHelper.createBook(data);
+    const response = await BookHelper.createBook(data, image);
 
     if (!response.ok) {
       return reply.status(400).json(response);
@@ -101,6 +102,7 @@ Router.post(
   "/book",
   Middleware.validateToken,
   Middleware.isAdminChecker,
+  handleImageBookUpload,
   addBook
 );
 Router.patch(

@@ -1,23 +1,21 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { register } from '@domain/api';
+import { registerAdmin } from '@domain/api';
 import { setLoading, showPopup } from '@containers/App/actions';
 
-import { SET_USER } from './constants';
+import { SET_ADMIN } from './constants';
 
-function* doRegister({ user, cb }) {
+function* doRegisterAdmin({ user, cb }) {
   setLoading(true);
   try {
-    const response = yield call(register, user);
+    yield call(registerAdmin, user);
 
-    if (response) {
-      cb && cb();
-    }
+    cb && cb();
   } catch (error) {
     yield put(showPopup('Error', error.response?.data?.message));
   }
   setLoading(false);
 }
 
-export default function* registerSaga() {
-  yield takeLatest(SET_USER, doRegister);
+export default function* registerAdminSaga() {
+  yield takeLatest(SET_ADMIN, doRegisterAdmin);
 }

@@ -27,6 +27,12 @@ module.exports = {
       image: {
         type: Sequelize.STRING,
       },
+      synopsis: {
+        type: Sequelize.TEXT,
+      },
+      publishAt: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

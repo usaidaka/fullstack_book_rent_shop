@@ -29,6 +29,8 @@ module.exports = (sequelize, DataTypes) => {
       author: DataTypes.STRING,
       idCategory: DataTypes.INTEGER,
       image: DataTypes.STRING,
+      synopsis: DataTypes.TEXT,
+      publishAt: DataTypes.INTEGER,
     },
     {
       sequelize,

@@ -30,7 +30,7 @@ import config from '@config/index';
 
 /* ICONS */
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
 import logoBook from '../../assets/logoBook.png';
 import classes from './style.module.scss';
@@ -48,6 +48,16 @@ const Navbar = ({ locale, theme, children, login, user }) => {
   const open = Boolean(menuPosition);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState(null);
+  const openDropdown = Boolean(dropdownPosition);
+
+  const handleClickDropdown = (event) => {
+    setDropdownPosition(event.currentTarget);
+  };
+
+  const handleCloseDropdown = () => {
+    setDropdownPosition(null);
+  };
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -85,20 +95,46 @@ const Navbar = ({ locale, theme, children, login, user }) => {
 
   const handleLogout = () => {
     logout(dispatch, navigate);
+    handleCloseDropdown();
+    handleClose();
   };
 
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
-      <Link to="/admin/register-admin">
-        <List onClick={handleLogout}>
+      <Link to="/admin/book-list">
+        <List>
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <HowToRegIcon />
+                <SupervisorAccountIcon />
               </ListItemIcon>
-              <FormattedMessage id="registerAdmin" />
+              <FormattedMessage id="book" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Link>
+      <Link to="/admin/customer-list">
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <SupervisorAccountIcon />
+              </ListItemIcon>
+              <FormattedMessage id="customer" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Link>
+      <Link to="/admin/admin-list">
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <SupervisorAccountIcon />
+              </ListItemIcon>
+              <FormattedMessage id="admin" />
             </ListItemButton>
           </ListItem>
         </List>
@@ -176,7 +212,7 @@ const Navbar = ({ locale, theme, children, login, user }) => {
               {/* profile */}
               <div>
                 <div className={classes.toolbar}>
-                  <div className={classes.toggle}>
+                  <div className={classes.toggle} onClick={handleClickDropdown}>
                     <img
                       src={`${config.api.image_customer}${user.image}`}
                       alt=""
@@ -184,6 +220,32 @@ const Navbar = ({ locale, theme, children, login, user }) => {
                     />
                   </div>
                 </div>
+                <Menu open={openDropdown} anchorEl={dropdownPosition} onClose={handleCloseDropdown}>
+                  <Link
+                    to="/admin/profile"
+                    onClick={() => {
+                      handleClose();
+                      handleCloseDropdown();
+                    }}
+                  >
+                    <MenuItem>
+                      <div className={classes.menu}>
+                        {/* <img src={profileIcon} alt="" className={classes.icon} /> */}
+                        <div className={classes.menuLang}>
+                          <FormattedMessage id="profile" />
+                        </div>
+                      </div>
+                    </MenuItem>
+                  </Link>
+                  <MenuItem onClick={handleLogout}>
+                    <div className={classes.menu}>
+                      {/* <img src={logoutIcon} alt="" className={classes.icon} /> */}
+                      <div className={classes.menuLang}>
+                        <FormattedMessage id="logout" />
+                      </div>
+                    </div>
+                  </MenuItem>
+                </Menu>
               </div>
             </div>
           </Box>

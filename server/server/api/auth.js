@@ -5,14 +5,13 @@ const AuthHelper = require("../helpers/authHelper");
 const GeneralHelper = require("../helpers/generalHelper");
 const Middleware = require("../middleware/authMiddleware");
 const { decryptPayload } = require("../../utils/decrypt");
+const handleImageCustomerUpload = require("../middleware/uploadCustomer");
 
 const fileName = "server/api/book.js";
 
 const login = async (request, reply) => {
   try {
-    console.log(request.body, "<<<< BODY");
     const data = decryptPayload(request.body);
-    console.log(data, "<<< DATA");
     Validation.loginValidation(data);
 
     const { email, password } = data;
@@ -103,6 +102,23 @@ const changePassword = async (request, reply) => {
   }
 };
 
+const editProfile = async (request, reply) => {
+  try {
+    Validation.editProfile(request.body);
+
+    const data = request.body;
+
+    const image = request.file?.filename;
+
+    const { id } = request.user;
+    const response = await AuthHelper.patchProfile(id, data, image);
+    return reply.send(response);
+  } catch (err) {
+    console.log([fileName, "edit profile", "ERROR"], { info: `${err}` });
+    return reply.send(GeneralHelper.errorResponse(err));
+  }
+};
+
 Router.post("/login", login);
 Router.post(
   "/register-admin",
@@ -113,5 +129,11 @@ Router.post(
 Router.patch("/forgot-password", forgotPassword);
 Router.patch("/reset-password", resetPassword);
 Router.patch("/change-password", Middleware.validateToken, changePassword);
+Router.patch(
+  "/profile",
+  Middleware.validateToken,
+  handleImageCustomerUpload,
+  editProfile
+);
 
 module.exports = Router;

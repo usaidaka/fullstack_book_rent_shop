@@ -110,6 +110,28 @@ const removeCustomer = async (request, reply) => {
   }
 };
 
+const getRoleCustomer = async (request, reply) => {
+  try {
+    const response = await CustomerHelper.getRoleCustomer();
+
+    return reply.send(response);
+  } catch (err) {
+    console.log([fileName, "getRoleCustomer", "ERROR"], { info: `${err}` });
+    return reply.send(GeneralHelper.errorResponse(err));
+  }
+};
+
+const getRoleAdmin = async (request, reply) => {
+  try {
+    const response = await CustomerHelper.getRoleAdmin();
+
+    return reply.send(response);
+  } catch (err) {
+    console.log([fileName, "getRoleCustomer", "ERROR"], { info: `${err}` });
+    return reply.send(GeneralHelper.errorResponse(err));
+  }
+};
+
 Router.get(
   "/customer",
   Middleware.validateToken,
@@ -132,7 +154,6 @@ Router.post(
 Router.patch(
   "/customer/:id",
   Middleware.validateToken,
-  Middleware.isAdminChecker,
   handleImageCustomerUpload,
   editCustomer
 );
@@ -141,6 +162,19 @@ Router.delete(
   Middleware.validateToken,
   Middleware.isAdminChecker,
   removeCustomer
+);
+Router.get(
+  "/customer-role",
+  Middleware.validateToken,
+  Middleware.isAdminChecker,
+  getRoleCustomer
+);
+
+Router.get(
+  "/admin-role",
+  Middleware.validateToken,
+  Middleware.isSuperChecker,
+  getRoleAdmin
 );
 
 module.exports = Router;
