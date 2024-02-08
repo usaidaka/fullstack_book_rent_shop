@@ -9,6 +9,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectLogin, selectToken, selectUser } from '@containers/Client/selectors';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import config from '@config/index';
+import toast, { Toaster } from 'react-hot-toast';
 
 import classes from './style.module.scss';
 import { doEditUser, getUserById } from './actions';
@@ -18,7 +19,8 @@ const EditUser = ({ login, token, user, userDetail }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const fileRef = useRef();
-  const [loading, setLoading] = useState(true);
+  const [render, setRender] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
   const [image, setImage] = useState(null);
@@ -33,7 +35,7 @@ const EditUser = ({ login, token, user, userDetail }) => {
   useEffect(() => {
     dispatch(
       getUserById(id, token, () => {
-        setLoading(false);
+        setRender(false);
       })
     );
   }, [dispatch, id, token]);
@@ -51,21 +53,28 @@ const EditUser = ({ login, token, user, userDetail }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(image);
+    const formData = new FormData();
+    formData.append('file', image);
+    formData.append('name', data.name);
+    formData.append('phone', data.phone);
+    formData.append('address', data.address);
+
     dispatch(
-      doEditUser(data, () => {
-        navigate('/admin/dashboard');
+      doEditUser(id, formData, (message) => {
+        toast.success(message, { duration: 2000 });
+        setTimeout(() => navigate(-1), 3000);
+        setLoading(true);
       })
     );
   };
 
-  if (loading) {
+  if (render) {
     return;
   }
   return (
     <div className={classes.container}>
       <div className={classes.decoration}>
-        <Link to="/admin/dashboard">
+        <Link to={-1}>
           <ArrowBackIcon />
         </Link>
         <h2>
@@ -96,7 +105,7 @@ const EditUser = ({ login, token, user, userDetail }) => {
                 aria-invalid={errors.name ? 'true' : 'false'}
                 defaultValue={userDetail.name}
               />
-              {/* {errors.name && <span role="alert">{errors.name.message}</span>} */}
+              {errors.name && <span role="alert">{errors.name.message}</span>}
             </div>
 
             <div className={classes.wrapper}>
@@ -108,14 +117,11 @@ const EditUser = ({ login, token, user, userDetail }) => {
                 id="email"
                 name="email"
                 placeholder="email"
-                {...register('email', {
-                  required: 'email is required',
-                })}
                 aria-invalid={errors.email ? 'true' : 'false'}
                 value={userDetail.email}
                 disabled
               />
-              {/* {errors.email && <span role="alert">{errors.email.message}</span>} */}
+              {errors.email && <span role="alert">{errors.email.message}</span>}
             </div>
           </div>
 
@@ -135,7 +141,7 @@ const EditUser = ({ login, token, user, userDetail }) => {
                 aria-invalid={errors.phone ? 'true' : 'false'}
                 defaultValue={userDetail.phone}
               />
-              {/* {errors.phone && <span role="alert">{errors.phone.message}</span>} */}
+              {errors.phone && <span role="alert">{errors.phone.message}</span>}
             </div>
             <div className={classes.wrapper}>
               <label htmlFor="">
@@ -152,7 +158,7 @@ const EditUser = ({ login, token, user, userDetail }) => {
                 aria-invalid={errors.address ? 'true' : 'false'}
                 defaultValue={userDetail.address}
               />
-              {/* {errors.address && <span role="alert">{errors.address.message}</span>} */}
+              {errors.address && <span role="alert">{errors.address.message}</span>}
             </div>
           </div>
 
@@ -166,9 +172,6 @@ const EditUser = ({ login, token, user, userDetail }) => {
                 id="password"
                 name="password"
                 placeholder="password"
-                {...register('password', {
-                  required: 'password is required',
-                })}
                 aria-invalid={errors.password ? 'true' : 'false'}
                 value="**********"
                 disabled
@@ -177,11 +180,12 @@ const EditUser = ({ login, token, user, userDetail }) => {
             </div>
           </div>
 
-          <Button className={classes.submit} variant="contained" type="submit">
+          <Button className={classes.submit} variant="contained" type="submit" disabled={loading}>
             Submit
           </Button>
         </form>
       </div>
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };

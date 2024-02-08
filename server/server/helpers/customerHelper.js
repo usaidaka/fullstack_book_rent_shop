@@ -1,11 +1,18 @@
 const { Op } = require("sequelize");
 const _ = require("lodash");
 const Boom = require("boom");
+const bcrypt = require("bcryptjs");
+
 const db = require("../../models");
 const isExist = require("../../utils/isExist");
 const GeneralHelper = require("./generalHelper");
 
 const fileName = "server/helpers/customerHelper.js";
+const salt = bcrypt.genSaltSync(10);
+// eslint-disable-next-line arrow-body-style
+const __hashPassword = (password) => {
+  return bcrypt.hashSync(password, salt);
+};
 
 const getCustomerList = async (name) => {
   let response = {};
@@ -99,7 +106,16 @@ const createCustomer = async (data) => {
   let response = {};
   const transaction = await db.sequelize.transaction();
   try {
-    const { name, phone, address } = data;
+    const { name, phone, address, password, confirmPassword, email } = data;
+
+    if (!_.isEqual(password, confirmPassword)) {
+      response = {
+        ok: false,
+        message: "Password and confirm password must be equal",
+      };
+      await transaction.rollback();
+      return response;
+    }
 
     const isDataExist = await isExist.isCustomerExist(data);
 
@@ -112,8 +128,18 @@ const createCustomer = async (data) => {
       return response;
     }
 
+    const hashedPass = __hashPassword(password);
+
     const result = await db.Customer.create(
-      { name, phone, address },
+      {
+        name,
+        phone,
+        address,
+        password: hashedPass,
+        email,
+        role: "Customer",
+        image: "default.png",
+      },
       { transaction }
     );
 

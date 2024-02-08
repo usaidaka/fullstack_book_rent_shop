@@ -6,25 +6,24 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { useRef, useState } from 'react';
 import { createStructuredSelector } from 'reselect';
-import { selectLogin, selectToken, selectUser } from '@containers/Client/selectors';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { selectUser } from '@containers/Client/selectors';
 import config from '@config/index';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 
 import classes from './style.module.scss';
-import { doEditProfile } from './actions';
+import { editProfile } from './actions';
+import { doEditProfile } from '@pages/EditProfileAdmin/actions';
+import toast, { Toaster } from 'react-hot-toast';
+import { logout } from '@utils/logout';
 
-const EditProfile = ({ login, token, user }) => {
+const Profile = ({ user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const fileRef = useRef();
 
   const [image, setImage] = useState(null);
   const [showImage, setShowImage] = useState(false);
-
-  console.log(user);
-  console.log(login);
-  console.log(token);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -39,23 +38,28 @@ const EditProfile = ({ login, token, user }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(image);
+    console.log(data);
+    const formData = new FormData();
+    formData.append('file', image);
+    formData.append('name', data.name);
+    formData.append('phone', data.phone);
+    formData.append('address', data.address);
+
+    console.log(formData.get('file'));
+    console.log(formData.get('name'));
+    console.log(formData.get('phone'));
+
     dispatch(
-      doEditProfile(data, () => {
-        navigate('/admin/dashboard');
+      doEditProfile(formData, (message) => {
+        toast.success(`${message} | You will redirect to log out`, { duration: 2000 });
+        setTimeout(() => logout(dispatch, navigate), 3000);
+        setLoading(true);
       })
     );
   };
+
   return (
     <div className={classes.container}>
-      <div className={classes.decoration}>
-        <Link to="/admin/dashboard">
-          <ArrowBackIcon />
-        </Link>
-        <h2>
-          <FormattedMessage id="editProfile" />
-        </h2>
-      </div>
       <div className={classes.form}>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
           <div className={classes.image}>
@@ -80,7 +84,7 @@ const EditProfile = ({ login, token, user }) => {
                 aria-invalid={errors.name ? 'true' : 'false'}
                 defaultValue={user.name}
               />
-              {/* {errors.name && <span role="alert">{errors.name.message}</span>} */}
+              {errors.name && <span role="alert">{errors.name.message}</span>}
             </div>
 
             <div className={classes.wrapper}>
@@ -92,14 +96,10 @@ const EditProfile = ({ login, token, user }) => {
                 id="email"
                 name="email"
                 placeholder="email"
-                {...register('email', {
-                  required: 'email is required',
-                })}
                 aria-invalid={errors.email ? 'true' : 'false'}
                 value={user.email}
                 disabled
               />
-              {/* {errors.email && <span role="alert">{errors.email.message}</span>} */}
             </div>
           </div>
 
@@ -119,7 +119,6 @@ const EditProfile = ({ login, token, user }) => {
                 aria-invalid={errors.phone ? 'true' : 'false'}
                 defaultValue={user.phone}
               />
-              {/* {errors.phone && <span role="alert">{errors.phone.message}</span>} */}
             </div>
             <div className={classes.wrapper}>
               <label htmlFor="">
@@ -136,7 +135,6 @@ const EditProfile = ({ login, token, user }) => {
                 aria-invalid={errors.address ? 'true' : 'false'}
                 defaultValue={user.address}
               />
-              {/* {errors.address && <span role="alert">{errors.address.message}</span>} */}
             </div>
           </div>
 
@@ -150,15 +148,11 @@ const EditProfile = ({ login, token, user }) => {
                 id="password"
                 name="password"
                 placeholder="password"
-                {...register('password', {
-                  required: 'password is required',
-                })}
                 aria-invalid={errors.password ? 'true' : 'false'}
                 value="**********"
                 disabled
               />
-              {/* {errors.password && <span role="alert">{errors.password.message}</span>} */}
-              <Link to="/admin/profile/change-password" className={classes.button}>
+              <Link to="/profile/change-password" className={classes.button}>
                 <Button color="success" variant="contained" type="button">
                   <ModeEditOutlineIcon />
                 </Button>
@@ -166,25 +160,22 @@ const EditProfile = ({ login, token, user }) => {
             </div>
           </div>
 
-          <Button className={classes.submit} variant="contained" type="submit">
+          <Button className={classes.submit} variant="contained" type="submit" disabled={loading}>
             Submit
           </Button>
         </form>
       </div>
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };
 
-EditProfile.propTypes = {
-  login: PropTypes.bool,
-  token: PropTypes.string,
+Profile.propTypes = {
   user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  login: selectLogin,
-  token: selectToken,
   user: selectUser,
 });
 
-export default connect(mapStateToProps)(EditProfile);
+export default connect(mapStateToProps)(Profile);

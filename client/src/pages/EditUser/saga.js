@@ -5,15 +5,14 @@ import { setLoading, showPopup } from '@containers/App/actions';
 import { EDIT_USER, GET_USER_BY_ID } from './constants';
 import { setUserById } from './actions';
 
-function* doEditUser({ id, user, header, cb }) {
+function* doEditUser({ id, user, cb }) {
   setLoading(true);
   try {
-    const response = yield call(editUser, id, user, header);
+    const response = yield call(editUser, id, user);
 
-    if (response) {
-      cb && cb();
-    }
+    cb && cb(response.message);
   } catch (error) {
+    console.log(error);
     yield put(showPopup('Error', error.response?.data?.message));
   }
   setLoading(false);

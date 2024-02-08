@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { selectLogin, selectToken, selectUser } from '@containers/Client/selectors';
 import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -13,7 +12,7 @@ import { selectBookList } from './selectors';
 import { getBook } from './actions';
 import classes from './style.module.scss';
 
-const Book = ({ login, token, user, books }) => {
+const Book = ({ books }) => {
   const dispatch = useDispatch();
   const [openElem, setOpenElem] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -27,11 +26,6 @@ const Book = ({ login, token, user, books }) => {
     setAnchorEl(null);
     setOpenElem(null);
   };
-
-  console.log(login);
-  console.log(token);
-  console.log(user);
-  console.log(books);
 
   useEffect(() => {
     dispatch(getBook());
@@ -98,15 +92,7 @@ const Book = ({ login, token, user, books }) => {
                         </div>
                       </MenuItem>
                     </Link>
-                    <Link to={`/admin/edit-book/${item.id}`} onClose={handleClose}>
-                      <MenuItem sx={{ fontSize: 12, height: 10, marginBottom: 1 }}>
-                        <div className={classes.menu}>
-                          <div className={classes.menuLang}>
-                            <FormattedMessage id="bookDetail" />
-                          </div>
-                        </div>
-                      </MenuItem>
-                    </Link>
+
                     <Link to={`/admin/edit-book/${item.id}`} onClose={handleClose}>
                       <MenuItem sx={{ fontSize: 12, height: 10 }}>
                         <div className={classes.menu}>
@@ -128,16 +114,10 @@ const Book = ({ login, token, user, books }) => {
 };
 
 Book.propTypes = {
-  login: PropTypes.bool,
-  token: PropTypes.string,
-  user: PropTypes.object,
   books: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  login: selectLogin,
-  token: selectToken,
-  user: selectUser,
   books: selectBookList,
 });
 

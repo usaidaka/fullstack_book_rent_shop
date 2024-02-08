@@ -38,4 +38,12 @@ export default {
   emptyBook: 'Buku Masih Kosong',
   emptyCustomer: 'Customer Masih Kosong',
   admin: 'Admin',
+  lendingList: 'Peminjaman',
+  createLending: 'Buat Peminjaman',
+  deleteLending: 'Hapus Sewaan',
+  newPassword: 'Password Baru',
+  myLending: 'Pinjaman Saya',
+  lendDate: 'Peminjaman',
+  returnDate: 'Pengembalian',
+  hi: 'Hai! Semangat beraktivitas,',
 };

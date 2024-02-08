@@ -32,6 +32,7 @@ const editCustomer = (data) => {
     address: Joi.string()
       .optional()
       .description("Address; i.e.Jl TB Simatupang"),
+    file: Joi,
   });
 
   if (schema.validate(data).error) {
@@ -59,6 +60,7 @@ const addBook = (data) => {
       .required()
       .description("synopsis; i.e. Lorem ipsum dolor met"),
     publishAt: Joi.number().required().description("publish at; i.e. 2023"),
+    file: Joi.object().optional(),
   });
   if (schema.validate(data).error) {
     throw Boom.badRequest(schema.validate(data).error);
@@ -71,15 +73,27 @@ const editBook = (data) => {
       .min(3)
       .max(20)
       .optional()
+      .allow(null, "")
       .description("name; i.e. Usaid AKA"),
     author: Joi.string()
       .min(3)
       .max(20)
       .optional()
+      .allow(null, "")
       .description("author; i.e. Tere Liye"),
-    idCategory: Joi.number()
+    idCategory: Joi.string()
       .optional()
+      .allow(null, "")
       .description("address; i.e. Jl TB Simatupang"),
+    publishAt: Joi.string()
+      .optional()
+      .allow(null, "")
+      .description("address; i.e. Jl TB Simatupang"),
+    synopsis: Joi.string()
+      .optional()
+      .allow(null, "")
+      .description("synopsis; i.e. lorep ipsum"),
+    file: Joi,
   });
   if (schema.validate(data).error) {
     throw Boom.badRequest(schema.validate(data).error);
@@ -88,15 +102,9 @@ const editBook = (data) => {
 
 const addLending = (data) => {
   const schema = Joi.object({
-    customerName: Joi.string()
-      .min(3)
-      .max(20)
-      .optional()
-      .description("name; i.e. Usaid AKA"),
-    bookName: Joi.string()
-      .min(3)
-      .max(20)
-      .optional()
+    email: Joi.string().min(3).required().description("name; i.e. Usaid AKA"),
+    idBook: Joi.string()
+      .required()
       .description("book name; i.e. Matahari Tenggelam di wajahmu"),
   });
   if (schema.validate(data).error) {
@@ -204,6 +212,7 @@ const editProfile = (data) => {
     address: Joi.string()
       .optional()
       .description("Address; i.e.Jl TB Simatupang"),
+    file: Joi,
   });
 
   if (schema.validate(data).error) {

@@ -1,8 +1,7 @@
 import { SET_CUSTOMER } from './constants';
 
-export const doRegisterCustomer = (user, header, cb) => ({
+export const doRegisterCustomer = (user, cb) => ({
   type: SET_CUSTOMER,
   user,
-  header,
   cb,
 });

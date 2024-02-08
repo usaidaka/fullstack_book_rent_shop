@@ -1,8 +1,7 @@
 import { GET_ADMIN, SET_ADMIN } from './constants';
 
-export const getAdmin = (header) => ({
+export const getAdmin = () => ({
   type: GET_ADMIN,
-  header,
 });
 
 export const setAdmin = (admins) => ({

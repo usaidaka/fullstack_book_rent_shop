@@ -5,6 +5,7 @@ const CustomerHelper = require("../helpers/customerHelper");
 const GeneralHelper = require("../helpers/generalHelper");
 const Middleware = require("../middleware/authMiddleware");
 const handleImageCustomerUpload = require("../middleware/uploadCustomer");
+const { decryptPayload } = require("../../utils/decrypt");
 
 const fileName = "server/api/customer.js";
 
@@ -54,7 +55,7 @@ const customerProfile = async (request, reply) => {
 
 const addCustomer = async (request, reply) => {
   try {
-    const data = request.body;
+    const data = decryptPayload(request.body);
 
     Validation.addCustomer(data);
 

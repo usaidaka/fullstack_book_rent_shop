@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { setLocale, setTheme } from '@containers/App/actions';
+import { setLocale /* setTheme */ } from '@containers/App/actions';
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
@@ -21,25 +21,26 @@ import Typography from '@mui/material/Typography';
 import { Avatar, Menu, MenuItem } from '@mui/material';
 import { FormattedMessage } from 'react-intl';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import NightsStayIcon from '@mui/icons-material/NightsStay';
+// import LightModeIcon from '@mui/icons-material/LightMode';
+// import NightsStayIcon from '@mui/icons-material/NightsStay';
 import { logout } from '@utils/logout';
 import { createStructuredSelector } from 'reselect';
-import { selectLogin, selectUser } from '@containers/Client/selectors';
+import { selectUser } from '@containers/Client/selectors';
 import config from '@config/index';
 
 /* ICONS */
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 
 import logoBook from '../../assets/logoBook.png';
 import classes from './style.module.scss';
 
 const drawerWidth = 240;
 
-const Navbar = ({ locale, theme, children, login, user }) => {
-  console.log(login);
-  console.log(user);
+const Navbar = ({ locale, /*  theme */ children, user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -89,9 +90,9 @@ const Navbar = ({ locale, theme, children, login, user }) => {
     handleClose();
   };
 
-  const handleTheme = () => {
-    dispatch(setTheme(theme === 'light' ? 'dark' : 'light'));
-  };
+  // const handleTheme = () => {
+  //   dispatch(setTheme(theme === 'light' ? 'dark' : 'light'));
+  // };
 
   const handleLogout = () => {
     logout(dispatch, navigate);
@@ -108,7 +109,7 @@ const Navbar = ({ locale, theme, children, login, user }) => {
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <SupervisorAccountIcon />
+                <AutoStoriesIcon />
               </ListItemIcon>
               <FormattedMessage id="book" />
             </ListItemButton>
@@ -120,21 +121,35 @@ const Navbar = ({ locale, theme, children, login, user }) => {
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <SupervisorAccountIcon />
+                <PersonAddIcon />
               </ListItemIcon>
               <FormattedMessage id="customer" />
             </ListItemButton>
           </ListItem>
         </List>
       </Link>
-      <Link to="/admin/admin-list">
+      {user.role === 'Super' && (
+        <Link to="/admin/admin-list">
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <SupervisorAccountIcon />
+                </ListItemIcon>
+                <FormattedMessage id="admin" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Link>
+      )}
+      <Link to="/admin/lending-list">
         <List>
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <SupervisorAccountIcon />
+                <LocalMallIcon />
               </ListItemIcon>
-              <FormattedMessage id="admin" />
+              <FormattedMessage id="lendingList" />
             </ListItemButton>
           </ListItem>
         </List>
@@ -174,17 +189,17 @@ const Navbar = ({ locale, theme, children, login, user }) => {
             <MenuIcon />
           </IconButton>
           <Box className={classes.headerWrapper}>
-            <Box className={classes.header}>
+            <Link to="/admin/dashboard" className={classes.header}>
               <img src={logoBook} alt="" width={40} />
               <Typography variant="h6" noWrap component="div">
                 <FormattedMessage id="app_title_header" />
               </Typography>
-            </Box>
+            </Link>
             <div className={classes.contentWrapper}>
               <div className={classes.toolbar}>
-                <div className={classes.theme} onClick={handleTheme} data-testid="toggleTheme">
+                {/* <div className={classes.theme} onClick={handleTheme} data-testid="toggleTheme">
                   {theme === 'light' ? <NightsStayIcon /> : <LightModeIcon />}
-                </div>
+                </div> */}
                 <div className={classes.toggle} onClick={handleClick}>
                   <Avatar className={classes.avatar} src={locale === 'id' ? '/id.png' : '/en.png'} />
                   <div className={classes.lang}>{locale}</div>
@@ -289,14 +304,12 @@ const Navbar = ({ locale, theme, children, login, user }) => {
 
 Navbar.propTypes = {
   locale: PropTypes.string.isRequired,
-  theme: PropTypes.string,
+  // theme: PropTypes.string,
   children: PropTypes.element.isRequired,
-  login: PropTypes.bool,
   user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  login: selectLogin,
   user: selectUser,
 });
 

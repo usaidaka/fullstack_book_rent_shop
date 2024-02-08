@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -6,15 +7,16 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { createStructuredSelector } from 'reselect';
 import { selectUser } from '@containers/Client/selectors';
+import { encryptPayload } from '@utils/encrypt';
+import toast, { Toaster } from 'react-hot-toast';
 
-import classes from './style.module.scss';
 import { doRegisterCustomer } from './actions';
+import classes from './style.module.scss';
 
-const RegisterCustomer = ({ user }) => {
+const RegisterCustomer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  console.log(user);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -24,9 +26,14 @@ const RegisterCustomer = ({ user }) => {
   } = useForm();
 
   const onSubmit = (data) => {
+    console.log(data);
+    const encryptedData = encryptPayload(data);
+
     dispatch(
-      doRegisterCustomer(data, () => {
-        navigate('/admin/dashboard');
+      doRegisterCustomer({ encryptedData }, (message) => {
+        toast.success(message, { duration: 2000 });
+        setTimeout(() => navigate('/admin/customer-list'), 3000);
+        setLoading(true);
       })
     );
   };
@@ -146,11 +153,12 @@ const RegisterCustomer = ({ user }) => {
             {/* {errors.confirmPassword && <span role="alert">{errors.confirmPassword.message}</span>} */}
           </div>
 
-          <Button variant="contained" type="submit">
+          <Button variant="contained" type="submit" disabled={loading}>
             Submit
           </Button>
         </form>
       </div>
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };

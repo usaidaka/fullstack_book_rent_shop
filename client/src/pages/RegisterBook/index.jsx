@@ -7,16 +7,19 @@ import { createStructuredSelector } from 'reselect';
 import { useForm } from 'react-hook-form';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { selectCategoryList } from '@pages/Dashboard/selectors';
+import toast, { Toaster } from 'react-hot-toast';
 
 import empty from '../../assets/empty.jpg';
 import classes from './style.module.scss';
 import { doRegisterBook } from './actions';
 
-const RegisterBook = ({ login, token, user }) => {
+const RegisterBook = ({ categories }) => {
   const fileRef = useRef();
 
   const [image, setImage] = useState(null);
   const [showImage, setShowImage] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,7 +28,6 @@ const RegisterBook = ({ login, token, user }) => {
     register,
     formState: { errors },
     handleSubmit,
-    watch,
   } = useForm();
 
   const handleFile = (e) => {
@@ -35,13 +37,23 @@ const RegisterBook = ({ login, token, user }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
-    console.log(image);
-    dispatch();
-    doRegisterBook(data, () => {
-      navigate('/admin/dashboard');
-    });
+    const formData = new FormData();
+    formData.append('file', image);
+    formData.append('title', data.title);
+    formData.append('author', data.author);
+    formData.append('idCategory', data.idCategory);
+    formData.append('publishAt', data.publishAt.split('-')[0]);
+    formData.append('synopsis', data.synopsis);
+
+    dispatch(
+      doRegisterBook(formData, (message) => {
+        toast.success(message, { duration: 2000 });
+        setTimeout(() => navigate('/admin/book-list'), 3000);
+        setLoading(true);
+      })
+    );
   };
+
   return (
     <div className={classes['main-container']}>
       <h2>
@@ -65,7 +77,7 @@ const RegisterBook = ({ login, token, user }) => {
                   })}
                   aria-invalid={errors.title ? 'true' : 'false'}
                 />
-                {/* {errors.title && <span role="alert">{errors.title.message}</span>} */}
+                {errors.title && <span role="alert">{errors.title.message}</span>}
               </div>
               <div className={classes.wrapper}>
                 <label htmlFor="">
@@ -81,7 +93,7 @@ const RegisterBook = ({ login, token, user }) => {
                   })}
                   aria-invalid={errors.author ? 'true' : 'false'}
                 />
-                {/* {errors.author && <span role="alert">{errors.author.message}</span>} */}
+                {errors.author && <span role="alert">{errors.author.message}</span>}
               </div>
             </div>
             <div className={classes['main-wrapper']}>
@@ -99,7 +111,7 @@ const RegisterBook = ({ login, token, user }) => {
                   })}
                   aria-invalid={errors.author ? 'true' : 'false'}
                 />
-                {/* {errors.synopsis && <span role="alert">{errors.synopsis.message}</span>} */}
+                {errors.synopsis && <span role="alert">{errors.synopsis.message}</span>}
               </div>
               <div className={classes['form-select']}>
                 <div className={classes.select}>
@@ -107,22 +119,24 @@ const RegisterBook = ({ login, token, user }) => {
                     <FormattedMessage id="category" />
                   </label>
                   <select
-                    id="category"
-                    name="category"
-                    placeholder="category"
-                    {...register('category', {
-                      required: 'category is required',
+                    id="idCategory"
+                    name="idCategory"
+                    placeholder="idCategory"
+                    {...register('idCategory', {
+                      required: 'Category is required',
                     })}
-                    aria-invalid={errors.category ? 'true' : 'false'}
+                    aria-invalid={errors.idCategory ? 'true' : 'false'}
                   >
                     <option value="" disabled>
                       Select Option
                     </option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
                   </select>
-                  {/* {errors.category && <span role="alert">{errors.category.message}</span>} */}
+                  {errors.idCategory && <span role="alert">{errors.idCategory.message}</span>}
                 </div>
                 <div className={classes.date}>
                   <label htmlFor="">
@@ -139,22 +153,32 @@ const RegisterBook = ({ login, token, user }) => {
                     aria-invalid={errors.publishAt ? 'true' : 'false'}
                     max={new Date().toISOString().split('T')[0]}
                   />
-                  {/* {errors.publishAt && <span role="alert">{errors.publishAt.message}</span>} */}
+                  {errors.publishAt && <span role="alert">{errors.publishAt.message}</span>}
                 </div>
               </div>
             </div>
           </div>
           <div className={classes.image}>
-            <input type="file" name="" id="" ref={fileRef} onChange={handleFile} />
+            <input
+              type="file"
+              ref={fileRef}
+              onChange={handleFile}
+              id="image"
+              name="image"
+              aria-invalid={errors.image ? 'true' : 'false'}
+              accept="image/png, image/gif, image/jpeg"
+            />
             <div onClick={() => fileRef.current.click()}>
               <img src={showImage || empty} alt="" />
+              {errors.image && <p role="alert">{errors.image.message}</p>}
             </div>
           </div>
         </div>
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" disabled={loading}>
           submit
         </Button>
       </form>
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };
@@ -163,12 +187,14 @@ RegisterBook.propTypes = {
   login: PropTypes.bool,
   token: PropTypes.string,
   user: PropTypes.object,
+  categories: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   login: selectLogin,
   token: selectToken,
   user: selectUser,
+  categories: selectCategoryList,
 });
 
 export default connect(mapStateToProps)(RegisterBook);

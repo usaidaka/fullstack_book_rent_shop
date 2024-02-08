@@ -11,6 +11,7 @@ import NavbarCustomer from '@components/NavbarCustomer';
 
 const MainLayout = ({ children, locale, theme, intl: { formatMessage }, user }) => {
   let renderNav;
+
   switch (user.role) {
     case 'Super':
     case 'Admin':
@@ -22,9 +23,10 @@ const MainLayout = ({ children, locale, theme, intl: { formatMessage }, user }) 
       break;
     case 'Customer':
       renderNav = (
-        <NavbarCustomer title={formatMessage({ id: 'app_title_header' })} locale={locale} theme={theme}>
+        <>
+          <NavbarCustomer title={formatMessage({ id: 'app_title_header' })} locale={locale} theme={theme} />
           {children}
-        </NavbarCustomer>
+        </>
       );
       break;
     default:

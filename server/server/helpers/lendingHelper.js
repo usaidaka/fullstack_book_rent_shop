@@ -1,7 +1,6 @@
 const _ = require("lodash");
 const db = require("../../models");
 const GeneralHelper = require("./generalHelper");
-const isExist = require("../../utils/isExist");
 
 const fileName = "server/helpers/lendingHelper.js";
 
@@ -10,13 +9,14 @@ const getLendingList = async () => {
 
   try {
     const result = await db.Lending.findAll({
-      attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+      paranoid: false,
       include: [
         {
           model: db.Book,
           as: "Books",
           attributes: {
-            exclude: ["createdAt", "updatedAt", "deletedAt"],
+            exclude: ["updatedAt", "deletedAt"],
           },
           include: [
             {
@@ -29,9 +29,18 @@ const getLendingList = async () => {
         {
           model: db.Customer,
           as: "Customers",
-          attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+          attributes: {
+            exclude: [
+              "createdAt",
+              "updatedAt",
+              "deletedAt",
+              "credentialAt",
+              "credentialExpAt",
+            ],
+          },
         },
       ],
+      order: [["id", "DESC"]],
     });
 
     if (result.length === 0) {
@@ -237,9 +246,67 @@ const deleteLending = async (data) => {
   }
 };
 
+const getMyLending = async (id) => {
+  try {
+    const lendingList = await db.Lending.findAll({
+      where: { idCustomer: id },
+      attributes: { exclude: ["updatedAt"] },
+      paranoid: false,
+      include: [
+        {
+          model: db.Book,
+          as: "Books",
+          attributes: {
+            exclude: ["updatedAt", "deletedAt"],
+          },
+          include: [
+            {
+              model: db.Category,
+              as: "Categories",
+              attributes: ["name"],
+            },
+          ],
+        },
+        {
+          model: db.Customer,
+          as: "Customers",
+          attributes: {
+            exclude: [
+              "createdAt",
+              "updatedAt",
+              "deletedAt",
+              "credentialAt",
+              "credentialExpAt",
+            ],
+          },
+        },
+      ],
+      order: [["id", "DESC"]],
+    });
+
+    if (lendingList.length === 0) {
+      return Promise.resolve({
+        ok: true,
+        message: "You have never borrowed any books",
+        result: lendingList,
+      });
+    }
+    const response = {
+      ok: true,
+      message: "Congrats! Successfully retrieve your lending list",
+      result: lendingList,
+    };
+    return Promise.resolve(response);
+  } catch (err) {
+    console.log([fileName, "create lending", "ERROR"], { info: `${err}` });
+    return Promise.reject(GeneralHelper.errorResponse(err));
+  }
+};
+
 module.exports = {
   getLendingList,
   createLending,
   getCustomerLending,
   deleteLending,
+  getMyLending,
 };

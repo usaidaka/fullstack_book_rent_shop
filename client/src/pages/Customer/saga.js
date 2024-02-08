@@ -4,15 +4,12 @@ import { getCustomerList } from '@domain/api';
 import { setCustomer } from './actions';
 import { GET_CUSTOMER } from './constants';
 
-function* getAllCustomer({ header }) {
+function* getAllCustomer() {
   yield put(setLoading(true));
   try {
-    console.log(header);
-    const response = yield call(getCustomerList, header);
-    console.log(response, '<< response');
+    const response = yield call(getCustomerList);
     yield put(setCustomer(response?.result));
   } catch (error) {
-    console.error(error);
     yield put(showPopup('Error', error.message));
   }
   yield put(setLoading(false));

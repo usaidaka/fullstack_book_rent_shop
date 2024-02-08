@@ -7,9 +7,9 @@ import { SET_CUSTOMER } from './constants';
 function* doRegisterCustomer({ user, header, cb }) {
   setLoading(true);
   try {
-    yield call(registerCustomer, user, header);
+    const response = yield call(registerCustomer, user, header);
 
-    cb && cb();
+    cb && cb(response.message);
   } catch (error) {
     yield put(showPopup('Error', error.response?.data?.message));
   }

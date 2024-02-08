@@ -9,7 +9,6 @@ export const storedKey = [''];
 
 const editBookReducer = (state = initialState, action) =>
   produce(state, (draft) => {
-    console.log(action);
     switch (action.type) {
       case SET_BOOK_BY_ID:
         draft.book = action.book;

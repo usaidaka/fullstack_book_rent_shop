@@ -4,14 +4,19 @@ import { setLoading, showPopup } from '@containers/App/actions';
 
 import { SET_BOOK } from './constants';
 
-function* doRegisterBook({ user, header, cb }) {
+function* doRegisterBook({ book, cb }) {
   setLoading(true);
-  try {
-    yield call(registerBook, user, header);
 
-    cb && cb();
+  try {
+    const response = yield call(registerBook, book);
+
+    cb && cb(response.message);
   } catch (error) {
-    yield put(showPopup('Error', error.response?.data?.message));
+    if (error.response?.data?.message) {
+      yield put(showPopup('Error', error.response?.data?.message));
+    } else {
+      yield put(showPopup('Error', error.response?.data?.error));
+    }
   }
   setLoading(false);
 }

@@ -1,10 +1,9 @@
 import { EDIT_USER, GET_USER_BY_ID, SET_USER_BY_ID } from './constants';
 
-export const doEditUser = (id, user, header, cb) => ({
+export const doEditUser = (id, user, cb) => ({
   type: EDIT_USER,
   id,
   user,
-  header,
   cb,
 });
 

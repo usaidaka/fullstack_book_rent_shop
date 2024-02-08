@@ -4,15 +4,14 @@ import { setLoading, showPopup } from '@containers/App/actions';
 
 import { EDIT_PROFILE } from './constants';
 
-function* doEditProfile({ user, header, cb }) {
+function* doEditProfile({ user, cb }) {
   setLoading(true);
   try {
-    const response = yield call(editUser, user, header);
+    const response = yield call(editUser, user);
 
-    if (response) {
-      cb && cb();
-    }
+    cb && cb(response.message);
   } catch (error) {
+    console.log(error);
     yield put(showPopup('Error', error.response?.data?.message));
   }
   setLoading(false);

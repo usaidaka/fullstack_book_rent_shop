@@ -38,4 +38,12 @@ export default {
   emptyBook: 'Book Still Empty',
   emptyCustomer: 'Customer Still Empty',
   admin: 'Admin',
+  lendingList: 'Lending',
+  createLending: 'Create Lending',
+  deleteLending: 'Delete Lending',
+  newPassword: 'New Password',
+  myLending: 'My Lending',
+  lendDate: 'Lend Date',
+  returnDate: 'Return Date',
+  hi: 'Hi! Have a good activity,',
 };

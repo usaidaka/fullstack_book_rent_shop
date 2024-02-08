@@ -1,4 +1,5 @@
 const { Op } = require("sequelize");
+const Boom = require("boom");
 const fs = require("fs");
 const path = require("path");
 const db = require("../../models");
@@ -24,6 +25,7 @@ const getBookList = async (title) => {
           attributes: ["name"],
         },
       ],
+      order: [["id", "DESC"]],
     });
 
     if (result.length === 0) {
@@ -138,7 +140,8 @@ const patchBook = async (id, data, image) => {
 
   const transaction = await db.sequelize.transaction();
   try {
-    const { title, author, idCategory } = data;
+    const { title, author, idCategory, publishAt, synopsis } = data;
+
     const isBookExist = await getBookDetail(id);
 
     if (!isBookExist.ok) {
@@ -160,24 +163,68 @@ const patchBook = async (id, data, image) => {
       await transaction.rollback();
       return response;
     }
+    const prevImage = isBookExist.result.image;
 
     if (image) {
       if (isBookExist.result.image !== "default.jpeg") {
-        await isExist.isPrevImageExist("book", isBookExist.result.image);
+        await isExist.isPrevImageExist("book", prevImage);
+        await db.Book.update({ image }, { where: { id }, transaction });
       } else {
         await db.Book.update({ image }, { where: { id }, transaction });
       }
     }
 
-    const result = await db.Book.update(
-      { title, author, idCategory },
-      { where: { id }, transaction }
-    );
+    let result;
+
+    if (title) {
+      result = await db.Book.update(
+        {
+          title,
+        },
+        { where: { id }, transaction }
+      );
+    }
+
+    if (author) {
+      result = await db.Book.update(
+        {
+          author,
+        },
+        { where: { id }, transaction }
+      );
+    }
+
+    if (idCategory) {
+      result = await db.Book.update(
+        {
+          idCategory: Number(idCategory),
+        },
+        { where: { id }, transaction }
+      );
+    }
+
+    if (publishAt) {
+      result = await db.Book.update(
+        {
+          publishAt: Number(publishAt),
+        },
+        { where: { id }, transaction }
+      );
+    }
+
+    if (synopsis) {
+      result = await db.Book.update(
+        {
+          synopsis,
+        },
+        { where: { id }, transaction }
+      );
+    }
 
     if (!result) {
       response = {
         ok: false,
-        message: "Edit book failed!",
+        message: "You are not update anything",
       };
       await transaction.rollback();
       return response;
@@ -230,10 +277,33 @@ const deleteBook = async (id) => {
   }
 };
 
+const getAllCategory = async () => {
+  try {
+    const result = await db.Category.findAll({
+      attributes: { exclude: ["createdAt", "deletedAt", "updatedAt  "] },
+    });
+
+    if (result.length === 0) {
+      return Promise.reject(Boom.badRequest("Category still empty"));
+    }
+
+    const response = {
+      ok: true,
+      message: "Retrieving category list successful",
+      result,
+    };
+    return Promise.resolve(response);
+  } catch (err) {
+    console.log([fileName, "delete book", "ERROR"], { info: `${err}` });
+    return Promise.reject(GeneralHelper.errorResponse(err));
+  }
+};
+
 module.exports = {
   getBookList,
   getBookDetail,
   createBook,
   patchBook,
   deleteBook,
+  getAllCategory,
 };

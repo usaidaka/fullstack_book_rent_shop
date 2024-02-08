@@ -2,13 +2,14 @@ import { Route, Routes } from 'react-router-dom';
 import routes from '@routes/index';
 
 import Client from '@containers/Client';
+import Admin from '@containers/Admin';
 
 const ClientRoutes = () => {
   const getRoutes = () => {
     const routeList = [];
 
     const renderElement = (route) => {
-      const { layout: Layout, component: Component, protected: Protected } = route;
+      const { layout: Layout, component: Component, protected: Protected, role: Role } = route;
       let element = <Component />;
 
       if (typeof Layout !== 'undefined') {
@@ -18,8 +19,14 @@ const ClientRoutes = () => {
           </Layout>
         );
       }
-
-      return Protected ? <Client>{element}</Client> : element;
+      console.log(Role);
+      if (Protected && Role === 'Customer') {
+        return <Client>{element}</Client>;
+      }
+      if (Protected && Role === 'Admin') {
+        return <Admin>{element}</Admin>;
+      }
+      return element;
     };
 
     routes.forEach((route) => {

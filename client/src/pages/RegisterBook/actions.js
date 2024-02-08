@@ -1,8 +1,7 @@
 import { SET_BOOK } from './constants';
 
-export const doRegisterBook = (user, header, cb) => ({
+export const doRegisterBook = (book, cb) => ({
   type: SET_BOOK,
-  user,
-  header,
+  book,
   cb,
 });

@@ -7,9 +7,9 @@ import { SET_ADMIN } from './constants';
 function* doRegisterAdmin({ user, cb }) {
   setLoading(true);
   try {
-    yield call(registerAdmin, user);
+    const response = yield call(registerAdmin, user);
 
-    cb && cb();
+    cb && cb(response.message);
   } catch (error) {
     yield put(showPopup('Error', error.response?.data?.message));
   }

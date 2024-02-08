@@ -4,12 +4,10 @@ import { getAdminList } from '@domain/api';
 import { setAdmin } from './actions';
 import { GET_ADMIN } from './constants';
 
-function* getAllAdmin({ header }) {
+function* getAllAdmin() {
   yield put(setLoading(true));
   try {
-    console.log(header);
-    const response = yield call(getAdminList, header);
-    console.log(response, '<< response');
+    const response = yield call(getAdminList);
     yield put(setAdmin(response?.result));
   } catch (error) {
     console.error(error);

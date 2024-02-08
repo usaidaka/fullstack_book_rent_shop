@@ -232,7 +232,7 @@ const changePassword = async (dataObject) => {
       where: { id },
     });
 
-    if (!_.isEqual(newPassword, confirmPassword)) {
+    if (newPassword === confirmPassword) {
       await transaction.rollback();
       return Promise.reject(
         Boom.notFound("Password and confirm password should to be equal")
@@ -336,6 +336,26 @@ const patchProfile = async (id, data, image) => {
   }
 };
 
+const getDataDashboard = async () => {
+  try {
+    const customer = await db.Customer.findAll({});
+    const book = await db.Book.findAll();
+    const lending = await db.Lending.findAll({ paranoid: false });
+    const category = await db.Category.findAll();
+
+    const result = {
+      customer: customer.length,
+      book: book.length,
+      lending: lending.length,
+      category: category.length,
+    };
+    return Promise.resolve(result);
+  } catch (err) {
+    console.log([fileName, "patch customer", "ERROR"], { info: `${err}` });
+    return Promise.reject(GeneralHelper.errorResponse(err));
+  }
+};
+
 module.exports = {
   createAdmin,
   login,
@@ -343,4 +363,5 @@ module.exports = {
   resetPassword,
   changePassword,
   patchProfile,
+  getDataDashboard,
 };

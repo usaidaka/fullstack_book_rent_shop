@@ -7,9 +7,9 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import NightsStayIcon from '@mui/icons-material/NightsStay';
-import { setLocale, setTheme } from '@containers/App/actions';
+// import LightModeIcon from '@mui/icons-material/LightMode';
+// import NightsStayIcon from '@mui/icons-material/NightsStay';
+import { setLocale /*  setTheme  */ } from '@containers/App/actions';
 import { selectLogin, selectUser } from '@containers/Client/selectors';
 import { logout } from '@utils/logout';
 import { createStructuredSelector } from 'reselect';
@@ -18,7 +18,7 @@ import config from '@config/index';
 import classes from './style.module.scss';
 import logoBook from '../../assets/logoBook.png';
 
-const NavbarCustomer = ({ title, locale, theme, login, user }) => {
+const NavbarCustomer = ({ title, locale, /* theme */ login, user }) => {
   console.log(login);
   console.log(user);
   const dispatch = useDispatch();
@@ -44,9 +44,9 @@ const NavbarCustomer = ({ title, locale, theme, login, user }) => {
     setMenuPosition(null);
   };
 
-  const handleTheme = () => {
-    dispatch(setTheme(theme === 'light' ? 'dark' : 'light'));
-  };
+  // const handleTheme = () => {
+  //   dispatch(setTheme(theme === 'light' ? 'dark' : 'light'));
+  // };
 
   const onSelectLang = (lang) => {
     if (lang !== locale) {
@@ -56,7 +56,7 @@ const NavbarCustomer = ({ title, locale, theme, login, user }) => {
   };
 
   const goHome = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   const handleLogout = () => {
@@ -72,9 +72,9 @@ const NavbarCustomer = ({ title, locale, theme, login, user }) => {
         </div>
         <div className={classes.menu}>
           <div className={classes.toolbar}>
-            <div className={classes.theme} onClick={handleTheme} data-testid="toggleTheme">
+            {/* <div className={classes.theme} onClick={handleTheme} data-testid="toggleTheme">
               {theme === 'light' ? <NightsStayIcon /> : <LightModeIcon />}
-            </div>
+            </div> */}
             <div className={classes.toggle} onClick={handleClick}>
               <Avatar className={classes.avatar} src={locale === 'id' ? '/id.png' : '/en.png'} />
               <div className={classes.lang}>{locale}</div>
@@ -124,7 +124,7 @@ const NavbarCustomer = ({ title, locale, theme, login, user }) => {
                 </MenuItem>
               </Link>
               <Link
-                to="/post"
+                to="/my-lending"
                 onClick={() => {
                   handleClose();
                   handleCloseDropdown();
@@ -132,29 +132,14 @@ const NavbarCustomer = ({ title, locale, theme, login, user }) => {
               >
                 <MenuItem>
                   <div className={classes.menu}>
-                    {/* <img src={newJourneyIcon} alt="" className={classes.icon} /> */}
+                    {/* <img src={profileIcon} alt="" className={classes.icon} /> */}
                     <div className={classes.menuLang}>
-                      <FormattedMessage id="new_journey" />
+                      <FormattedMessage id="myLending" />
                     </div>
                   </div>
                 </MenuItem>
               </Link>
-              <Link
-                to="/bookmark"
-                onClick={() => {
-                  handleClose();
-                  handleCloseDropdown();
-                }}
-              >
-                <MenuItem>
-                  <div className={classes.menu}>
-                    {/* <img src={bookmark} alt="" className={classes.icon} /> */}
-                    <div className={classes.menuLang}>
-                      <FormattedMessage id="bookmark" />
-                    </div>
-                  </div>
-                </MenuItem>
-              </Link>
+
               <MenuItem onClick={handleLogout}>
                 <div className={classes.menu}>
                   {/* <img src={logoutIcon} alt="" className={classes.icon} /> */}
@@ -179,7 +164,7 @@ const mapStateToProps = createStructuredSelector({
 NavbarCustomer.propTypes = {
   title: PropTypes.string,
   locale: PropTypes.string.isRequired,
-  theme: PropTypes.string,
+  // theme: PropTypes.string,
   login: PropTypes.bool,
   user: PropTypes.object,
 };

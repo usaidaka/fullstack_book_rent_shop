@@ -7,15 +7,17 @@ import { Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { FormattedMessage } from 'react-intl';
+import { patchChangePassword } from '@pages/ChangePasswordAdmin/actions';
+import toast, { Toaster } from 'react-hot-toast';
+import { logout } from '@utils/logout';
+import { useState } from 'react';
 
 import classes from './style.module.scss';
 
-const ChangePassword = ({ login, token, user }) => {
+const ChangePasswordCustomer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(login);
-  console.log(token);
-  console.log(user);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -25,16 +27,18 @@ const ChangePassword = ({ login, token, user }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    // dispatch(
-    //   doEditUser(data, () => {
-    //     navigate('/admin/dashboard');
-    //   })
-    // );
+    dispatch(
+      patchChangePassword(data, (message) => {
+        toast.success(message, { duration: 2000 });
+        setTimeout(() => logout(dispatch, navigate), 3000);
+        setLoading(true);
+      })
+    );
   };
   return (
     <div className={classes.container}>
       <div className={classes.decoration}>
-        <Link to="/admin/profile">
+        <Link to="/profile">
           <ArrowBackIcon />
         </Link>
         <h2>
@@ -45,19 +49,19 @@ const ChangePassword = ({ login, token, user }) => {
         <form action="" onSubmit={handleSubmit(onSubmit)}>
           <div className={classes.wrapper}>
             <label htmlFor="">
-              <FormattedMessage id="password" />
+              <FormattedMessage id="newPassword" />
             </label>
             <input
               type="password"
-              id="password"
-              name="password"
-              placeholder="password"
-              {...register('password', {
-                required: 'password is required',
+              id="newPassword"
+              name="newPassword"
+              placeholder="new password"
+              {...register('newPassword', {
+                required: 'New password is required',
               })}
-              aria-invalid={errors.password ? 'true' : 'false'}
+              aria-invalid={errors.newPassword ? 'true' : 'false'}
             />
-            {/* {errors.password && <span role="alert">{errors.password.message}</span>} */}
+            {errors.newPassword && <span role="alert">{errors.newPassword.message}</span>}
           </div>
 
           <div className={classes.wrapper}>
@@ -71,23 +75,24 @@ const ChangePassword = ({ login, token, user }) => {
               placeholder="confirm password"
               {...register('confirmPassword', {
                 required: 'confirmPassword is required',
-                validate: (value) => value === watch('password') || 'Passwords do not match',
+                validate: (value) => value === watch('newPassword') || 'Passwords do not match',
               })}
               aria-invalid={errors.confirmPassword ? 'true' : 'false'}
             />
-            {/* {errors.confirmPassword && <span role="alert">{errors.confirmPassword.message}</span>} */}
+            {errors.confirmPassword && <span role="alert">{errors.confirmPassword.message}</span>}
           </div>
 
-          <Button variant="contained" type="submit">
+          <Button variant="contained" type="submit" disabled={loading}>
             Submit
           </Button>
         </form>
       </div>
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };
 
-ChangePassword.propTypes = {
+ChangePasswordCustomer.propTypes = {
   login: PropTypes.bool,
   token: PropTypes.string,
   user: PropTypes.object,
@@ -99,4 +104,4 @@ const mapStateToProps = createStructuredSelector({
   user: selectUser,
 });
 
-export default connect(mapStateToProps)(ChangePassword);
+export default connect(mapStateToProps)(ChangePasswordCustomer);

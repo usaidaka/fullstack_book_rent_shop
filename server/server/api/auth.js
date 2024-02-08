@@ -30,10 +30,10 @@ const login = async (request, reply) => {
 
 const addAdmin = async (request, reply) => {
   try {
-    Validation.addAdmin(request.body);
+    const data = decryptPayload(request.body);
+    Validation.addAdmin(data);
 
-    const { name, email, password, confirmPassword, phone, address } =
-      request.body;
+    const { name, email, password, confirmPassword, phone, address } = data;
     const response = await AuthHelper.createAdmin({
       name,
       email,
@@ -111,7 +111,18 @@ const editProfile = async (request, reply) => {
     const image = request.file?.filename;
 
     const { id } = request.user;
+
     const response = await AuthHelper.patchProfile(id, data, image);
+    return reply.send(response);
+  } catch (err) {
+    console.log([fileName, "edit profile", "ERROR"], { info: `${err}` });
+    return reply.send(GeneralHelper.errorResponse(err));
+  }
+};
+
+const dataDashboard = async (request, reply) => {
+  try {
+    const response = await AuthHelper.getDataDashboard();
     return reply.send(response);
   } catch (err) {
     console.log([fileName, "edit profile", "ERROR"], { info: `${err}` });
@@ -135,5 +146,6 @@ Router.patch(
   handleImageCustomerUpload,
   editProfile
 );
+Router.get("/dashboard", Middleware.validateToken, dataDashboard);
 
 module.exports = Router;

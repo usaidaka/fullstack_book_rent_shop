@@ -61,7 +61,7 @@ const customerLending = async (request, reply) => {
 const removeLending = async (request, reply) => {
   try {
     const data = request.body;
-
+    Validation.addLending(request.body);
     const response = await LendingHelper.deleteLending(data);
 
     if (!response.ok) {
@@ -71,6 +71,19 @@ const removeLending = async (request, reply) => {
     return reply.status(200).json(response);
   } catch (err) {
     console.log([fileName, "remove lending", "ERROR"], { info: `${err}` });
+    return reply.send(GeneralHelper.errorResponse(err));
+  }
+};
+
+const myLendingList = async (request, reply) => {
+  try {
+    const { id } = request.user;
+
+    const response = await LendingHelper.getMyLending(id);
+
+    return reply.send(response);
+  } catch (err) {
+    console.log([fileName, "get my lending", "ERROR"], { info: `${err}` });
     return reply.send(GeneralHelper.errorResponse(err));
   }
 };
@@ -99,5 +112,6 @@ Router.delete(
   Middleware.isAdminChecker,
   removeLending
 );
+Router.get("/my-lending", Middleware.validateToken, myLendingList);
 
 module.exports = Router;

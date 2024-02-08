@@ -8,6 +8,7 @@ const storage = multer.diskStorage({
     cb(null, statis);
   },
   filename: (req, file, cb) => {
+    console.log(file, "<<< MULTER");
     const timestamp = new Date().getTime();
     const filename = file.originalname;
     cb(null, `${timestamp}-${filename}`);

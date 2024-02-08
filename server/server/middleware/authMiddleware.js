@@ -39,7 +39,7 @@ const validateToken = (request, reply, next) => {
 const isAdminChecker = (request, reply, next) => {
   try {
     const { role } = request.user;
-    console.log(role, "<<<< ROLE");
+
     if (role !== "Admin" && role !== "Super") {
       throw Boom.unauthorized();
     }

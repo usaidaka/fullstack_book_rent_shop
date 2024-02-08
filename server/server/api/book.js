@@ -61,6 +61,7 @@ const addBook = async (request, reply) => {
 const editBook = async (request, reply) => {
   try {
     const data = request.body;
+
     const { id } = request.params;
     const image = request.file?.filename;
 
@@ -74,7 +75,7 @@ const editBook = async (request, reply) => {
 
     return reply.status(201).json(response);
   } catch (err) {
-    console.log([fileName, "edit customer", "ERROR"], { info: `${err}` });
+    console.log([fileName, "edit book", "ERROR"], { info: `${err}` });
     return reply.send(GeneralHelper.errorResponse(err));
   }
 };
@@ -91,7 +92,18 @@ const removeBook = async (request, reply) => {
 
     return reply.status(202).json(response);
   } catch (err) {
-    console.log([fileName, "remove custodmer", "ERROR"], { info: `${err}` });
+    console.log([fileName, "remove book", "ERROR"], { info: `${err}` });
+    return reply.send(GeneralHelper.errorResponse(err));
+  }
+};
+
+const categoryList = async (request, reply) => {
+  try {
+    const response = await BookHelper.getAllCategory();
+
+    return reply.send(response);
+  } catch (err) {
+    console.log([fileName, "remove book", "ERROR"], { info: `${err}` });
     return reply.send(GeneralHelper.errorResponse(err));
   }
 };
@@ -118,5 +130,6 @@ Router.delete(
   Middleware.isAdminChecker,
   removeBook
 );
+Router.get("/categories", categoryList);
 
 module.exports = Router;

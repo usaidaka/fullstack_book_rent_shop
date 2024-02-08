@@ -6,15 +6,17 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { createStructuredSelector } from 'reselect';
 import { selectUser } from '@containers/Client/selectors';
+import toast, { Toaster } from 'react-hot-toast';
+import { useState } from 'react';
+import { encryptPayload } from '@utils/encrypt';
 
 import classes from './style.module.scss';
 import { doRegister } from './actions';
 
-const RegisterAdmin = ({ user }) => {
+const RegisterAdmin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  console.log(user);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -24,9 +26,13 @@ const RegisterAdmin = ({ user }) => {
   } = useForm();
 
   const onSubmit = (data) => {
+    const encryptedData = encryptPayload(data);
+
     dispatch(
-      doRegister(data, () => {
-        navigate('/admin/dashboard');
+      doRegister({ encryptedData }, (message) => {
+        toast.success(message, { duration: 2000 });
+        setTimeout(() => navigate('/admin/admin-list'), 3000);
+        setLoading(true);
       })
     );
   };
@@ -55,7 +61,7 @@ const RegisterAdmin = ({ user }) => {
                 })}
                 aria-invalid={errors.name ? 'true' : 'false'}
               />
-              {/* {errors.name && <span role="alert">{errors.name.message}</span>} */}
+              {errors.name && <span role="alert">{errors.name.message}</span>}
             </div>
 
             <div className={classes.wrapper}>
@@ -72,7 +78,7 @@ const RegisterAdmin = ({ user }) => {
                 })}
                 aria-invalid={errors.email ? 'true' : 'false'}
               />
-              {/* {errors.email && <span role="alert">{errors.email.message}</span>} */}
+              {errors.email && <span role="alert">{errors.email.message}</span>}
             </div>
           </div>
 
@@ -91,7 +97,7 @@ const RegisterAdmin = ({ user }) => {
                 })}
                 aria-invalid={errors.phone ? 'true' : 'false'}
               />
-              {/* {errors.phone && <span role="alert">{errors.phone.message}</span>} */}
+              {errors.phone && <span role="alert">{errors.phone.message}</span>}
             </div>
             <div className={classes.wrapper}>
               <label htmlFor="">
@@ -107,7 +113,7 @@ const RegisterAdmin = ({ user }) => {
                 })}
                 aria-invalid={errors.phone ? 'true' : 'false'}
               />
-              {/* {errors.address && <span role="alert">{errors.address.message}</span>} */}
+              {errors.address && <span role="alert">{errors.address.message}</span>}
             </div>
           </div>
 
@@ -125,7 +131,7 @@ const RegisterAdmin = ({ user }) => {
               })}
               aria-invalid={errors.password ? 'true' : 'false'}
             />
-            {/* {errors.password && <span role="alert">{errors.password.message}</span>} */}
+            {errors.password && <span role="alert">{errors.password.message}</span>}
           </div>
 
           <div className={classes.wrapper}>
@@ -143,14 +149,15 @@ const RegisterAdmin = ({ user }) => {
               })}
               aria-invalid={errors.confirmPassword ? 'true' : 'false'}
             />
-            {/* {errors.confirmPassword && <span role="alert">{errors.confirmPassword.message}</span>} */}
+            {errors.confirmPassword && <span role="alert">{errors.confirmPassword.message}</span>}
           </div>
 
-          <Button variant="contained" type="submit">
+          <Button variant="contained" type="submit" disabled={loading}>
             Submit
           </Button>
         </form>
       </div>
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };

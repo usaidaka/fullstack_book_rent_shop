@@ -1,14 +1,15 @@
 import { PATCH_BOOK, GET_BOOK_BY_ID, SET_BOOK_BY_ID } from './constants';
 
-export const doRegister = (user, header, cb) => ({
+export const doEditBook = (book, id, cb) => ({
   type: PATCH_BOOK,
-  user,
-  header,
+  book,
+  id,
   cb,
 });
 
-export const getBookById = (id) => ({
+export const getBookById = (id, cb) => ({
   type: GET_BOOK_BY_ID,
+  cb,
   id,
 });
 

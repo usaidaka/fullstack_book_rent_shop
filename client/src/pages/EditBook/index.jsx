@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { selectLogin, selectToken, selectUser } from '@containers/Client/selectors';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
@@ -8,28 +7,29 @@ import { useForm } from 'react-hook-form';
 import { Button } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import config from '@config/index';
+import toast, { Toaster } from 'react-hot-toast';
+import { selectCategoryList } from '@pages/Dashboard/selectors';
 
 import classes from './style.module.scss';
 import { selectBookDetail } from './selectors';
-import { getBookById } from './actions';
+import { doEditBook, getBookById } from './actions';
 
-const EditBook = ({ login, token, user, book }) => {
+const EditBook = ({ book, categories }) => {
   const fileRef = useRef();
 
   const [image, setImage] = useState(null);
   const [showImage, setShowImage] = useState(false);
   const { id } = useParams();
-  console.log(id);
-  console.log(book);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [render, setRender] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
     formState: { errors },
     handleSubmit,
-    watch,
   } = useForm();
 
   const handleFile = (e) => {
@@ -39,17 +39,33 @@ const EditBook = ({ login, token, user, book }) => {
   };
 
   useEffect(() => {
-    dispatch(getBookById(id));
-  }, [dispatch]);
+    dispatch(
+      getBookById(id, () => {
+        setRender(false);
+      })
+    );
+  }, [dispatch, id]);
 
   const onSubmit = (data) => {
-    console.log(data);
-    console.log(image);
-    // dispatch();
-    // doRegister(data, () => {
-    //   navigate('/admin/dashboard');
-    // })
+    const formData = new FormData();
+    formData.append('file', image);
+    formData.append('title', data.title);
+    formData.append('author', data.author);
+    formData.append('idCategory', data.idCategory);
+    formData.append('publishAt', data.publishAt.split('-')[0]);
+    formData.append('synopsis', data.synopsis);
+    dispatch(
+      doEditBook(formData, id, (message) => {
+        toast.success(message, { duration: 1000 });
+        setTimeout(() => navigate('/admin/book-list'), 2000);
+        setLoading(true);
+      })
+    );
   };
+
+  if (render) {
+    return;
+  }
   return (
     <div className={classes['main-container']}>
       <h2>
@@ -69,12 +85,12 @@ const EditBook = ({ login, token, user, book }) => {
                   name="title"
                   placeholder="title"
                   {...register('title', {
-                    required: 'title is required',
+                    optional: 'title is optional',
                   })}
                   aria-invalid={errors.title ? 'true' : 'false'}
                   defaultValue={book.title}
                 />
-                {/* {errors.title && <span role="alert">{errors.title.message}</span>} */}
+                {errors.title && <span role="alert">{errors.title.message}</span>}
               </div>
               <div className={classes.wrapper}>
                 <label htmlFor="">
@@ -86,12 +102,12 @@ const EditBook = ({ login, token, user, book }) => {
                   name="author"
                   placeholder="author"
                   {...register('author', {
-                    required: 'author is required',
+                    optional: 'author is optional',
                   })}
                   aria-invalid={errors.author ? 'true' : 'false'}
                   defaultValue={book.author}
                 />
-                {/* {errors.author && <span role="alert">{errors.author.message}</span>} */}
+                {errors.author && <span role="alert">{errors.author.message}</span>}
               </div>
             </div>
             <div className={classes['main-wrapper']}>
@@ -105,12 +121,12 @@ const EditBook = ({ login, token, user, book }) => {
                   name="synopsis"
                   placeholder="synopsis"
                   {...register('synopsis', {
-                    required: 'synopsis is required',
+                    optional: 'synopsis is optional',
                   })}
                   aria-invalid={errors.author ? 'true' : 'false'}
                   defaultValue={book.synopsis}
                 />
-                {/* {errors.synopsis && <span role="alert">{errors.synopsis.message}</span>} */}
+                {errors.synopsis && <span role="alert">{errors.synopsis.message}</span>}
               </div>
               <div className={classes['form-select']}>
                 <div className={classes.select}>
@@ -118,22 +134,25 @@ const EditBook = ({ login, token, user, book }) => {
                     <FormattedMessage id="category" />
                   </label>
                   <select
-                    id="category"
-                    name="category"
-                    placeholder="category"
-                    {...register('category', {
-                      required: 'category is required',
+                    id="idCategory"
+                    name="idCategory"
+                    placeholder="idCategory"
+                    {...register('idCategory', {
+                      optional: 'Category is optional',
                     })}
-                    aria-invalid={errors.category ? 'true' : 'false'}
+                    aria-invalid={errors.idCategory ? 'true' : 'false'}
                   >
-                    <option value="" disabled>
+                    <option id="idCategory" value="">
                       Select Option
                     </option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
                   </select>
-                  {/* {errors.category && <span role="alert">{errors.category.message}</span>} */}
+
+                  {errors.idCategory && <span role="alert">{errors.idCategory.message}</span>}
                 </div>
                 <div className={classes.date}>
                   <label htmlFor="">
@@ -145,13 +164,13 @@ const EditBook = ({ login, token, user, book }) => {
                     name="publishAt"
                     placeholder="publishAt"
                     {...register('publishAt', {
-                      required: 'publishAt is required',
+                      optional: 'publishAt is optional',
                     })}
                     aria-invalid={errors.publishAt ? 'true' : 'false'}
                     max={new Date().toISOString().split('T')[0]}
                     defaultChecked={book.publishAt}
                   />
-                  {/* {errors.publishAt && <span role="alert">{errors.publishAt.message}</span>} */}
+                  {errors.publishAt && <span role="alert">{errors.publishAt.message}</span>}
                 </div>
               </div>
             </div>
@@ -163,26 +182,23 @@ const EditBook = ({ login, token, user, book }) => {
             </div>
           </div>
         </div>
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" disabled={loading}>
           submit
         </Button>
       </form>
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };
 
 EditBook.propTypes = {
-  login: PropTypes.bool,
-  token: PropTypes.string,
-  user: PropTypes.object,
   book: PropTypes.object,
+  categories: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  login: selectLogin,
-  token: selectToken,
-  user: selectUser,
   book: selectBookDetail,
+  categories: selectCategoryList,
 });
 
 export default connect(mapStateToProps)(EditBook);

@@ -5,8 +5,12 @@ import clientReducer, { storedKey as storedClientState } from '@containers/Clien
 import bookReducer, { storedKey as storedBookState } from '@pages/Book/reducer';
 import adminReducer, { storedKey as storedAdminState } from '@pages/Admin/reducer';
 import customerReducer, { storedKey as storedCustomerState } from '@pages/Customer/reducer';
+import getAllDashboardData, { storedKey as storedCategoryState } from '@pages/Dashboard/reducer';
+import getLendingListReducer, { storedKey as storedLendingState } from '@pages/LendingList/reducer';
+import getMyLendingListReducer, { storedKey as storedMyLendingState } from '@pages/MyLending/reducer';
+
 import editBookReducer from '@pages/EditBook/reducer';
-import editProfileReducer from '@pages/EditProfile/reducer';
+import editProfileReducer from '@pages/EditProfileAdmin/reducer';
 import editUserReducer from '@pages/EditUser/reducer';
 import languageReducer from '@containers/Language/reducer';
 
@@ -18,6 +22,9 @@ const storedReducers = {
   bookList: { reducer: bookReducer, whitelist: storedBookState },
   adminList: { reducer: adminReducer, whitelist: storedAdminState },
   customerList: { reducer: customerReducer, whitelist: storedCustomerState },
+  dashboardData: { reducer: getAllDashboardData, whitelist: storedCategoryState },
+  lendingList: { reducer: getLendingListReducer, whitelist: storedLendingState },
+  myLendingList: { reducer: getMyLendingListReducer, whitelist: storedMyLendingState },
 };
 
 const temporaryReducers = {
@@ -25,6 +32,7 @@ const temporaryReducers = {
   bookDetail: editBookReducer,
   userDetail: editUserReducer,
   profile: editProfileReducer,
+  dashboard: getAllDashboardData,
 };
 
 const createReducer = () => {

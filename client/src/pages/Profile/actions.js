@@ -1,8 +1,7 @@
 import { EDIT_PROFILE } from './constants';
 
-export const doEditProfile = (user, header, cb) => ({
+export const editProfile = (user, cb) => ({
   type: EDIT_PROFILE,
   user,
-  header,
   cb,
 });
