@@ -7,7 +7,7 @@ const Middleware = require("../middleware/authMiddleware");
 const { decryptPayload } = require("../../utils/decrypt");
 const handleImageCustomerUpload = require("../middleware/uploadCustomer");
 
-const fileName = "server/api/book.js";
+const fileName = "server/api/auth.js";
 
 const login = async (request, reply) => {
   try {
@@ -89,11 +89,11 @@ const changePassword = async (request, reply) => {
   try {
     Validation.changePassword(request.body);
     const { id } = request.user;
-    const { newPassword, password } = request.body;
+    const { newPassword, confirmPassword } = request.body;
     const response = await AuthHelper.changePassword({
       id,
       newPassword,
-      password,
+      confirmPassword,
     });
     return reply.send(response);
   } catch (err) {
@@ -107,6 +107,7 @@ const editProfile = async (request, reply) => {
     Validation.editProfile(request.body);
 
     const data = request.body;
+    console.log(data);
 
     const image = request.file?.filename;
 
@@ -130,6 +131,12 @@ const dataDashboard = async (request, reply) => {
   }
 };
 
+// eslint-disable-next-line arrow-body-style
+const hello = async (request, reply) => {
+  // SAMPLE API WITH JWT MIDDLEWARE
+  return reply.send("HELLO");
+};
+
 Router.post("/login", login);
 Router.post(
   "/register-admin",
@@ -147,5 +154,6 @@ Router.patch(
   editProfile
 );
 Router.get("/dashboard", Middleware.validateToken, dataDashboard);
+Router.get("/hello", Middleware.validateToken, hello);
 
 module.exports = Router;

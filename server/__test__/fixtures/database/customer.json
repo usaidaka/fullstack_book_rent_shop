@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "name": "Super Admin",
+  "email": "super_admin@gmail.com",
+  "password": "$2a$10$.J78NMQXQhBFD.Glvk6Qc.cpLm/x0B2IOK15Nvs/WcYbq5eVmaoJa",
+  "phone": "087512485142",
+  "address": "Jl TB Simatupang",
+  "role": "Super",
+  "image": "default.jpg",
+  "credential": "123456"
+}

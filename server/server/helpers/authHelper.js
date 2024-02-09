@@ -36,13 +36,17 @@ const createAdmin = async (dataObject) => {
   const transaction = await db.sequelize.transaction();
 
   try {
-    const customer = await db.Customer.findOne({
-      where: {
-        [Op.or]: [{ email }, { phone }],
-      },
+    const isEmailUser = await db.Customer.findOne({
+      where: { email },
+    });
+    const isPhoneUsed = await db.Customer.findOne({
+      where: { phone },
+    });
+    const isNameUsed = await db.Customer.findOne({
+      where: { name },
     });
 
-    if (_.isEqual(email, customer?.email)) {
+    if (isEmailUser) {
       await transaction.rollback();
       return Promise.reject(Boom.badRequest("Email has been used"));
     }
@@ -54,9 +58,14 @@ const createAdmin = async (dataObject) => {
       );
     }
 
-    if (_.isEqual(phone, customer?.phone)) {
+    if (isPhoneUsed) {
       await transaction.rollback();
       return Promise.reject(Boom.badRequest("Phone has been used"));
+    }
+
+    if (isNameUsed) {
+      await transaction.rollback();
+      return Promise.reject(Boom.badRequest("Namee has been used"));
     }
 
     const hashedPass = __hashPassword(password);
@@ -228,20 +237,11 @@ const changePassword = async (dataObject) => {
   const { id, newPassword, confirmPassword } = dataObject;
   const transaction = await db.sequelize.transaction();
   try {
-    const customer = await db.Customer.findOne({
-      where: { id },
-    });
-
-    if (newPassword === confirmPassword) {
+    if (newPassword !== confirmPassword) {
       await transaction.rollback();
       return Promise.reject(
         Boom.notFound("Password and confirm password should to be equal")
       );
-    }
-
-    if (_.isEmpty(customer)) {
-      await transaction.rollback();
-      return Promise.reject(Boom.notFound("Customer not found"));
     }
 
     const hashedPass = __hashPassword(newPassword);
@@ -273,18 +273,9 @@ const patchProfile = async (id, data, image) => {
 
   const transaction = await db.sequelize.transaction();
   try {
-    console.log(data, "<<< data");
     const { name, phone, address } = data;
-    const isCustomerExist = await getCustomerDetail(id);
 
-    if (!isCustomerExist.ok) {
-      response = {
-        ok: false,
-        message: "Customer Not Found",
-      };
-      await transaction.rollback();
-      return response;
-    }
+    const isCustomerExist = await getCustomerDetail(id);
 
     const isDataExist = await isExist.isCustomerExist(data);
 

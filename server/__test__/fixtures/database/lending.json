@@ -1,0 +1,29 @@
+{
+  "idCustomer": 3,
+  "idBook": 1,
+  "deletedAt": null,
+  "Books": {
+    "id": 1,
+    "title": "Bumi",
+    "author": "Tere Liye",
+    "idCategory": 2,
+    "image": "default.jpeg",
+    "synopsis": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+    "publishAt": 2010,
+    "createdAt": "2024-02-05T20:43:26.000Z",
+    "Categories": {
+      "name": "Science fiction"
+    }
+  },
+  "Customers": {
+    "id": 3,
+    "name": "Michael Anderson",
+    "phone": "08568234734",
+    "email": "anderson@gmail.com",
+    "password": "$2a$10$.J78NMQXQhBFD.Glvk6Qc.cpLm/x0B2IOK15Nvs/WcYbq5eVmaoJa",
+    "address": "Jl Sudirman",
+    "role": "Customer",
+    "image": "1707408240983-UsaidAlkamilsquare-20kb.jpg",
+    "credential": null
+  }
+}

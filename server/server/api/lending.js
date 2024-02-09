@@ -94,18 +94,19 @@ Router.get(
   Middleware.isAdminChecker,
   lendingList
 );
-Router.get(
-  "/lending/:id",
-  Middleware.validateToken,
-  Middleware.isAdminChecker,
-  customerLending
-);
 Router.post(
   "/lending",
   Middleware.validateToken,
   Middleware.isAdminChecker,
   addLending
 );
+Router.get(
+  "/lending/:id",
+  Middleware.validateToken,
+  Middleware.isAdminChecker,
+  customerLending
+);
+
 Router.delete(
   "/lending",
   Middleware.validateToken,

@@ -206,14 +206,16 @@ const deleteLending = async (data) => {
       return response;
     }
 
-    const isBooked = await db.Lending.findOne({
+    const isBooked = await db.Lending.findAll({
       where: {
         idCustomer: isCustomerExist.id,
-        idBook: isBookExist.id,
+        idBook,
       },
     });
 
-    if (!isBooked) {
+    console.log(isBooked, "<<< BOKED");
+
+    if (isBooked.length === 0) {
       response = {
         ok: false,
         message: `Book: "${isBookExist.title}" never booked by customer: "${isCustomerExist.name}"`,

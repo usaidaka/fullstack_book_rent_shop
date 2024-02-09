@@ -26,7 +26,7 @@ const getCustomerList = async (name) => {
       attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
     });
 
-    if (result.length === 0) {
+    if (result?.length === 0) {
       response = { ok: false, message: "Customer list still empty", result };
       return response;
     }
@@ -251,7 +251,7 @@ const deleteCustomer = async (id, idAuth) => {
     }
 
     const isCustomerStillHaveLending = await db.Lending.findOne({
-      where: { id },
+      where: { idCustomer: id },
     });
 
     if (isCustomerStillHaveLending) {

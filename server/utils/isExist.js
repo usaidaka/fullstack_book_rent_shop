@@ -1,4 +1,5 @@
 const fs = require("fs");
+const Boom = require("boom");
 const path = require("path");
 const db = require("../models");
 const GeneralHelper = require("../server/helpers/generalHelper");
@@ -8,44 +9,50 @@ const fileName = "utils/isExist.js";
 const isCustomerExist = async (data) => {
   let response = {};
   const { name, phone, email } = data;
+  console.log(name);
   try {
     let isNameExist;
     let isPhoneExist;
     let isEmailExist;
 
     if (name) {
-      isNameExist = await db.Customer.findOne({ where: { name } });
+      console.log(name);
+      isNameExist = await db.Customer.findAll({ where: { name } });
+      console.log(isNameExist);
     }
     if (phone) {
-      isPhoneExist = await db.Customer.findOne({ where: { phone } });
+      isPhoneExist = await db.Customer.findAll({ where: { phone } });
+      console.log(isPhoneExist);
     }
     if (email) {
-      isEmailExist = await db.Customer.findOne({ where: { email } });
+      isEmailExist = await db.Customer.findAll({ where: { email } });
+      console.log(isEmailExist);
     }
 
-    if (isNameExist) {
+    if (isNameExist.length !== 0) {
       response = {
         ok: false,
         message: `Unfortunately! this customer's name is used`,
       };
-      return response;
+
+      return Promise.reject(Boom.badRequest(JSON.stringify(response)));
     }
 
-    if (isPhoneExist) {
+    if (isPhoneExist.length !== 0) {
       response = {
         ok: false,
         message: `Unfortunately! this customer's phone number is already used`,
       };
-      return response;
+      return Promise.reject(Boom.badRequest(JSON.stringify(response)));
     }
 
     if (email) {
-      if (isEmailExist) {
+      if (isEmailExist.length !== 0) {
         response = {
           ok: false,
           message: `Unfortunately! this customer's email is already used`,
         };
-        return response;
+        return Promise.reject(Boom.badRequest(JSON.stringify(response)));
       }
     }
 
@@ -53,7 +60,7 @@ const isCustomerExist = async (data) => {
       ok: true,
       message: `Congrats! All data input is literally new`,
     };
-    return response;
+    return Promise.resolve(response);
   } catch (err) {
     console.log([fileName, "Is customer name exist", "ERROR"], {
       info: `${err}`,
@@ -69,9 +76,9 @@ const isBookExist = async (data) => {
     let isTitleExist;
 
     if (title) {
-      isTitleExist = await db.Book.findOne({ where: { title } });
+      isTitleExist = await db.Book.findAll({ where: { title } });
     }
-    if (isTitleExist) {
+    if (isTitleExist.length !== 0) {
       response = {
         ok: false,
         message: `Unfortunately! this book's title is used`,
