@@ -19,7 +19,7 @@ const ClientRoutes = () => {
           </Layout>
         );
       }
-      console.log(Role);
+
       if (Protected && Role === 'Customer') {
         return <Client>{element}</Client>;
       }

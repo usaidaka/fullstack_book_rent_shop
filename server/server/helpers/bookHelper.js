@@ -260,6 +260,17 @@ const deleteBook = async (id) => {
       return response;
     }
 
+    const isBooked = await db.Lending.findOne({ where: { idBook: id } });
+
+    if (isBooked) {
+      response = {
+        ok: false,
+        message:
+          "Book still in lending. You cannot delete book while it still lent",
+      };
+      await transaction.rollback();
+      return response;
+    }
     await db.Book.destroy({ where: { id } }, { transaction });
 
     response = {

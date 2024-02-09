@@ -167,7 +167,7 @@ const getCustomerLending = async (id) => {
     response = {
       ok: true,
       message: "Retrieving  customer's lending list successful!",
-      result,
+      result: Array(result),
     };
     return response;
   } catch (err) {

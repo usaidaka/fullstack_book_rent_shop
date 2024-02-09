@@ -1,5 +1,4 @@
 @import '../../styles/base.scss';
-@import '../../styles/base.scss';
 
 .container {
   width: 100%;
@@ -105,6 +104,16 @@
     .deleted {
       @extend .cardContainer;
       background-color: $color-card-background;
+      pointer-events: none;
+
+      .wrapper {
+        .cardLogo {
+          background-color: red;
+          img {
+            filter: grayscale(100%);
+          }
+        }
+      }
     }
   }
 }

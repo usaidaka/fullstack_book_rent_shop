@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { selectLogin, selectToken, selectUser } from '@containers/Client/selectors';
 import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -13,7 +12,7 @@ import { getCustomer } from './actions';
 import { selectCustomerList } from './selectors';
 import classes from './style.module.scss';
 
-const Customer = ({ login, token, user, customers }) => {
+const Customer = ({ customers }) => {
   const dispatch = useDispatch();
   const [openElem, setOpenElem] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -28,14 +27,9 @@ const Customer = ({ login, token, user, customers }) => {
     setOpenElem(null);
   };
 
-  console.log(login);
-  console.log(token);
-  console.log(user);
-  console.log(customers);
-
   useEffect(() => {
-    dispatch(getCustomer(token));
-  }, [dispatch, token]);
+    dispatch(getCustomer());
+  }, [dispatch]);
 
   return (
     <div className={classes.container}>
@@ -82,6 +76,15 @@ const Customer = ({ login, token, user, customers }) => {
                         </div>
                       </MenuItem>
                     </Link>
+                    <Link to={`/admin/customer-lending/${item.id}`} onClose={handleClose}>
+                      <MenuItem sx={{ fontSize: 12, height: 10, marginBottom: 1, marginTop: 1 }}>
+                        <div className={classes.menu}>
+                          <div className={classes.menuLang}>
+                            <FormattedMessage id="customerLending" />
+                          </div>
+                        </div>
+                      </MenuItem>
+                    </Link>
                   </Menu>
                 </div>
               </div>
@@ -94,16 +97,10 @@ const Customer = ({ login, token, user, customers }) => {
 };
 
 Customer.propTypes = {
-  login: PropTypes.bool,
-  token: PropTypes.string,
-  user: PropTypes.object,
   customers: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  login: selectLogin,
-  token: selectToken,
-  user: selectUser,
   customers: selectCustomerList,
 });
 

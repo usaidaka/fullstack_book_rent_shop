@@ -3,12 +3,13 @@ import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { createStructuredSelector } from 'reselect';
 import { selectUser } from '@containers/Client/selectors';
 import { encryptPayload } from '@utils/encrypt';
 import toast, { Toaster } from 'react-hot-toast';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { doRegisterCustomer } from './actions';
 import classes from './style.module.scss';
@@ -41,6 +42,9 @@ const RegisterCustomer = () => {
   return (
     <div className={classes.container}>
       <div className={classes.decoration}>
+        <Link to={-1}>
+          <ArrowBackIcon />
+        </Link>
         <h2>
           <FormattedMessage id="registerCustomer" />
         </h2>

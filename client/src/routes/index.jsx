@@ -5,6 +5,7 @@ import BookDetail from '@pages/BookDetail';
 import ChangePasswordAdmin from '@pages/ChangePasswordAdmin';
 import ChangePasswordCustomer from '@pages/ChangePasswordCustomer';
 import Customer from '@pages/Customer';
+import CustomerLending from '@pages/CustomerLending';
 import Dashboard from '@pages/Dashboard';
 import DeleteLending from '@pages/DeleteLending';
 import EditBook from '@pages/EditBook';
@@ -27,6 +28,13 @@ const routes = [
     name: 'Login',
     protected: false,
     component: Login,
+  },
+  {
+    path: '/',
+    name: 'Home',
+    protected: true,
+    component: Home,
+    layout: MainLayout,
   },
   {
     path: '/home',
@@ -126,7 +134,6 @@ const routes = [
     layout: MainLayout,
     role: 'Admin',
   },
-
   /* GET */
   {
     path: '/admin/book-list',
@@ -172,8 +179,16 @@ const routes = [
     protected: true,
     component: MyLending,
     layout: MainLayout,
+    role: 'Customer',
   },
-
+  {
+    path: '/admin/customer-lending/:id',
+    name: 'Customer Lending List',
+    protected: true,
+    component: CustomerLending,
+    layout: MainLayout,
+    role: 'Admin',
+  },
   /* DELETE */
   {
     path: '/admin/removal-lending',

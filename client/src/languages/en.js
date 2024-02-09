@@ -46,4 +46,9 @@ export default {
   lendDate: 'Lend Date',
   returnDate: 'Return Date',
   hi: 'Hi! Have a good activity,',
+  customerLending: 'Customer Lending',
+  dashboard: 'Dashboard',
+  deleteBookConfirmation: 'Are your sure wanna delete this book?',
+  positiveConfirmation: 'Yes',
+  negativeConfirmation: 'No',
 };

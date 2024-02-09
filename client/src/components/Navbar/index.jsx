@@ -14,7 +14,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -34,6 +34,7 @@ import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 import logoBook from '../../assets/logoBook.png';
 import classes from './style.module.scss';
@@ -43,6 +44,8 @@ const drawerWidth = 240;
 const Navbar = ({ locale, /*  theme */ children, user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { pathname } = useLocation();
 
   const [menuPosition, setMenuPosition] = useState(null);
 
@@ -104,8 +107,20 @@ const Navbar = ({ locale, /*  theme */ children, user }) => {
     <div>
       <Toolbar />
       <Divider />
+      <Link to="/admin/dashboard">
+        <List className={pathname === '/admin/dashboard' ? classes.active : ''}>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <DashboardIcon />
+              </ListItemIcon>
+              <FormattedMessage id="dashboard" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Link>
       <Link to="/admin/book-list">
-        <List>
+        <List className={pathname === '/admin/book-list' ? classes.active : ''}>
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
@@ -117,7 +132,7 @@ const Navbar = ({ locale, /*  theme */ children, user }) => {
         </List>
       </Link>
       <Link to="/admin/customer-list">
-        <List>
+        <List className={pathname === '/admin/customer-list' ? classes.active : ''}>
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
@@ -130,7 +145,7 @@ const Navbar = ({ locale, /*  theme */ children, user }) => {
       </Link>
       {user.role === 'Super' && (
         <Link to="/admin/admin-list">
-          <List>
+          <List className={pathname === '/admin/admin-list' ? classes.active : ''}>
             <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
@@ -143,7 +158,7 @@ const Navbar = ({ locale, /*  theme */ children, user }) => {
         </Link>
       )}
       <Link to="/admin/lending-list">
-        <List>
+        <List className={pathname === '/admin/lending-list' ? classes.active : ''}>
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
@@ -155,11 +170,11 @@ const Navbar = ({ locale, /*  theme */ children, user }) => {
         </List>
       </Link>
       <Divider />
-      <List onClick={handleLogout}>
+      <List onClick={handleLogout} className={classes.logout}>
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              <ExitToAppIcon />
+              <ExitToAppIcon color="error" />
             </ListItemIcon>
             <FormattedMessage id="logout" />
           </ListItemButton>

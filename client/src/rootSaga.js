@@ -17,6 +17,7 @@ import lendingListSaga from '@pages/LendingList/saga';
 import deleteLendingSaga from '@pages/DeleteLending/saga';
 import changePasswordAdmin from '@pages/ChangePasswordAdmin/saga';
 import myLendingListSaga from '@pages/MyLending/saga';
+import customerLendingSaga from '@pages/CustomerLending/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -37,5 +38,6 @@ export default function* rootSaga() {
     deleteLendingSaga(),
     changePasswordAdmin(),
     myLendingListSaga(),
+    customerLendingSaga(),
   ]);
 }

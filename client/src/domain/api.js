@@ -30,9 +30,11 @@ const urls = {
   // ------------
   bookDetail: '/book',
   customerDetail: '/customer',
+  customerLending: '/lending',
 
   /* DELETE */
   deleteLending: '/lending',
+  deleteBook: '/book',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -70,6 +72,7 @@ export const getDashboard = () => callAPI(urls.dashboardList, 'GET');
 /* GET DETAIL */
 export const getBookDetail = (id) => callAPI(`${urls.bookDetail}/${id}`, 'GET');
 export const getCustomerDetail = (id) => callAPI(`${urls.customerDetail}/${id}`, 'GET');
+export const getCustomerLending = (id) => callAPI(`${urls.customerLending}/${id}`, 'GET');
 
 /* PATCH */
 export const editUser = (id, user) => {
@@ -106,3 +109,4 @@ export const registerLending = (data) => callAPI(urls.registerLending, 'POST', {
 
 /* DELETE */
 export const deleteLending = (data) => callAPI(`${urls.deleteLending}`, 'DELETE', {}, {}, data);
+export const deleteBook = (id) => callAPI(`${urls.deleteBook}/${id}`, 'DELETE');

@@ -31,9 +31,10 @@ const MainLayout = ({ children, locale, theme, intl: { formatMessage }, user }) 
       break;
     default:
       renderNav = (
-        <NavbarCustomer title={formatMessage({ id: 'app_title_header' })} locale={locale} theme={theme}>
+        <>
+          <NavbarCustomer title={formatMessage({ id: 'app_title_header' })} locale={locale} theme={theme} />
           {children}
-        </NavbarCustomer>
+        </>
       );
       break;
   }

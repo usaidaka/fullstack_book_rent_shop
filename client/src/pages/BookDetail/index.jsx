@@ -36,7 +36,7 @@ const BookDetail = ({ login, token, user, books, bookDetail }) => {
             <h1>{bookDetail.title}</h1>
             <div className={classes['mini-info']}>
               <h5>{bookDetail.Categories?.name}</h5>
-              <spa>|</spa>
+              <span>|</span>
               <h5>{bookDetail.publishAt}</h5>
             </div>
             <p>{bookDetail.synopsis}</p>

@@ -7,6 +7,16 @@ a:active {
   text-decoration: none;
 }
 
+.active {
+  background-color: $color-primary-header;
+  color: white;
+}
+
+.logout {
+  color: red;
+  border-radius: 20px;
+}
+
 .headerWrapper {
   @include directionX;
   align-items: center;

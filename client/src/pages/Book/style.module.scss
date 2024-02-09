@@ -143,7 +143,8 @@
         width: 25px;
         height: 25px;
         border-radius: 100%;
-        background-color: $color-card-background;
+        background-color: $color-primary-header;
+        color: white;
         @include directionX;
         .theme {
           @include directionX;
@@ -163,4 +164,11 @@
       }
     }
   }
+}
+
+.confirmation {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  margin-top: 20px;
 }

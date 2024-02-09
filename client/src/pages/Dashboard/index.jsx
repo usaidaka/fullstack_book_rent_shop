@@ -31,7 +31,6 @@ const Dashboard = ({ user, dashboard }) => {
   if (loading) {
     return;
   }
-  console.log(dashboard);
 
   return (
     <div className={classes['main-container']}>
@@ -64,7 +63,7 @@ const Dashboard = ({ user, dashboard }) => {
 
 Dashboard.propTypes = {
   user: PropTypes.object,
-  dashboard: PropTypes.array,
+  dashboard: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -5,10 +5,11 @@ import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useForm } from 'react-hook-form';
 import { Button } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import config from '@config/index';
 import toast, { Toaster } from 'react-hot-toast';
 import { selectCategoryList } from '@pages/Dashboard/selectors';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import classes from './style.module.scss';
 import { selectBookDetail } from './selectors';
@@ -68,9 +69,14 @@ const EditBook = ({ book, categories }) => {
   }
   return (
     <div className={classes['main-container']}>
-      <h2>
-        <FormattedMessage id="editBook" />
-      </h2>
+      <div className={classes.decoration}>
+        <Link to={-1}>
+          <ArrowBackIcon />
+        </Link>
+        <h2>
+          <FormattedMessage id="editBook" />
+        </h2>
+      </div>
       <form action="" onSubmit={handleSubmit(onSubmit)}>
         <div className={classes.container}>
           <div className={classes['form-input']}>

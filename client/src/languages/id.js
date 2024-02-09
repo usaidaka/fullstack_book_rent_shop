@@ -46,4 +46,9 @@ export default {
   lendDate: 'Peminjaman',
   returnDate: 'Pengembalian',
   hi: 'Hai! Semangat beraktivitas,',
+  customerLending: 'Peminjaman Pelanggan',
+  dashboard: 'Dasbor',
+  deleteBookConfirmation: 'Apakah anda yakin ingin menghapus buku ini?',
+  positiveConfirmation: 'Ya',
+  negativeConfirmation: 'Tidak',
 };

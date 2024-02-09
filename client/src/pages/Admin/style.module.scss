@@ -76,7 +76,8 @@
           width: 25px;
           height: 25px;
           border-radius: 100%;
-          background-color: $color-card-background;
+          background-color: $color-primary-header;
+          color: white;
           @include directionX;
           .theme {
             @include directionX;

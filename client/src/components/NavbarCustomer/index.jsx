@@ -14,13 +14,14 @@ import { selectLogin, selectUser } from '@containers/Client/selectors';
 import { logout } from '@utils/logout';
 import { createStructuredSelector } from 'reselect';
 import config from '@config/index';
+import { Button } from '@mui/material';
 
 import classes from './style.module.scss';
 import logoBook from '../../assets/logoBook.png';
 
 const NavbarCustomer = ({ title, locale, /* theme */ login, user }) => {
   console.log(login);
-  console.log(user);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [menuPosition, setMenuPosition] = useState(null);
@@ -100,56 +101,60 @@ const NavbarCustomer = ({ title, locale, /* theme */ login, user }) => {
             </MenuItem>
           </Menu>
           {/* profile */}
-          <div>
-            <div className={classes.toolbar}>
-              <div className={classes.toggle} onClick={handleClickDropdown}>
-                <img src={`${config.api.image_customer}${user.image}`} alt="" className={classes['photo-profile']} />
-              </div>
-            </div>
-            <Menu open={openDropdown} anchorEl={dropdownPosition} onClose={handleCloseDropdown}>
-              <Link
-                to="/profile"
-                onClick={() => {
-                  handleClose();
-                  handleCloseDropdown();
-                }}
-              >
-                <MenuItem>
-                  <div className={classes.menu}>
-                    {/* <img src={profileIcon} alt="" className={classes.icon} /> */}
-                    <div className={classes.menuLang}>
-                      <FormattedMessage id="profile" />
-                    </div>
-                  </div>
-                </MenuItem>
-              </Link>
-              <Link
-                to="/my-lending"
-                onClick={() => {
-                  handleClose();
-                  handleCloseDropdown();
-                }}
-              >
-                <MenuItem>
-                  <div className={classes.menu}>
-                    {/* <img src={profileIcon} alt="" className={classes.icon} /> */}
-                    <div className={classes.menuLang}>
-                      <FormattedMessage id="myLending" />
-                    </div>
-                  </div>
-                </MenuItem>
-              </Link>
-
-              <MenuItem onClick={handleLogout}>
-                <div className={classes.menu}>
-                  {/* <img src={logoutIcon} alt="" className={classes.icon} /> */}
-                  <div className={classes.menuLang}>
-                    <FormattedMessage id="logout" />
-                  </div>
+          {login ? (
+            <div>
+              <div className={classes.toolbar}>
+                <div className={classes.toggle} onClick={handleClickDropdown}>
+                  <img src={`${config.api.image_customer}${user.image}`} alt="" className={classes['photo-profile']} />
                 </div>
-              </MenuItem>
-            </Menu>
-          </div>
+              </div>
+              <Menu open={openDropdown} anchorEl={dropdownPosition} onClose={handleCloseDropdown}>
+                <Link
+                  to="/profile"
+                  onClick={() => {
+                    handleClose();
+                    handleCloseDropdown();
+                  }}
+                >
+                  <MenuItem>
+                    <div className={classes.menu}>
+                      <div className={classes.menuLang}>
+                        <FormattedMessage id="profile" />
+                      </div>
+                    </div>
+                  </MenuItem>
+                </Link>
+                <Link
+                  to="/my-lending"
+                  onClick={() => {
+                    handleClose();
+                    handleCloseDropdown();
+                  }}
+                >
+                  <MenuItem>
+                    <div className={classes.menu}>
+                      <div className={classes.menuLang}>
+                        <FormattedMessage id="myLending" />
+                      </div>
+                    </div>
+                  </MenuItem>
+                </Link>
+                <MenuItem onClick={handleLogout}>
+                  <div className={classes.menu}>
+                    <div className={classes.menuLang}>
+                      <FormattedMessage id="logout" />
+                    </div>
+                  </div>
+                </MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            <Link to="/login">
+              <Button size="small" variant="contained">
+                Login
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

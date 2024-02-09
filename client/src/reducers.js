@@ -12,6 +12,7 @@ import getMyLendingListReducer, { storedKey as storedMyLendingState } from '@pag
 import editBookReducer from '@pages/EditBook/reducer';
 import editProfileReducer from '@pages/EditProfileAdmin/reducer';
 import editUserReducer from '@pages/EditUser/reducer';
+import getCustomerLending from '@pages/CustomerLending/reducer';
 import languageReducer from '@containers/Language/reducer';
 
 import { mapWithPersistor } from './persistence';
@@ -33,6 +34,7 @@ const temporaryReducers = {
   userDetail: editUserReducer,
   profile: editProfileReducer,
   dashboard: getAllDashboardData,
+  customerLending: getCustomerLending,
 };
 
 const createReducer = () => {

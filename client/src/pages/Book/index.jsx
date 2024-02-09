@@ -7,10 +7,28 @@ import config from '@config/index';
 import { Link } from 'react-router-dom';
 import { Button, Menu, MenuItem } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import toast, { Toaster } from 'react-hot-toast';
+
+/* MODAL */
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
 import { selectBookList } from './selectors';
-import { getBook } from './actions';
+import { deleteBook, getBook } from './actions';
 import classes from './style.module.scss';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const Book = ({ books }) => {
   const dispatch = useDispatch();
@@ -27,9 +45,22 @@ const Book = ({ books }) => {
     setOpenElem(null);
   };
 
+  const handleDelete = async (id) => {
+    dispatch(
+      deleteBook(id, (message) => {
+        toast.success(message, { duration: 2000 });
+        dispatch(getBook());
+      })
+    );
+  };
+
   useEffect(() => {
     dispatch(getBook());
   }, [dispatch]);
+
+  const [open, setOpen] = useState(false);
+  const handleOpenModal = () => setOpen(true);
+  const handleCloseModal = () => setOpen(false);
 
   return (
     <div className={classes.container}>
@@ -43,7 +74,6 @@ const Book = ({ books }) => {
           </Button>
         </Link>
       </div>
-
       <div className={classes['card-container']}>
         {books.length === 0 ? (
           <h4>
@@ -93,15 +123,40 @@ const Book = ({ books }) => {
                       </MenuItem>
                     </Link>
 
-                    <Link to={`/admin/edit-book/${item.id}`} onClose={handleClose}>
-                      <MenuItem sx={{ fontSize: 12, height: 10 }}>
-                        <div className={classes.menu}>
-                          <div className={classes.menuLang}>
-                            <FormattedMessage id="delete" />
-                          </div>
+                    <MenuItem sx={{ fontSize: 12, height: 10 }}>
+                      <div className={classes.menu} onClick={handleOpenModal}>
+                        <div className={classes.menuLang}>
+                          <FormattedMessage id="delete" />
                         </div>
-                      </MenuItem>
-                    </Link>
+                      </div>
+                      <Modal
+                        open={open}
+                        onClose={handleCloseModal}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                      >
+                        <Box sx={style}>
+                          <Typography id="modal-modal-title" variant="h6" component="h2">
+                            <FormattedMessage id="deleteBookConfirmation" />
+                          </Typography>
+                          <div className={classes.confirmation}>
+                            <Button
+                              variant="outlined"
+                              onClick={() => {
+                                handleDelete(item.id);
+                                handleCloseModal();
+                                handleClose();
+                              }}
+                            >
+                              <FormattedMessage id="positiveConfirmation" />
+                            </Button>
+                            <Button variant="contained" color="error" onClick={handleCloseModal}>
+                              <FormattedMessage id="negativeConfirmation" />
+                            </Button>
+                          </div>
+                        </Box>
+                      </Modal>
+                    </MenuItem>
                   </Menu>
                 </div>
               </div>
@@ -109,6 +164,7 @@ const Book = ({ books }) => {
           ))
         )}
       </div>
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };

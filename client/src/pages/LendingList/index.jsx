@@ -56,7 +56,10 @@ const Lending = ({ lendingList }) => {
                   <p>{item.Books?.createdAt}</p>
                 </div>
               </div>
-              <Link to="/admin/removal-lending" className={classes.redirect}>
+              <Link
+                to="/admin/removal-lending"
+                className={`${classes.redirect} + " " + ${item.deleted ? classes.deleted : null}`}
+              >
                 <Button size="small" variant="contained" color="error" disabled={item.deletedAt}>
                   {item.deletedAt ? 'Deleted' : 'Delete'}
                 </Button>

@@ -1,22 +1,33 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { setLoading, showPopup } from '@containers/App/actions';
-import { getBookList } from '@domain/api';
+import { deleteBook, getBookList } from '@domain/api';
 import { setBook } from './actions';
-import { GET_BOOK } from './constants';
+import { DELETE_BOOK, GET_BOOK } from './constants';
 
 function* getAllBook() {
   yield put(setLoading(true));
   try {
     const response = yield call(getBookList);
-    console.log(response, '<< response');
+
     yield put(setBook(response?.result));
   } catch (error) {
-    console.error(error);
-    yield put(showPopup('Error', error.message));
+    yield put(showPopup('Error', error.response?.data?.message));
+  }
+  yield put(setLoading(false));
+}
+
+function* doDeleteBook({ id, cb }) {
+  yield put(setLoading(true));
+  try {
+    const response = yield call(deleteBook, id);
+    cb && cb(response.message);
+  } catch (error) {
+    yield put(showPopup('Error', error.response?.data?.message));
   }
   yield put(setLoading(false));
 }
 
 export default function* bookListSaga() {
   yield takeLatest(GET_BOOK, getAllBook);
+  yield takeLatest(DELETE_BOOK, doDeleteBook);
 }
