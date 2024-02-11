@@ -43,15 +43,15 @@ const Login = () => {
   };
 
   return (
-    <div className={classes.container}>
-      <div className={classes.decoration} />
+    <div data-testid="login-container" className={classes.container}>
+      <div data-testid="login-decoration" className={classes.decoration} />
 
-      <div className={classes.form}>
+      <div data-testid="login-form" className={classes.form}>
         <h2>
           <FormattedMessage id="login" />
         </h2>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <div className={classes.wrapper}>
+          <div data-testid="login-wrapper-email" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="email" />
             </label>
@@ -67,7 +67,7 @@ const Login = () => {
             />
             {errors.email && <span role="alert">{errors.email.message}</span>}
           </div>
-          <div className={classes.wrapper}>
+          <div data-testid="login-wrapper-password" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="password" />
             </label>

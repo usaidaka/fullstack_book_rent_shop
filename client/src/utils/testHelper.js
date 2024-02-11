@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 
 import { DEFAULT_LOCALE } from '@containers/Language/constants';
-import store from '../configureStore';
+import store from '@store';
 
 import idLocaleData from '../languages/id';
 import enLocaleData from '../languages/en';

@@ -21,8 +21,8 @@ const Lending = ({ lendingList }) => {
   }, [dispatch]);
 
   return (
-    <div className={classes.container}>
-      <div className={classes.header}>
+    <div data-testid="lending-container" className={classes.container}>
+      <div data-testid="lending-header" className={classes.header}>
         <h2>
           <FormattedMessage id="lendingList" />
         </h2>
@@ -32,13 +32,17 @@ const Lending = ({ lendingList }) => {
           </Button>
         </Link>
       </div>
-      <div className={classes.card}>
-        <div className={classes.mainContainer}>
-          {lendingList.map((item, idx) => (
-            <div key={idx} className={`${classes.cardContainer} + " " + ${item.deletedAt ? classes.deleted : null}`}>
-              <div className={classes.wrapper}>
-                <div className={classes['customer-data']}>
-                  <div className={classes.cardLogo}>
+      <div data-testid="lending-card" className={classes.card}>
+        <div data-testid="lending-mainContainer" className={classes.mainContainer}>
+          {lendingList?.map((item, idx) => (
+            <div
+              data-testid="lending-cardContainer"
+              key={idx}
+              className={`${classes.cardContainer} + " " + ${item.deletedAt ? classes.deleted : null}`}
+            >
+              <div data-testid="lending-wrapper" className={classes.wrapper}>
+                <div data-testid="lending-customer-data" className={classes['customer-data']}>
+                  <div data-testid="lending-cardLogo-customer" className={classes.cardLogo}>
                     <img src={`${config.api.image_customer}${item.Customers?.image}`} alt="" />
                   </div>
                   <div>
@@ -47,8 +51,8 @@ const Lending = ({ lendingList }) => {
                     <p>{item.Customers?.email}</p>
                   </div>
                 </div>
-                <div className={classes['book-data']}>
-                  <div className={classes.cardLogo}>
+                <div data-testid="lending-book-data" className={classes['book-data']}>
+                  <div data-testid="lending-cardLogo-book" className={classes.cardLogo}>
                     <img src={`${config.api.image_book}${item.Books?.image}`} alt="" />
                   </div>
                   <p>{item.Books?.title}</p>
@@ -58,6 +62,7 @@ const Lending = ({ lendingList }) => {
               </div>
               <Link
                 to="/admin/removal-lending"
+                data-testid="lending-redirect"
                 className={`${classes.redirect} + " " + ${item.deleted ? classes.deleted : null}`}
               >
                 <Button size="small" variant="contained" color="error" disabled={item.deletedAt}>

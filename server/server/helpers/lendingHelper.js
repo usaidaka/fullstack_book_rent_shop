@@ -261,6 +261,7 @@ const getMyLending = async (id) => {
           attributes: {
             exclude: ["updatedAt", "deletedAt"],
           },
+          paranoid: false,
           include: [
             {
               model: db.Category,

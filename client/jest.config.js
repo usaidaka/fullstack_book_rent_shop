@@ -15,6 +15,8 @@ export default {
     '@static/(.*)': '<rootDir>/src/static/$1',
     '@styles/(.*)': '<rootDir>/src/styles/$1',
     '@utils/(.*)': '<rootDir>/src/utils/$1',
+    '\\.(jpg|jpeg|png|gif|webp|svg)$': 'identity-obj-proxy',
+    '\\.(css|less|scss)$': 'identity-obj-proxy',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 };

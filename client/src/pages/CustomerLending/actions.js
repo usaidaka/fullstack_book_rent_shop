@@ -1,18 +1,12 @@
 import { SET_CUSTOMER_LENDING, GET_CUSTOMER_LENDING } from './constants';
 
-export const getCustomerLending = (id, cb) => {
-  console.log(id);
-  return {
-    type: GET_CUSTOMER_LENDING,
-    id,
-    cb,
-  };
-};
+export const getCustomerLending = (id, cb) => ({
+  type: GET_CUSTOMER_LENDING,
+  id,
+  cb,
+});
 
-export const setCustomerLending = (customerLending) => {
-  console.log(customerLending);
-  return {
-    type: SET_CUSTOMER_LENDING,
-    customerLending,
-  };
-};
+export const setCustomerLending = (customerLending) => ({
+  type: SET_CUSTOMER_LENDING,
+  customerLending,
+});

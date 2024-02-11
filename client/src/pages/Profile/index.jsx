@@ -9,12 +9,11 @@ import { createStructuredSelector } from 'reselect';
 import { selectUser } from '@containers/Client/selectors';
 import config from '@config/index';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
-
-import classes from './style.module.scss';
-import { editProfile } from './actions';
+import { logout } from '@utils/logout';
 import { doEditProfile } from '@pages/EditProfileAdmin/actions';
 import toast, { Toaster } from 'react-hot-toast';
-import { logout } from '@utils/logout';
+
+import classes from './style.module.scss';
 
 const Profile = ({ user }) => {
   const dispatch = useDispatch();
@@ -38,16 +37,11 @@ const Profile = ({ user }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     const formData = new FormData();
     formData.append('file', image);
     formData.append('name', data.name);
     formData.append('phone', data.phone);
     formData.append('address', data.address);
-
-    console.log(formData.get('file'));
-    console.log(formData.get('name'));
-    console.log(formData.get('phone'));
 
     dispatch(
       doEditProfile(formData, (message) => {
@@ -59,17 +53,17 @@ const Profile = ({ user }) => {
   };
 
   return (
-    <div className={classes.container}>
-      <div className={classes.form}>
+    <div data-testid="profile-container" className={classes.container}>
+      <div data-testid="profile-form" className={classes.form}>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <div className={classes.image}>
+          <div data-testid="profile-image" className={classes.image}>
             <input type="file" name="" id="" ref={fileRef} onChange={handleFile} />
             <div onClick={() => fileRef.current.click()}>
               <img src={showImage || `${config.api.image_customer}${user.image}`} alt="" />
             </div>
           </div>
-          <div className={classes['main-wrapper']}>
-            <div className={classes.wrapper}>
+          <div data-testid="profile-main-wrapper-name-email" className={classes['main-wrapper']}>
+            <div data-testid="profile-wrapper-name" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="name" />
               </label>
@@ -87,7 +81,7 @@ const Profile = ({ user }) => {
               {errors.name && <span role="alert">{errors.name.message}</span>}
             </div>
 
-            <div className={classes.wrapper}>
+            <div data-testid="profile-wrapper-email" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="email" />
               </label>
@@ -103,8 +97,8 @@ const Profile = ({ user }) => {
             </div>
           </div>
 
-          <div className={classes['main-wrapper']}>
-            <div className={classes.wrapper}>
+          <div data-testid="profile-main-wrapper-phone-address" className={classes['main-wrapper']}>
+            <div data-testid="profile-wrapper-phone" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="phone" />
               </label>
@@ -120,7 +114,7 @@ const Profile = ({ user }) => {
                 defaultValue={user.phone}
               />
             </div>
-            <div className={classes.wrapper}>
+            <div data-testid="profile-wrapper-address" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="address" />
               </label>
@@ -138,7 +132,7 @@ const Profile = ({ user }) => {
             </div>
           </div>
 
-          <div className={classes.wrapper}>
+          <div data-testid="profile-wrapper-password" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="password" />
             </label>
@@ -152,7 +146,7 @@ const Profile = ({ user }) => {
                 value="**********"
                 disabled
               />
-              <Link to="/profile/change-password" className={classes.button}>
+              <Link to="/profile/change-password" data-testid="profile-button" className={classes.button}>
                 <Button color="success" variant="contained" type="button">
                   <ModeEditOutlineIcon />
                 </Button>
@@ -160,7 +154,13 @@ const Profile = ({ user }) => {
             </div>
           </div>
 
-          <Button className={classes.submit} variant="contained" type="submit" disabled={loading}>
+          <Button
+            data-testid="profile-submit"
+            className={classes.submit}
+            variant="contained"
+            type="submit"
+            disabled={loading}
+          >
             Submit
           </Button>
         </form>

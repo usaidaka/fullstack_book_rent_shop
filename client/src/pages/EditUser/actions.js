@@ -7,11 +7,10 @@ export const doEditUser = (id, user, cb) => ({
   cb,
 });
 
-export const getUserById = (id, header, cb) => ({
+export const getUserById = (id, cb) => ({
   type: GET_USER_BY_ID,
   id,
   cb,
-  header,
 });
 
 export const setUserById = (user) => ({

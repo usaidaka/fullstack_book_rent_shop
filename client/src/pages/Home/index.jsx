@@ -26,41 +26,50 @@ const Home = ({ books }) => {
   const carouselImage = [carousel1, carousel2, carousel3, carousel4, carousel5];
 
   return (
-    <div className={classes.container}>
-      <div className={classes.carousel}>
+    <div data-testid="home-container" className={classes.container}>
+      <div data-testid="home-carousel" className={classes.carousel}>
         <Carousel>
           {carouselImage.map((item, idx) => (
             <img src={item} alt="" key={idx} />
           ))}
         </Carousel>
       </div>
-      <div className={classes['card-container']}>
+      <div data-testid="home-card-container" className={classes['card-container']}>
         {books.length === 0 ? (
           <h4>
             <FormattedMessage id="emptyBook" />
           </h4>
         ) : (
           books.map((item) => (
-            <div key={item.id} className={classes.card}>
-              <div className={classes.title}>
+            <div data-testid="home-card" key={item.id} className={classes.card}>
+              <div data-testid="home-title" className={classes.title}>
                 {item.title.split(' ').length <= 4 ? (
                   <h5>{item.title}</h5>
                 ) : (
                   <h5> {item.title.split(' ').slice(0, 4).join(' ')} </h5>
                 )}
               </div>
-              <Link to={`/book-detail/${item.id}`} className={classes['image-container']}>
-                <img src={`${config.api.image_book}${item.image}`} alt="" className={classes.image} />
+              <Link
+                to={`/book-detail/${item.id}`}
+                data-testid="home-image-container"
+                className={classes['image-container']}
+              >
+                <img
+                  src={`${config.api.image_book}${item.image}`}
+                  alt=""
+                  data-testid="home-image"
+                  className={classes.image}
+                />
               </Link>
-              <div className={classes.desc}>
-                <div className={classes.author}>
+              <div data-testid="home-desc" className={classes.desc}>
+                <div data-testid="home-author" className={classes.author}>
                   {item.author.split(' ').length <= 2 ? (
                     <p>{item.author}</p>
                   ) : (
                     <p> {item.author.split(' ').slice(0, 1).join(' ')}...</p>
                   )}
                 </div>
-                <div className={classes.info}>
+                <div data-testid="home-info" className={classes.info}>
                   <h3>{item.Categories?.name}</h3>
                   <p>{item.publishAt}</p>
                 </div>

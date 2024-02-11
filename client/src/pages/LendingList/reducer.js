@@ -2,7 +2,7 @@ import { produce } from 'immer';
 import { SET_LENDING } from './constants';
 
 export const initialState = {
-  lending: {},
+  lending: [],
 };
 
 export const storedKey = ['lending'];

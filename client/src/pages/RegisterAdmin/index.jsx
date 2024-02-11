@@ -38,16 +38,16 @@ const RegisterAdmin = () => {
   };
 
   return (
-    <div className={classes.container}>
-      <div className={classes.decoration}>
+    <div data-testid="ra-container" className={classes.container}>
+      <div data-testid="ra-decoration" className={classes.decoration}>
         <h2>
           <FormattedMessage id="registerAdmin" />
         </h2>
       </div>
-      <div className={classes.form}>
+      <div data-testid="ra-form" className={classes.form}>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <div className={classes['main-wrapper']}>
-            <div className={classes.wrapper}>
+          <div data-testid="ra-main-wrapper-name-email" className={classes['main-wrapper']}>
+            <div data-testid="ra-wrapper-name" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="name" />
               </label>
@@ -64,7 +64,7 @@ const RegisterAdmin = () => {
               {errors.name && <span role="alert">{errors.name.message}</span>}
             </div>
 
-            <div className={classes.wrapper}>
+            <div data-testid="ra-wrapper-email" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="email" />
               </label>
@@ -82,8 +82,8 @@ const RegisterAdmin = () => {
             </div>
           </div>
 
-          <div className={classes['main-wrapper']}>
-            <div className={classes.wrapper}>
+          <div data-testid="ra-main-wrapper-phone-address" className={classes['main-wrapper']}>
+            <div data-testid="ra-wrapper-phone" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="phone" />
               </label>
@@ -99,7 +99,7 @@ const RegisterAdmin = () => {
               />
               {errors.phone && <span role="alert">{errors.phone.message}</span>}
             </div>
-            <div className={classes.wrapper}>
+            <div data-testid="ra-wrapper-address" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="address" />
               </label>
@@ -117,7 +117,7 @@ const RegisterAdmin = () => {
             </div>
           </div>
 
-          <div className={classes.wrapper}>
+          <div data-testid="ra-wrapper-password" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="password" />
             </label>
@@ -134,7 +134,7 @@ const RegisterAdmin = () => {
             {errors.password && <span role="alert">{errors.password.message}</span>}
           </div>
 
-          <div className={classes.wrapper}>
+          <div data-testid="ra-wrapper-confirm-password" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="confirmPassword" />
             </label>

@@ -13,7 +13,7 @@ export default {
   email: 'Surel',
   password: 'Kata Sandi',
   name: 'Nama',
-  phone: 'Telfon',
+  phone: 'Telepon',
   address: 'Alamat',
   confirmPassword: 'Konfirmasi Sandi',
   register: 'Daftar',

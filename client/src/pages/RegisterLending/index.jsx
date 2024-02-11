@@ -35,8 +35,8 @@ const RegisterLending = ({ books }) => {
     );
   };
   return (
-    <div className={classes.container}>
-      <div className={classes.decoration}>
+    <div data-testid="rl-container" className={classes.container}>
+      <div data-testid="rl-decoration" className={classes.decoration}>
         <Link to={-1}>
           <ArrowBackIcon />
         </Link>
@@ -44,9 +44,9 @@ const RegisterLending = ({ books }) => {
           <FormattedMessage id="createLending" />
         </h2>
       </div>
-      <div className={classes.form}>
+      <div data-testid="rl-form" className={classes.form}>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <div className={classes.wrapper}>
+          <div data-testid="rl-wrapper-email" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="email" />
             </label>
@@ -63,7 +63,7 @@ const RegisterLending = ({ books }) => {
             {errors.email && <span role="alert">{errors.email.message}</span>}
           </div>
 
-          <div className={classes.wrapper}>
+          <div data-testid="rl-wrapper-book" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="book" />
             </label>

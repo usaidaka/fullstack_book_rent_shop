@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { useRef, useState } from 'react';
 import { createStructuredSelector } from 'reselect';
-import { selectLogin, selectToken, selectUser } from '@containers/Client/selectors';
+import { selectUser } from '@containers/Client/selectors';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import config from '@config/index';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
@@ -16,7 +16,7 @@ import { logout } from '@utils/logout';
 import { doEditProfile } from './actions';
 import classes from './style.module.scss';
 
-const EditProfileAdmin = ({ login, token, user }) => {
+const EditProfileAdmin = ({ user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const fileRef = useRef();
@@ -24,10 +24,6 @@ const EditProfileAdmin = ({ login, token, user }) => {
   const [image, setImage] = useState(null);
   const [showImage, setShowImage] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  console.log(user);
-  console.log(login);
-  console.log(token);
 
   const {
     register,
@@ -42,17 +38,11 @@ const EditProfileAdmin = ({ login, token, user }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
     const formData = new FormData();
     formData.append('file', image);
     formData.append('name', data.name);
     formData.append('phone', data.phone);
     formData.append('address', data.address);
-
-    console.log(formData.get('file'));
-    console.log(formData.get('name'));
-    console.log(formData.get('phone'));
-    console.log(formData.get('address'));
 
     dispatch(
       doEditProfile(formData, (message) => {
@@ -63,8 +53,8 @@ const EditProfileAdmin = ({ login, token, user }) => {
     );
   };
   return (
-    <div className={classes.container}>
-      <div className={classes.decoration}>
+    <div data-testid="epa-container" className={classes.container}>
+      <div data-testid="epa-decoration" className={classes.decoration}>
         <Link to="/admin/dashboard">
           <ArrowBackIcon />
         </Link>
@@ -72,16 +62,16 @@ const EditProfileAdmin = ({ login, token, user }) => {
           <FormattedMessage id="editProfile" />
         </h2>
       </div>
-      <div className={classes.form}>
+      <div data-testid="epa-form" className={classes.form}>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <div className={classes.image}>
+          <div data-testid="epa-image" className={classes.image}>
             <input type="file" name="" id="" ref={fileRef} onChange={handleFile} />
             <div onClick={() => fileRef.current.click()}>
               <img src={showImage || `${config.api.image_customer}${user.image}`} alt="" />
             </div>
           </div>
-          <div className={classes['main-wrapper']}>
-            <div className={classes.wrapper}>
+          <div data-testid="epa-main-wrapper-name-email" className={classes['main-wrapper']}>
+            <div data-testid="epa-wrapper-name" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="name" />
               </label>
@@ -99,12 +89,12 @@ const EditProfileAdmin = ({ login, token, user }) => {
               {errors.name && <span role="alert">{errors.name.message}</span>}
             </div>
 
-            <div className={classes.wrapper}>
+            <div data-testid="epa-wrapper-email" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="email" />
               </label>
               <input
-                type="text"
+                type="email"
                 id="email"
                 name="email"
                 placeholder="email"
@@ -115,8 +105,8 @@ const EditProfileAdmin = ({ login, token, user }) => {
             </div>
           </div>
 
-          <div className={classes['main-wrapper']}>
-            <div className={classes.wrapper}>
+          <div data-testid="epa-main-wrapper-phone-address" className={classes['main-wrapper']}>
+            <div data-testid="epa-wrapper-phone" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="phone" />
               </label>
@@ -133,7 +123,7 @@ const EditProfileAdmin = ({ login, token, user }) => {
               />
               {errors.phone && <span role="alert">{errors.phone.message}</span>}
             </div>
-            <div className={classes.wrapper}>
+            <div data-testid="epa-wrapper-address" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="address" />
               </label>
@@ -152,7 +142,7 @@ const EditProfileAdmin = ({ login, token, user }) => {
             </div>
           </div>
 
-          <div className={classes.wrapper}>
+          <div data-testid="epa-wrapper-password" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="password" />
             </label>
@@ -167,7 +157,7 @@ const EditProfileAdmin = ({ login, token, user }) => {
                 disabled
               />
 
-              <Link to="/admin/profile/change-password" className={classes.button}>
+              <Link to="/admin/profile/change-password" data-testid="epa-button" className={classes.button}>
                 <Button color="success" variant="contained" type="button">
                   <ModeEditOutlineIcon />
                 </Button>
@@ -175,7 +165,13 @@ const EditProfileAdmin = ({ login, token, user }) => {
             </div>
           </div>
 
-          <Button className={classes.submit} variant="contained" type="submit" disabled={loading}>
+          <Button
+            data-testid="epa-submit"
+            className={classes.submit}
+            variant="contained"
+            type="submit"
+            disabled={loading}
+          >
             Submit
           </Button>
         </form>
@@ -186,14 +182,10 @@ const EditProfileAdmin = ({ login, token, user }) => {
 };
 
 EditProfileAdmin.propTypes = {
-  login: PropTypes.bool,
-  token: PropTypes.string,
   user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  login: selectLogin,
-  token: selectToken,
   user: selectUser,
 });
 

@@ -36,8 +36,8 @@ const ChangePasswordAdmin = () => {
     );
   };
   return (
-    <div className={classes.container}>
-      <div className={classes.decoration}>
+    <div data-testid="cpa-container" className={classes.container}>
+      <div data-testid="cpa-decoration" className={classes.decoration}>
         <Link to="/admin/profile">
           <ArrowBackIcon />
         </Link>
@@ -45,9 +45,9 @@ const ChangePasswordAdmin = () => {
           <FormattedMessage id="changePassword" />
         </h2>
       </div>
-      <div className={classes.form}>
+      <div data-testid="cpa-form" className={classes.form}>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <div className={classes.wrapper}>
+          <div data-testid="cpa-wrapper-password" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="newPassword" />
             </label>
@@ -64,7 +64,7 @@ const ChangePasswordAdmin = () => {
             {errors.newPassword && <span role="alert">{errors.newPassword.message}</span>}
           </div>
 
-          <div className={classes.wrapper}>
+          <div data-testid="cpa-wrapper-confirm-password" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="confirmPassword" />
             </label>

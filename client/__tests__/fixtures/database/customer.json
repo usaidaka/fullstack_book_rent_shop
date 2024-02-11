@@ -1,0 +1,75 @@
+[
+  {
+    "id": 3,
+    "name": "Michael Anderson",
+    "phone": "08568234734",
+    "email": "anderson@gmail.com",
+    "password": "$2a$10$.J78NMQXQhBFD.Glvk6Qc.cpLm/x0B2IOK15Nvs/WcYbq5eVmaoJa",
+    "address": "Jl Sudirman",
+    "role": "Customer",
+    "image": "1707408240983-UsaidAlkamilsquare-20kb.jpg",
+    "credential": null,
+    "credentialExpAt": null
+  },
+  {
+    "id": 4,
+    "name": "Veronica Yang",
+    "phone": "08912352312",
+    "email": "veronika@gmail.com",
+    "password": "$2a$10$mZSUdhENuQva2KNiThsSkeTE7rhJexiokZZ5u8vopFSwtUEda4Kdm",
+    "address": "Jl Gatot Subroto",
+    "role": "Customer",
+    "image": "default.png",
+    "credential": null,
+    "credentialExpAt": null
+  },
+  {
+    "id": 5,
+    "name": "Cristine Alberto",
+    "phone": "08123515245",
+    "email": "cristine@gmail.com",
+    "password": "$2a$10$mZSUdhENuQva2KNiThsSkeTE7rhJexiokZZ5u8vopFSwtUEda4Kdm",
+    "address": "Jl Dewi Sartika",
+    "role": "Customer",
+    "image": "default.png",
+    "credential": null,
+    "credentialExpAt": null
+  },
+
+  {
+    "id": 16,
+    "name": "danielxx",
+    "phone": "123124133",
+    "email": "daniel@gmail.com",
+    "password": "$2a$10$Z8O0O9NMImBqaSMUOWsTbepSyOGQU2c.ktvMnQFrcdL/6Yg2btSxK",
+    "address": "qweqwe",
+    "role": "Customer",
+    "image": "default.png",
+    "credential": null,
+    "credentialExpAt": null
+  },
+  {
+    "id": 17,
+    "name": "asd",
+    "phone": "089652433206123",
+    "email": "asdasdsd@gmail.com",
+    "password": "$2a$10$Z8O0O9NMImBqaSMUOWsTbepSyOGQU2c.ktvMnQFrcdL/6Yg2btSxK",
+    "address": "Jl. TB Simatupang No.30, RT.9/RW.2, Gedong, Kec. Ps. Rebo, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13760",
+    "role": "Customer",
+    "image": "default.png",
+    "credential": null,
+    "credentialExpAt": null
+  },
+  {
+    "id": 18,
+    "name": "zxczxc",
+    "phone": "1231214",
+    "email": "zxczx@mga.com",
+    "password": "$2a$10$Z8O0O9NMImBqaSMUOWsTbepSyOGQU2c.ktvMnQFrcdL/6Yg2btSxK",
+    "address": "asda",
+    "role": "Customer",
+    "image": "default.png",
+    "credential": null,
+    "credentialExpAt": null
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Horror",
+    "updatedAt": "2024-02-05T20:43:26.000Z"
+  },
+  {
+    "id": 2,
+    "name": "Science fiction",
+    "updatedAt": "2024-02-05T20:43:26.000Z"
+  },
+  {
+    "id": 3,
+    "name": "Romance",
+    "updatedAt": "2024-02-05T20:43:26.000Z"
+  },
+  {
+    "id": 4,
+    "name": "Thriller",
+    "updatedAt": "2024-02-05T20:43:26.000Z"
+  },
+  {
+    "id": 5,
+    "name": "Fantasy",
+    "updatedAt": "2024-02-05T20:43:26.000Z"
+  },
+  {
+    "id": 6,
+    "name": "Mystery",
+    "updatedAt": "2024-02-05T20:43:26.000Z"
+  },
+  {
+    "id": 7,
+    "name": "History",
+    "updatedAt": "2024-02-05T20:43:26.000Z"
+  },
+  {
+    "id": 8,
+    "name": "Biography",
+    "updatedAt": "2024-02-05T20:43:26.000Z"
+  }
+]

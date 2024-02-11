@@ -68,8 +68,8 @@ const EditBook = ({ book, categories }) => {
     return;
   }
   return (
-    <div className={classes['main-container']}>
-      <div className={classes.decoration}>
+    <div data-testid="eb-main-container" className={classes['main-container']}>
+      <div data-testid="eb-decoration" className={classes.decoration}>
         <Link to={-1}>
           <ArrowBackIcon />
         </Link>
@@ -78,10 +78,10 @@ const EditBook = ({ book, categories }) => {
         </h2>
       </div>
       <form action="" onSubmit={handleSubmit(onSubmit)}>
-        <div className={classes.container}>
-          <div className={classes['form-input']}>
-            <div className={classes['main-wrapper']}>
-              <div className={classes.wrapper}>
+        <div data-testid="eb-container" className={classes.container}>
+          <div data-testid="eb-form-input" className={classes['form-input']}>
+            <div data-testid="eb-main-wrapper-title-author" className={classes['main-wrapper']}>
+              <div data-testid="eb-wrapper-title" className={classes.wrapper}>
                 <label htmlFor="">
                   <FormattedMessage id="title" />
                 </label>
@@ -98,7 +98,7 @@ const EditBook = ({ book, categories }) => {
                 />
                 {errors.title && <span role="alert">{errors.title.message}</span>}
               </div>
-              <div className={classes.wrapper}>
+              <div data-testid="eb-wrapper-author" className={classes.wrapper}>
                 <label htmlFor="">
                   <FormattedMessage id="author" />
                 </label>
@@ -116,8 +116,8 @@ const EditBook = ({ book, categories }) => {
                 {errors.author && <span role="alert">{errors.author.message}</span>}
               </div>
             </div>
-            <div className={classes['main-wrapper']}>
-              <div className={classes.wrapper}>
+            <div data-testid="eb-main-wrapper-synopsis-category-date" className={classes['main-wrapper']}>
+              <div data-testid="eb-wrapper-synopsis" className={classes.wrapper}>
                 <label htmlFor="">
                   <FormattedMessage id="synopsis" />
                 </label>
@@ -134,8 +134,8 @@ const EditBook = ({ book, categories }) => {
                 />
                 {errors.synopsis && <span role="alert">{errors.synopsis.message}</span>}
               </div>
-              <div className={classes['form-select']}>
-                <div className={classes.select}>
+              <div data-testid="eb-form-select" className={classes['form-select']}>
+                <div data-testid="eb-wrapper-select" className={classes.select}>
                   <label htmlFor="">
                     <FormattedMessage id="category" />
                   </label>
@@ -160,7 +160,7 @@ const EditBook = ({ book, categories }) => {
 
                   {errors.idCategory && <span role="alert">{errors.idCategory.message}</span>}
                 </div>
-                <div className={classes.date}>
+                <div data-testid="eb-wrapper-date" className={classes.date}>
                   <label htmlFor="">
                     <FormattedMessage id="publishAt" />
                   </label>
@@ -181,7 +181,7 @@ const EditBook = ({ book, categories }) => {
               </div>
             </div>
           </div>
-          <div className={classes.image}>
+          <div data-testid="eb-image" className={classes.image}>
             <input type="file" name="" id="" ref={fileRef} onChange={handleFile} />
             <div onClick={() => fileRef.current.click()}>
               <img src={showImage || `${config.api.image_book}${book.image}`} alt="" />

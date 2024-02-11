@@ -63,8 +63,8 @@ const Book = ({ books }) => {
   const handleCloseModal = () => setOpen(false);
 
   return (
-    <div className={classes.container}>
-      <div className={classes.header}>
+    <div data-testid="book-container" className={classes.container}>
+      <div data-testid="book-header" className={classes.header}>
         <h2>
           <FormattedMessage id="book" />
         </h2>
@@ -74,49 +74,54 @@ const Book = ({ books }) => {
           </Button>
         </Link>
       </div>
-      <div className={classes['card-container']}>
+      <div data-testid="book-card-container" className={classes['card-container']}>
         {books.length === 0 ? (
           <h4>
             <FormattedMessage id="emptyBook" />
           </h4>
         ) : (
           books.map((item) => (
-            <div key={item.id} className={classes.card}>
-              <div className={classes.title}>
+            <div key={item.id} data-testid="book-card" className={classes.card}>
+              <div data-testid="book-title" className={classes.title}>
                 {item.title.split(' ').length <= 4 ? (
                   <h5>{item.title}</h5>
                 ) : (
                   <h5> {item.title.split(' ').slice(0, 4).join(' ')} </h5>
                 )}
               </div>
-              <div className={classes['image-container']}>
-                <img src={`${config.api.image_book}${item.image}`} alt="" className={classes.image} />
+              <div data-testid="book-imaage-container" className={classes['image-container']}>
+                <img
+                  src={`${config.api.image_book}${item.image}`}
+                  alt=""
+                  data-testid="book-image"
+                  className={classes.image}
+                />
               </div>
-              <div className={classes.desc}>
-                <div className={classes.author}>
+              <div data-testid="book-desc" className={classes.desc}>
+                <div data-testid="book-author" className={classes.author}>
                   {item.author.split(' ').length <= 2 ? (
                     <p>{item.author}</p>
                   ) : (
                     <p> {item.author.split(' ').slice(0, 1).join(' ')}...</p>
                   )}
                 </div>
-                <div className={classes.info}>
+                <div data-testid="book-info" className={classes.info}>
                   <h3>{item.Categories?.name}</h3>
                   <p>{item.publishAt}</p>
                 </div>
               </div>
-              <div className={classes.drop}>
+              <div data-testid="book-drop" className={classes.drop}>
                 <div>
-                  <div className={classes.toolbar}>
-                    <div className={classes.toggle} onClick={handleClick(item.id)}>
+                  <div data-testid="book-toolbar" className={classes.toolbar}>
+                    <div data-testid="book-toggle" className={classes.toggle} onClick={handleClick(item.id)}>
                       <MoreHorizIcon />
                     </div>
                   </div>
                   <Menu open={openElem === item.id} anchorEl={anchorEl} onClose={handleClose} elevation={1}>
                     <Link to={`/admin/edit-book/${item.id}`} onClose={handleClose}>
                       <MenuItem sx={{ fontSize: 12, height: 10, marginBottom: 1 }}>
-                        <div className={classes.menu}>
-                          <div className={classes.menuLang}>
+                        <div data-testid="book-menu" className={classes.menu}>
+                          <div data-testid="book-menuLang" className={classes.menuLang}>
                             <FormattedMessage id="editBook" />
                           </div>
                         </div>

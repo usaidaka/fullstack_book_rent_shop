@@ -33,26 +33,26 @@ const Dashboard = ({ user, dashboard }) => {
   }
 
   return (
-    <div className={classes['main-container']}>
+    <div data-testid="dashboard-main-container" className={classes['main-container']}>
       <div>
         <h2>
           <FormattedMessage id="hi" /> {user.name}!
         </h2>
       </div>
-      <div className={classes.container}>
-        <div className={`${classes.card} + ${classes.customer}`}>
+      <div data-testid="dashboard-container" className={classes.container}>
+        <div data-testid="dashboard-card-customer" className={`${classes.card} + ${classes.customer}`}>
           <h1>{Object.keys(dashboard)[0]}</h1>
           <h1>{dashboard.customer}</h1>
         </div>
-        <div className={`${classes.card} + ${classes.book}`}>
+        <div data-testid="dashboard-card-book" className={`${classes.card} + ${classes.book}`}>
           <h1>{Object.keys(dashboard)[1]}</h1>
           <h1>{dashboard.book}</h1>
         </div>
-        <div className={`${classes.card} + ${classes.lending}`}>
+        <div data-testid="dashboard-card-lending" className={`${classes.card} + ${classes.lending}`}>
           <h1>{Object.keys(dashboard)[2]}</h1>
           <h1>{dashboard.lending}</h1>
         </div>
-        <div className={`${classes.card} + ${classes.category}`}>
+        <div data-testid="dashboard-card-category" className={`${classes.card} + ${classes.category}`}>
           <h1>{Object.keys(dashboard)[3]}</h1>
           <h1>{dashboard.category}</h1>
         </div>

@@ -55,15 +55,15 @@ const RegisterBook = ({ categories }) => {
   };
 
   return (
-    <div className={classes['main-container']}>
+    <div data-testid="rb-main-container" className={classes['main-container']}>
       <h2>
         <FormattedMessage id="registerBook" />
       </h2>
       <form action="" onSubmit={handleSubmit(onSubmit)}>
-        <div className={classes.container}>
-          <div className={classes['form-input']}>
-            <div className={classes['main-wrapper']}>
-              <div className={classes.wrapper}>
+        <div data-testid="rb-container" className={classes.container}>
+          <div data-testid="rb-form-input" className={classes['form-input']}>
+            <div data-testid="rb-main-wrapper-title-author" className={classes['main-wrapper']}>
+              <div data-testid="rb-wrapper-title" className={classes.wrapper}>
                 <label htmlFor="">
                   <FormattedMessage id="title" />
                 </label>
@@ -79,7 +79,7 @@ const RegisterBook = ({ categories }) => {
                 />
                 {errors.title && <span role="alert">{errors.title.message}</span>}
               </div>
-              <div className={classes.wrapper}>
+              <div data-testid="rb-wrapper-author" className={classes.wrapper}>
                 <label htmlFor="">
                   <FormattedMessage id="author" />
                 </label>
@@ -96,8 +96,8 @@ const RegisterBook = ({ categories }) => {
                 {errors.author && <span role="alert">{errors.author.message}</span>}
               </div>
             </div>
-            <div className={classes['main-wrapper']}>
-              <div className={classes.wrapper}>
+            <div data-testid="rb-main-wrapper-synopsis-category-date" className={classes['main-wrapper']}>
+              <div data-testid="rb-wrapper-synopsis" className={classes.wrapper}>
                 <label htmlFor="">
                   <FormattedMessage id="synopsis" />
                 </label>
@@ -113,8 +113,8 @@ const RegisterBook = ({ categories }) => {
                 />
                 {errors.synopsis && <span role="alert">{errors.synopsis.message}</span>}
               </div>
-              <div className={classes['form-select']}>
-                <div className={classes.select}>
+              <div data-testid="rb-form-select" className={classes['form-select']}>
+                <div data-testid="rb-wrapper-select" className={classes.select}>
                   <label htmlFor="">
                     <FormattedMessage id="category" />
                   </label>
@@ -138,7 +138,7 @@ const RegisterBook = ({ categories }) => {
                   </select>
                   {errors.idCategory && <span role="alert">{errors.idCategory.message}</span>}
                 </div>
-                <div className={classes.date}>
+                <div data-testid="rb-wrapper-date" className={classes.date}>
                   <label htmlFor="">
                     <FormattedMessage id="publishAt" />
                   </label>
@@ -158,7 +158,7 @@ const RegisterBook = ({ categories }) => {
               </div>
             </div>
           </div>
-          <div className={classes.image}>
+          <div data-testid="rb-image" className={classes.image}>
             <input
               type="file"
               ref={fileRef}

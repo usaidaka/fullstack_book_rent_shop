@@ -40,8 +40,8 @@ const RegisterCustomer = () => {
   };
 
   return (
-    <div className={classes.container}>
-      <div className={classes.decoration}>
+    <div data-testid="rc-container" className={classes.container}>
+      <div data-testid="rc-decoration" className={classes.decoration}>
         <Link to={-1}>
           <ArrowBackIcon />
         </Link>
@@ -49,10 +49,10 @@ const RegisterCustomer = () => {
           <FormattedMessage id="registerCustomer" />
         </h2>
       </div>
-      <div className={classes.form}>
+      <div data-testid="rc-form" className={classes.form}>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <div className={classes['main-wrapper']}>
-            <div className={classes.wrapper}>
+          <div data-testid="rc-main-wrapper-name-email" className={classes['main-wrapper']}>
+            <div data-testid="rc-wrapper-name" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="name" />
               </label>
@@ -66,10 +66,10 @@ const RegisterCustomer = () => {
                 })}
                 aria-invalid={errors.name ? 'true' : 'false'}
               />
-              {/* {errors.name && <span role="alert">{errors.name.message}</span>} */}
+              {errors.name && <span role="alert">{errors.name.message}</span>}
             </div>
 
-            <div className={classes.wrapper}>
+            <div data-testid="rc-wrapper-email" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="email" />
               </label>
@@ -83,12 +83,12 @@ const RegisterCustomer = () => {
                 })}
                 aria-invalid={errors.email ? 'true' : 'false'}
               />
-              {/* {errors.email && <span role="alert">{errors.email.message}</span>} */}
+              {errors.email && <span role="alert">{errors.email.message}</span>}
             </div>
           </div>
 
-          <div className={classes['main-wrapper']}>
-            <div className={classes.wrapper}>
+          <div data-testid="rc-main-wrapper-phone-address" className={classes['main-wrapper']}>
+            <div data-testid="rc-wrapper-phone" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="phone" />
               </label>
@@ -102,9 +102,9 @@ const RegisterCustomer = () => {
                 })}
                 aria-invalid={errors.phone ? 'true' : 'false'}
               />
-              {/* {errors.phone && <span role="alert">{errors.phone.message}</span>} */}
+              {errors.phone && <span role="alert">{errors.phone.message}</span>}
             </div>
-            <div className={classes.wrapper}>
+            <div data-testid="rc-wrapper-address" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="address" />
               </label>
@@ -118,11 +118,11 @@ const RegisterCustomer = () => {
                 })}
                 aria-invalid={errors.phone ? 'true' : 'false'}
               />
-              {/* {errors.address && <span role="alert">{errors.address.message}</span>} */}
+              {errors.address && <span role="alert">{errors.address.message}</span>}
             </div>
           </div>
 
-          <div className={classes.wrapper}>
+          <div data-testid="rc-wrapper-password" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="password" />
             </label>
@@ -136,10 +136,10 @@ const RegisterCustomer = () => {
               })}
               aria-invalid={errors.password ? 'true' : 'false'}
             />
-            {/* {errors.password && <span role="alert">{errors.password.message}</span>} */}
+            {errors.password && <span role="alert">{errors.password.message}</span>}
           </div>
 
-          <div className={classes.wrapper}>
+          <div data-testid="rc-wrapper-confirm-password" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="confirmPassword" />
             </label>
@@ -154,7 +154,7 @@ const RegisterCustomer = () => {
               })}
               aria-invalid={errors.confirmPassword ? 'true' : 'false'}
             />
-            {/* {errors.confirmPassword && <span role="alert">{errors.confirmPassword.message}</span>} */}
+            {errors.confirmPassword && <span role="alert">{errors.confirmPassword.message}</span>}
           </div>
 
           <Button variant="contained" type="submit" disabled={loading}>

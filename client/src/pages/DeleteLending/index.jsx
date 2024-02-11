@@ -26,7 +26,6 @@ const DeleteLending = ({ books }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     dispatch(
       deleteLending(data, (message) => {
         toast.success(message, { duration: 2000 });
@@ -37,8 +36,8 @@ const DeleteLending = ({ books }) => {
     );
   };
   return (
-    <div className={classes.container}>
-      <div className={classes.decoration}>
+    <div data-testid="dl-container" className={classes.container}>
+      <div data-testid="dl-decoration" className={classes.decoration}>
         <Link to={-1}>
           <ArrowBackIcon />
         </Link>
@@ -46,9 +45,9 @@ const DeleteLending = ({ books }) => {
           <FormattedMessage id="deleteLending" />
         </h2>
       </div>
-      <div className={classes.form}>
+      <div data-testid="dl-form" className={classes.form}>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <div className={classes.wrapper}>
+          <div data-testid="dl-wrapper-email" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="email" />
             </label>
@@ -65,7 +64,7 @@ const DeleteLending = ({ books }) => {
             {errors.email && <span role="alert">{errors.email.message}</span>}
           </div>
 
-          <div className={classes.wrapper}>
+          <div data-testid="dl-wrapper-book" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="book" />
             </label>

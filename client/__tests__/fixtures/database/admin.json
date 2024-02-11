@@ -1,0 +1,47 @@
+[
+  {
+    "id": 2,
+    "name": "Admins",
+    "phone": "081235152122",
+    "email": "admin_1@gmail.com",
+    "address": "Jl Letjen Katamso",
+    "role": "Admin",
+    "image": "default.png"
+  },
+  {
+    "id": 6,
+    "name": "test",
+    "phone": "123124",
+    "email": "test@gmail.com",
+    "address": "Jl. TB Simatupang No.30, RT.9/RW.2, Gedong, Kec. Ps. Rebo, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13760",
+    "role": "Admin",
+    "image": "default.png"
+  },
+  {
+    "id": 12,
+    "name": "tesat",
+    "phone": "123131",
+    "email": "tesat@gmail.com",
+    "address": "aasd12",
+    "role": "Admin",
+    "image": "default.png"
+  },
+  {
+    "id": 19,
+    "name": "admin_5",
+    "phone": "0123192421",
+    "email": "admin_5@gmail.com",
+    "address": "Jl Kota Kasablanka",
+    "role": "Admin",
+    "image": "default.png"
+  },
+  {
+    "id": 27,
+    "name": "admin_10",
+    "phone": "01231924221",
+    "email": "admin_10@gmail.com",
+    "address": "Jl Kota Kasablanka",
+    "role": "Admin",
+    "image": "default.png"
+  }
+]

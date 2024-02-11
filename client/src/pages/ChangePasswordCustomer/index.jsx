@@ -36,8 +36,8 @@ const ChangePasswordCustomer = () => {
     );
   };
   return (
-    <div className={classes.container}>
-      <div className={classes.decoration}>
+    <div data-testid="cpc-container" className={classes.container}>
+      <div data-testid="cpc-decoration" className={classes.decoration}>
         <Link to="/profile">
           <ArrowBackIcon />
         </Link>
@@ -45,9 +45,9 @@ const ChangePasswordCustomer = () => {
           <FormattedMessage id="changePassword" />
         </h2>
       </div>
-      <div className={classes.form}>
+      <div data-testid="cpc-form" className={classes.form}>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <div className={classes.wrapper}>
+          <div data-testid="cpc-wrapper-password" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="newPassword" />
             </label>
@@ -64,7 +64,7 @@ const ChangePasswordCustomer = () => {
             {errors.newPassword && <span role="alert">{errors.newPassword.message}</span>}
           </div>
 
-          <div className={classes.wrapper}>
+          <div data-testid="cpc-wrapper-confirm-password" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="confirmPassword" />
             </label>

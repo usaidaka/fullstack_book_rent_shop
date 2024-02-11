@@ -1,0 +1,164 @@
+[
+  {
+    "idCustomer": 3,
+    "idBook": 43,
+    "deletedAt": "2024-02-08T14:08:49.000Z",
+    "Books": null,
+    "Customers": {
+      "id": 3,
+      "name": "Michael Anderson",
+      "phone": "08568234734",
+      "email": "anderson@gmail.com",
+      "password": "$2a$10$.J78NMQXQhBFD.Glvk6Qc.cpLm/x0B2IOK15Nvs/WcYbq5eVmaoJa",
+      "address": "Jl Sudirman",
+      "role": "Customer",
+      "image": "1707408240983-UsaidAlkamilsquare-20kb.jpg",
+      "credential": null
+    }
+  },
+  {
+    "idCustomer": 3,
+    "idBook": 1,
+    "deletedAt": null,
+    "Books": {
+      "id": 1,
+      "title": "Bumi",
+      "author": "Tere Liye",
+      "idCategory": 2,
+      "image": "default.jpeg",
+      "synopsis": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+      "publishAt": 2010,
+      "createdAt": "2024-02-05T20:43:26.000Z",
+      "Categories": {
+        "name": "Science fiction"
+      }
+    },
+    "Customers": {
+      "id": 3,
+      "name": "Michael Anderson",
+      "phone": "08568234734",
+      "email": "anderson@gmail.com",
+      "password": "$2a$10$.J78NMQXQhBFD.Glvk6Qc.cpLm/x0B2IOK15Nvs/WcYbq5eVmaoJa",
+      "address": "Jl Sudirman",
+      "role": "Customer",
+      "image": "1707408240983-UsaidAlkamilsquare-20kb.jpg",
+      "credential": null
+    }
+  },
+  {
+    "idCustomer": 4,
+    "idBook": 4,
+    "deletedAt": null,
+    "Books": {
+      "id": 4,
+      "title": "Pulang",
+      "author": "Tere Liye",
+      "idCategory": 5,
+      "image": "default.jpeg",
+      "synopsis": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+      "publishAt": 2015,
+      "createdAt": "2024-02-05T20:43:26.000Z",
+      "Categories": {
+        "name": "Fantasy"
+      }
+    },
+    "Customers": {
+      "id": 4,
+      "name": "Veronica Yang",
+      "phone": "08912352312",
+      "email": "veronika@gmail.com",
+      "password": "$2a$10$mZSUdhENuQva2KNiThsSkeTE7rhJexiokZZ5u8vopFSwtUEda4Kdm",
+      "address": "Jl Gatot Subroto",
+      "role": "Customer",
+      "image": "default.png",
+      "credential": null
+    }
+  },
+  {
+    "idCustomer": 3,
+    "idBook": 3,
+    "deletedAt": null,
+    "Books": {
+      "id": 3,
+      "title": "si anak pintar si anak kuat",
+      "author": "Tere Liye",
+      "idCategory": 2,
+      "image": "default.jpeg",
+      "synopsis": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+      "publishAt": 2013,
+      "createdAt": "2024-02-05T20:43:26.000Z",
+      "Categories": {
+        "name": "Science fiction"
+      }
+    },
+    "Customers": {
+      "id": 3,
+      "name": "Michael Anderson",
+      "phone": "08568234734",
+      "email": "anderson@gmail.com",
+      "password": "$2a$10$.J78NMQXQhBFD.Glvk6Qc.cpLm/x0B2IOK15Nvs/WcYbq5eVmaoJa",
+      "address": "Jl Sudirman",
+      "role": "Customer",
+      "image": "1707408240983-UsaidAlkamilsquare-20kb.jpg",
+      "credential": null
+    }
+  },
+  {
+    "idCustomer": 2,
+    "idBook": 2,
+    "deletedAt": null,
+    "Books": {
+      "id": 2,
+      "title": "Hafalan Salat Delisa",
+      "author": "Tere Liye",
+      "idCategory": 4,
+      "image": "default.jpeg",
+      "synopsis": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+      "publishAt": 2012,
+      "createdAt": "2024-02-05T20:43:26.000Z",
+      "Categories": {
+        "name": "Thriller"
+      }
+    },
+    "Customers": {
+      "id": 2,
+      "name": "Admins",
+      "phone": "081235152122",
+      "email": "admin_1@gmail.com",
+      "password": "$2a$10$mZSUdhENuQva2KNiThsSkeTE7rhJexiokZZ5u8vopFSwtUEda4Kdm",
+      "address": "Jl Letjen Katamso",
+      "role": "Admin",
+      "image": "default.png",
+      "credential": null
+    }
+  },
+  {
+    "idCustomer": 1,
+    "idBook": 1,
+    "deletedAt": "2024-02-08T14:05:06.000Z",
+    "Books": {
+      "id": 1,
+      "title": "Bumi",
+      "author": "Tere Liye",
+      "idCategory": 2,
+      "image": "default.jpeg",
+      "synopsis": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla voluptas odio cupiditate ipsa quod fugiat dolore eius fugit cum recusandae!",
+      "publishAt": 2010,
+      "createdAt": "2024-02-05T20:43:26.000Z",
+      "Categories": {
+        "name": "Science fiction"
+      }
+    },
+    "Customers": {
+      "id": 1,
+      "name": "Super Admin",
+      "phone": "087512485142",
+      "email": "super_admin@gmail.com",
+      "password": "$2a$10$jYb439G3nY5qahwgMSTq4ephd0Wd4W/F/wn.AK21UzYaQnXQlBdyW",
+      "address": "Jl TB Simatupang",
+      "role": "Super",
+      "image": "1707474117687-360_F_180311099_Vlj8ufdHvec4onKSDLxxdrNiP6yX4PnP.jpg",
+      "credential": null
+    }
+  }
+]

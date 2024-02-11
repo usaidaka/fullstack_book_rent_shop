@@ -6,7 +6,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { createStructuredSelector } from 'reselect';
-import { selectLogin, selectToken, selectUser } from '@containers/Client/selectors';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import config from '@config/index';
 import toast, { Toaster } from 'react-hot-toast';
@@ -15,7 +14,7 @@ import classes from './style.module.scss';
 import { doEditUser, getUserById } from './actions';
 import { selectUserDetail } from './selectors';
 
-const EditUser = ({ login, token, user, userDetail }) => {
+const EditUser = ({ userDetail }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const fileRef = useRef();
@@ -26,19 +25,13 @@ const EditUser = ({ login, token, user, userDetail }) => {
   const [image, setImage] = useState(null);
   const [showImage, setShowImage] = useState(false);
 
-  console.log(user);
-  console.log(login);
-  console.log(token);
-  console.log(id);
-  console.log(userDetail);
-
   useEffect(() => {
     dispatch(
-      getUserById(id, token, () => {
+      getUserById(id, () => {
         setRender(false);
       })
     );
-  }, [dispatch, id, token]);
+  }, [dispatch, id]);
 
   const {
     register,
@@ -72,8 +65,8 @@ const EditUser = ({ login, token, user, userDetail }) => {
     return;
   }
   return (
-    <div className={classes.container}>
-      <div className={classes.decoration}>
+    <div data-testid="eu-container" className={classes.container}>
+      <div data-testid="eu-decoration" className={classes.decoration}>
         <Link to={-1}>
           <ArrowBackIcon />
         </Link>
@@ -81,16 +74,16 @@ const EditUser = ({ login, token, user, userDetail }) => {
           <FormattedMessage id="editProfile" />
         </h2>
       </div>
-      <div className={classes.form}>
+      <div data-testid="eu-form" className={classes.form}>
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <div className={classes.image}>
+          <div data-testid="eu-image" className={classes.image}>
             <input type="file" name="" id="" ref={fileRef} onChange={handleFile} />
             <div onClick={() => fileRef.current.click()}>
               <img src={showImage || `${config.api.image_customer}${userDetail.image}`} alt="" />
             </div>
           </div>
-          <div className={classes['main-wrapper']}>
-            <div className={classes.wrapper}>
+          <div data-testid="eu-main-wrapper-name-email" className={classes['main-wrapper']}>
+            <div data-testid="eu-wrapper-name" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="name" />
               </label>
@@ -108,7 +101,7 @@ const EditUser = ({ login, token, user, userDetail }) => {
               {errors.name && <span role="alert">{errors.name.message}</span>}
             </div>
 
-            <div className={classes.wrapper}>
+            <div data-testid="eu-wrapper-email" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="email" />
               </label>
@@ -125,8 +118,8 @@ const EditUser = ({ login, token, user, userDetail }) => {
             </div>
           </div>
 
-          <div className={classes['main-wrapper']}>
-            <div className={classes.wrapper}>
+          <div data-testid="eu-main-wrapper-phone-address" className={classes['main-wrapper']}>
+            <div data-testid="eu-wrapper-phone" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="phone" />
               </label>
@@ -143,7 +136,7 @@ const EditUser = ({ login, token, user, userDetail }) => {
               />
               {errors.phone && <span role="alert">{errors.phone.message}</span>}
             </div>
-            <div className={classes.wrapper}>
+            <div data-testid="eu-wrapper-address" className={classes.wrapper}>
               <label htmlFor="">
                 <FormattedMessage id="address" />
               </label>
@@ -162,7 +155,7 @@ const EditUser = ({ login, token, user, userDetail }) => {
             </div>
           </div>
 
-          <div className={classes.wrapper}>
+          <div data-testid="eu-wrapper-password" className={classes.wrapper}>
             <label htmlFor="">
               <FormattedMessage id="password" />
             </label>
@@ -176,7 +169,7 @@ const EditUser = ({ login, token, user, userDetail }) => {
                 value="**********"
                 disabled
               />
-              {/* {errors.password && <span role="alert">{errors.password.message}</span>} */}
+              {errors.password && <span role="alert">{errors.password.message}</span>}
             </div>
           </div>
 
@@ -191,16 +184,10 @@ const EditUser = ({ login, token, user, userDetail }) => {
 };
 
 EditUser.propTypes = {
-  login: PropTypes.bool,
-  token: PropTypes.string,
-  user: PropTypes.object,
   userDetail: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  login: selectLogin,
-  token: selectToken,
-  user: selectUser,
   userDetail: selectUserDetail,
 });
 

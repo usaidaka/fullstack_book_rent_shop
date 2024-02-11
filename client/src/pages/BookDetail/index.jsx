@@ -1,5 +1,3 @@
-import { selectLogin, selectToken, selectUser } from '@containers/Client/selectors';
-import { selectBookList } from '@pages/Book/selectors';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
@@ -11,35 +9,29 @@ import { selectBookDetail } from '@pages/EditBook/selectors';
 
 import classes from './style.module.scss';
 
-const BookDetail = ({ login, token, user, books, bookDetail }) => {
+const BookDetail = ({ bookDetail }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  console.log(login);
-  console.log(token);
-  console.log(user);
-  console.log(bookDetail);
 
   useEffect(() => {
     dispatch(getBookById(id));
   }, [dispatch, id]);
 
-  console.log(books);
-
   return (
-    <div className={classes.container}>
-      <div className={classes['main-wrapper']}>
-        <div className={classes.wrapper}>
-          <div className={classes.image}>
-            <img src={`${config.api.image_book}${bookDetail.image}`} alt="" />
+    <div data-testid="book-container" className={classes.container}>
+      <div data-testid="book-main-wrapper" className={classes['main-wrapper']}>
+        <div data-testid="book-wrapper" className={classes.wrapper}>
+          <div data-testid="book-image" className={classes.image}>
+            <img data-testid="book-src" src={`${config.api.image_book}${bookDetail.image}`} alt="" />
           </div>
-          <div className={classes.desc}>
-            <h1>{bookDetail.title}</h1>
-            <div className={classes['mini-info']}>
-              <h5>{bookDetail.Categories?.name}</h5>
-              <span>|</span>
-              <h5>{bookDetail.publishAt}</h5>
+          <div data-testid="book-desc" className={classes.desc}>
+            <h1 data-testid="book-title">{bookDetail.title}</h1>
+            <div data-testid="book-mini-info" className={classes['mini-info']}>
+              <h5 data-testid="book-category">{bookDetail.Categories?.name}</h5>
+              <span data-testid="book-divider">|</span>
+              <h5 data-testid="book-publishAt">{bookDetail.publishAt}</h5>
             </div>
-            <p>{bookDetail.synopsis}</p>
+            <p data-testid="book-synopsis">{bookDetail.synopsis}</p>
           </div>
         </div>
       </div>
@@ -48,18 +40,10 @@ const BookDetail = ({ login, token, user, books, bookDetail }) => {
 };
 
 BookDetail.propTypes = {
-  login: PropTypes.bool,
-  token: PropTypes.string,
-  user: PropTypes.object,
-  books: PropTypes.array,
   bookDetail: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  login: selectLogin,
-  token: selectToken,
-  user: selectUser,
-  books: selectBookList,
   bookDetail: selectBookDetail,
 });
 

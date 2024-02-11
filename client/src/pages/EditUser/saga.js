@@ -18,10 +18,10 @@ function* doEditUser({ id, user, cb }) {
   setLoading(false);
 }
 
-function* doGetUserById({ id, header, cb }) {
+function* doGetUserById({ id, cb }) {
   setLoading(true);
   try {
-    const response = yield call(getCustomerDetail, id, header);
+    const response = yield call(getCustomerDetail, id);
 
     cb && cb();
     yield put(setUserById(response.result));
