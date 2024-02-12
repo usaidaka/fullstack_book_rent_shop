@@ -26,7 +26,7 @@ export default {
   profile: 'Profil',
   title: 'Judul',
   author: 'Penulis',
-  category: 'Kategory',
+  category: 'Kategori',
   synopsis: 'Sinopsis',
   publishAt: 'Tanggal Penerbitan',
   editBook: 'Sunting Buku',

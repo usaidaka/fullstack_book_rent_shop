@@ -63,6 +63,24 @@
         }
       }
 
+      .wrapper {
+        position: relative;
+        .input-password {
+          width: 97%;
+          position: relative;
+
+          input {
+            width: 100%;
+          }
+          .visibility {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 5px 0px;
+          }
+        }
+      }
+
       button {
         margin-top: 20px;
         margin-left: auto;

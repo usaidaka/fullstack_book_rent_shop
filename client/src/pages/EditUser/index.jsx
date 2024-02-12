@@ -9,12 +9,13 @@ import { createStructuredSelector } from 'reselect';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import config from '@config/index';
 import toast, { Toaster } from 'react-hot-toast';
+import Loader from '@components/Loader';
 
 import classes from './style.module.scss';
 import { doEditUser, getUserById } from './actions';
 import { selectUserDetail } from './selectors';
 
-const EditUser = ({ userDetail }) => {
+const EditUser = ({ userDetail, loadingTest = true }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const fileRef = useRef();
@@ -61,8 +62,8 @@ const EditUser = ({ userDetail }) => {
     );
   };
 
-  if (render) {
-    return;
+  if (render && loadingTest) {
+    return <Loader isLoading={render} />;
   }
   return (
     <div data-testid="eu-container" className={classes.container}>
@@ -185,6 +186,7 @@ const EditUser = ({ userDetail }) => {
 
 EditUser.propTypes = {
   userDetail: PropTypes.object,
+  loadingTest: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -18,6 +18,7 @@ const getLendingList = async () => {
           attributes: {
             exclude: ["updatedAt", "deletedAt"],
           },
+          paranoid: false,
           include: [
             {
               model: db.Category,
@@ -212,8 +213,6 @@ const deleteLending = async (data) => {
         idBook,
       },
     });
-
-    console.log(isBooked, "<<< BOKED");
 
     if (isBooked.length === 0) {
       response = {

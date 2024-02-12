@@ -47,6 +47,8 @@ describe('Admin', () => {
     expect(adminCardContainer).toBeInTheDocument();
     expect(adminCardContainer).toHaveClass('card-container');
 
+    console.log(admins);
+
     // const adminCard = getByTestId('admin-card');
     // expect(adminCard).toBeInTheDocument();
     // expect(adminCard).toHaveClass('card');
@@ -102,8 +104,6 @@ describe('Admin', () => {
     const emptyAdmins = [];
     render(<Admin admins={emptyAdmins} />);
     expect(screen.queryByText('Customer Masih Kosong')).toBeInTheDocument();
-
-    console.log(admins);
 
     // render(<Admin admins={admins} />);
     // const adminCards = screen.getAllByTestId('admin-card');

@@ -33,7 +33,7 @@ describe('Edit User', () => {
   });
 
   test('Edit User Container page is rendered', () => {
-    const { getByTestId } = render(<EditUser />);
+    const { getByTestId } = render(<EditUser loadingTest={false} />);
 
     console.log(user);
 

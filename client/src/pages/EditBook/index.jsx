@@ -10,12 +10,13 @@ import config from '@config/index';
 import toast, { Toaster } from 'react-hot-toast';
 import { selectCategoryList } from '@pages/Dashboard/selectors';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Loader from '@components/Loader';
 
 import classes from './style.module.scss';
 import { selectBookDetail } from './selectors';
 import { doEditBook, getBookById } from './actions';
 
-const EditBook = ({ book, categories }) => {
+const EditBook = ({ book, categories, loadingTest = true }) => {
   const fileRef = useRef();
 
   const [image, setImage] = useState(null);
@@ -64,8 +65,8 @@ const EditBook = ({ book, categories }) => {
     );
   };
 
-  if (render) {
-    return;
+  if (render && loadingTest) {
+    return <Loader isLoading={render} />;
   }
   return (
     <div data-testid="eb-main-container" className={classes['main-container']}>
@@ -200,6 +201,7 @@ const EditBook = ({ book, categories }) => {
 EditBook.propTypes = {
   book: PropTypes.object,
   categories: PropTypes.array,
+  loadingTest: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -5,11 +5,11 @@ import { setLoading, showPopup } from '@containers/App/actions';
 import { GET_LENDING } from './constants';
 import { setLending } from './actions';
 
-function* doGetLendingList() {
+function* doGetLendingList({ cb }) {
   setLoading(true);
   try {
     const response = yield call(getLendingList);
-
+    cb && cb();
     yield put(setLending(response.result));
   } catch (error) {
     yield put(showPopup('Error', error.response?.data?.message));

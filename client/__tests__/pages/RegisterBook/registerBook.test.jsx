@@ -19,6 +19,11 @@ jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
 }));
 
+jest.mock('react-hook-form', () => ({
+  useForm: jest.fn(),
+  ...jest.requireActual('react-hook-form'),
+}));
+
 const render = (component) =>
   RtlRender(
     <Provider store={store}>

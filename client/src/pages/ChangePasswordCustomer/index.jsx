@@ -11,12 +11,15 @@ import { patchChangePassword } from '@pages/ChangePasswordAdmin/actions';
 import toast, { Toaster } from 'react-hot-toast';
 import { logout } from '@utils/logout';
 import { useState } from 'react';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import classes from './style.module.scss';
 
 const ChangePasswordCustomer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [visibility, setVisibility] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const {
@@ -51,16 +54,25 @@ const ChangePasswordCustomer = () => {
             <label htmlFor="">
               <FormattedMessage id="newPassword" />
             </label>
-            <input
-              type="password"
-              id="newPassword"
-              name="newPassword"
-              placeholder="new password"
-              {...register('newPassword', {
-                required: 'New password is required',
-              })}
-              aria-invalid={errors.newPassword ? 'true' : 'false'}
-            />
+            <div data-testid="cpc-input-password" className={classes['input-password']}>
+              <input
+                type="password"
+                id="newPassword"
+                name="newPassword"
+                placeholder="new password"
+                {...register('newPassword', {
+                  required: 'New password is required',
+                })}
+                aria-invalid={errors.newPassword ? 'true' : 'false'}
+              />
+              <div
+                onClick={() => setVisibility(!visibility)}
+                data-testid="login-visibility"
+                className={classes.visibility}
+              >
+                {visibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              </div>
+            </div>
             {errors.newPassword && <span role="alert">{errors.newPassword.message}</span>}
           </div>
 

@@ -15,8 +15,7 @@ export default {
     '@static/(.*)': '<rootDir>/src/static/$1',
     '@styles/(.*)': '<rootDir>/src/styles/$1',
     '@utils/(.*)': '<rootDir>/src/utils/$1',
-    '\\.(jpg|jpeg|png|gif|webp|svg)$': 'identity-obj-proxy',
-    '\\.(css|less|scss)$': 'identity-obj-proxy',
+    '\\.(png|jpg|webp|ttf|woff|woff2|svg|mp4)$': '<rootDir>/tests/__mocks__/fileMock.js',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 };

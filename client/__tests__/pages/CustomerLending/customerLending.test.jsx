@@ -6,9 +6,8 @@ import Language from '@containers/Language';
 import { FormattedMessage } from 'react-intl';
 // import config from '@config/index';
 import CustomerLending from '@pages/CustomerLending';
-
 import store from '../../../src/configureStore';
-import MockLending from '../../fixtures/database/lending.json';
+import MockLending from '../../fixtures/database/allLending.json';
 
 jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
@@ -32,8 +31,14 @@ describe('Book', () => {
     customerLending = _.cloneDeep(MockLending);
   });
 
-  test('Book Container page is rendered', () => {
+  test('renders loading state correctly', () => {
     const { getByTestId } = render(<CustomerLending />);
+    const loadingText = getByTestId('Loading');
+    expect(loadingText).toBeInTheDocument();
+  });
+
+  test('Book Container page is rendered', async () => {
+    const { getByTestId } = render(<CustomerLending customerLending={customerLending} loadingTest={false} />);
 
     const clContainer = getByTestId('cl-container');
     expect(clContainer).toBeInTheDocument();
@@ -45,7 +50,7 @@ describe('Book', () => {
 
     const clCardContainer = getByTestId('cl-card-container');
     expect(clCardContainer).toBeInTheDocument();
-    expect(clCardContainer).toHaveClass('cl-container');
+    expect(clCardContainer).toHaveClass('card-container');
 
     // const clCard = getByTestId('cl-card');
     // expect(clCard).toBeInTheDocument();

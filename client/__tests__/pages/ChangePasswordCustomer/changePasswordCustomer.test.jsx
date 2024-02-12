@@ -44,6 +44,10 @@ describe('Change Password Admin', () => {
     expect(cpcWrapperPassword).toBeInTheDocument();
     expect(cpcWrapperPassword).toHaveClass('wrapper');
 
+    const cpcInputPassword = getByTestId('cpc-input-password');
+    expect(cpcInputPassword).toBeInTheDocument();
+    expect(cpcInputPassword).toHaveClass('input-password');
+
     const cpcWrapperConfirmPassword = getByTestId('cpc-wrapper-confirm-password');
     expect(cpcWrapperConfirmPassword).toBeInTheDocument();
     expect(cpcWrapperConfirmPassword).toHaveClass('wrapper');

@@ -6,6 +6,8 @@ import { FormattedMessage } from 'react-intl';
 import { Button } from '@mui/material';
 import toast, { Toaster } from 'react-hot-toast';
 import { useState } from 'react';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import { doLoginAction } from './actions';
 import classes from './style.module.scss';
@@ -13,6 +15,7 @@ import classes from './style.module.scss';
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [visibility, setVisibility] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const {
@@ -71,16 +74,25 @@ const Login = () => {
             <label htmlFor="">
               <FormattedMessage id="password" />
             </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="password"
-              {...register('password', {
-                required: 'password is required',
-              })}
-              aria-invalid={errors.password ? 'true' : 'false'}
-            />
+            <div data-testid="login-input-password" className={classes['input-password']}>
+              <input
+                type={visibility ? 'password' : 'text'}
+                id="password"
+                name="password"
+                placeholder="password"
+                {...register('password', {
+                  required: 'password is required',
+                })}
+                aria-invalid={errors.password ? 'true' : 'false'}
+              />
+              <div
+                onClick={() => setVisibility(!visibility)}
+                data-testid="login-visibility"
+                className={classes.visibility}
+              >
+                {visibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              </div>
+            </div>
             {errors.password && <span role="alert">{errors.password.message}</span>}
           </div>
           <Button variant="contained" type="submit" size="small" disabled={loading}>

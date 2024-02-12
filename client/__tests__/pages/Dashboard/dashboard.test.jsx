@@ -65,5 +65,21 @@ describe('Dashboard', () => {
     render(<FormattedMessage id="hi" />);
     const dashboardMessage = screen.getByText('Hai! Semangat beraktivitas,');
     expect(dashboardMessage).toBeInTheDocument();
+
+    render(<FormattedMessage id="customer" />);
+    const customer = screen.getByText('Pelanggan');
+    expect(customer).toBeInTheDocument();
+
+    render(<FormattedMessage id="book" />);
+    const book = screen.getByText('Buku');
+    expect(book).toBeInTheDocument();
+
+    render(<FormattedMessage id="lendingList" />);
+    const lendingList = screen.getByText('Peminjaman');
+    expect(lendingList).toBeInTheDocument();
+
+    render(<FormattedMessage id="category" />);
+    const category = screen.getByText('Kategory');
+    expect(category).toBeInTheDocument();
   });
 });

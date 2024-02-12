@@ -44,6 +44,10 @@ describe('Change Password Admin', () => {
     expect(cpaWrapperPassword).toBeInTheDocument();
     expect(cpaWrapperPassword).toHaveClass('wrapper');
 
+    const cpaInputPassword = getByTestId('cpa-input-password');
+    expect(cpaInputPassword).toBeInTheDocument();
+    expect(cpaInputPassword).toHaveClass('input-password');
+
     const cpaWrapperConfirmPassword = getByTestId('cpa-wrapper-confirm-password');
     expect(cpaWrapperConfirmPassword).toBeInTheDocument();
     expect(cpaWrapperConfirmPassword).toHaveClass('wrapper');

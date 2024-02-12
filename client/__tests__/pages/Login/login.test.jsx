@@ -48,6 +48,14 @@ describe('Login', () => {
     expect(loginWrapperEmail).toBeInTheDocument();
     expect(loginWrapperEmail).toHaveClass('wrapper');
 
+    const loginInputPassword = getByTestId('login-input-password');
+    expect(loginInputPassword).toBeInTheDocument();
+    expect(loginInputPassword).toHaveClass('input-password');
+
+    const loginVisibility = getByTestId('login-visibility');
+    expect(loginVisibility).toBeInTheDocument();
+    expect(loginVisibility).toHaveClass('visibility');
+
     const loginWrapperPassword = getByTestId('login-wrapper-password');
     expect(loginWrapperPassword).toBeInTheDocument();
     expect(loginWrapperPassword).toHaveClass('wrapper');

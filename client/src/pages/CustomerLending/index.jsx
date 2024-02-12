@@ -7,12 +7,13 @@ import dayjs from 'dayjs';
 import config from '@config/index';
 import { Link, useParams } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Loader from '@components/Loader';
 
 import { getCustomerLending } from './actions';
 import classes from './style.module.scss';
 import { selectCustomerLending } from './selectors';
 
-const CustomerLending = ({ customerLending }) => {
+const CustomerLending = ({ customerLending, loadingTest = true }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
@@ -25,10 +26,8 @@ const CustomerLending = ({ customerLending }) => {
     );
   }, [dispatch, id]);
 
-  console.log(customerLending);
-
-  if (loading) {
-    return;
+  if (loading && loadingTest) {
+    return <Loader isLoading={loading} />;
   }
 
   return (
@@ -94,6 +93,7 @@ const CustomerLending = ({ customerLending }) => {
 
 CustomerLending.propTypes = {
   customerLending: PropTypes.array,
+  loadingTest: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({

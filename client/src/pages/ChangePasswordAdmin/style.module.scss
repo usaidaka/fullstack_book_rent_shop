@@ -69,6 +69,25 @@
         height: 40px;
         border-radius: 6px;
         padding-left: 10px;
+        width: 100%;
+      }
+    }
+    .wrapper {
+      position: relative;
+      .input-password {
+        width: 100%;
+        position: relative;
+
+        input {
+          width: 100%;
+          margin-right: 10px;
+        }
+        .visibility {
+          position: absolute;
+          top: 0;
+          right: 0;
+          margin: 5px 10px;
+        }
       }
     }
 

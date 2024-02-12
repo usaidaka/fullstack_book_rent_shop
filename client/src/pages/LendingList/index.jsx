@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { connect, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import config from '@config/index';
+import Loader from '@components/Loader';
 
 import { selectLendingList } from './selectors';
 import classes from './style.module.scss';
@@ -14,11 +15,20 @@ import { getLending } from './actions';
 
 const Lending = ({ lendingList }) => {
   console.log('Tes');
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   console.log(lendingList);
   useEffect(() => {
-    dispatch(getLending());
+    dispatch(
+      getLending(() => {
+        setLoading(false);
+      })
+    );
   }, [dispatch]);
+
+  if (loading) {
+    return <Loader isLoading={loading} />;
+  }
 
   return (
     <div data-testid="lending-container" className={classes.container}>

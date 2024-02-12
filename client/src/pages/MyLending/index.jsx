@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import config from '@config/index';
 import { Link } from 'react-router-dom';
 import { getMyLending } from './actions';
+import Loader from '@components/Loader';
 
 import classes from './style.module.scss';
 import { selectMyLendingList } from './selectors';
@@ -24,7 +25,7 @@ const MyLending = ({ myLending }) => {
   }, [dispatch]);
 
   if (loading) {
-    return;
+    return <Loader isLoading={loading} />;
   }
 
   return (
