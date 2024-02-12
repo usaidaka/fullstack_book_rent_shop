@@ -99,7 +99,11 @@ const EditUser = ({ userDetail, loadingTest = true }) => {
                 aria-invalid={errors.name ? 'true' : 'false'}
                 defaultValue={userDetail.name}
               />
-              {errors.name && <span role="alert">{errors.name.message}</span>}
+              {errors.name && (
+                <span role="alert" className={classes['error-validation']}>
+                  {errors.name.message}
+                </span>
+              )}
             </div>
 
             <div data-testid="eu-wrapper-email" className={classes.wrapper}>
@@ -115,7 +119,11 @@ const EditUser = ({ userDetail, loadingTest = true }) => {
                 value={userDetail.email}
                 disabled
               />
-              {errors.email && <span role="alert">{errors.email.message}</span>}
+              {errors.email && (
+                <span role="alert" className={classes['error-validation']}>
+                  {errors.email.message}
+                </span>
+              )}
             </div>
           </div>
 
@@ -135,7 +143,11 @@ const EditUser = ({ userDetail, loadingTest = true }) => {
                 aria-invalid={errors.phone ? 'true' : 'false'}
                 defaultValue={userDetail.phone}
               />
-              {errors.phone && <span role="alert">{errors.phone.message}</span>}
+              {errors.phone && (
+                <span role="alert" className={classes['error-validation']}>
+                  {errors.phone.message}
+                </span>
+              )}
             </div>
             <div data-testid="eu-wrapper-address" className={classes.wrapper}>
               <label htmlFor="">
@@ -152,7 +164,11 @@ const EditUser = ({ userDetail, loadingTest = true }) => {
                 aria-invalid={errors.address ? 'true' : 'false'}
                 defaultValue={userDetail.address}
               />
-              {errors.address && <span role="alert">{errors.address.message}</span>}
+              {errors.address && (
+                <span role="alert" className={classes['error-validation']}>
+                  {errors.address.message}
+                </span>
+              )}
             </div>
           </div>
 
@@ -170,7 +186,11 @@ const EditUser = ({ userDetail, loadingTest = true }) => {
                 value="**********"
                 disabled
               />
-              {errors.password && <span role="alert">{errors.password.message}</span>}
+              {errors.password && (
+                <span role="alert" className={classes['error-validation']}>
+                  {errors.password.message}
+                </span>
+              )}
             </div>
           </div>
 

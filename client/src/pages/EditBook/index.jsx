@@ -97,7 +97,11 @@ const EditBook = ({ book, categories, loadingTest = true }) => {
                   aria-invalid={errors.title ? 'true' : 'false'}
                   defaultValue={book.title}
                 />
-                {errors.title && <span role="alert">{errors.title.message}</span>}
+                {errors.title && (
+                  <span role="alert" className={classes['error-validation']}>
+                    {errors.title.message}
+                  </span>
+                )}
               </div>
               <div data-testid="eb-wrapper-author" className={classes.wrapper}>
                 <label htmlFor="">
@@ -114,7 +118,11 @@ const EditBook = ({ book, categories, loadingTest = true }) => {
                   aria-invalid={errors.author ? 'true' : 'false'}
                   defaultValue={book.author}
                 />
-                {errors.author && <span role="alert">{errors.author.message}</span>}
+                {errors.author && (
+                  <span role="alert" className={classes['error-validation']}>
+                    {errors.author.message}
+                  </span>
+                )}
               </div>
             </div>
             <div data-testid="eb-main-wrapper-synopsis-category-date" className={classes['main-wrapper']}>
@@ -133,7 +141,11 @@ const EditBook = ({ book, categories, loadingTest = true }) => {
                   aria-invalid={errors.author ? 'true' : 'false'}
                   defaultValue={book.synopsis}
                 />
-                {errors.synopsis && <span role="alert">{errors.synopsis.message}</span>}
+                {errors.synopsis && (
+                  <span role="alert" className={classes['error-validation']}>
+                    {errors.synopsis.message}
+                  </span>
+                )}
               </div>
               <div data-testid="eb-form-select" className={classes['form-select']}>
                 <div data-testid="eb-wrapper-select" className={classes.select}>
@@ -159,7 +171,11 @@ const EditBook = ({ book, categories, loadingTest = true }) => {
                     ))}
                   </select>
 
-                  {errors.idCategory && <span role="alert">{errors.idCategory.message}</span>}
+                  {errors.idCategory && (
+                    <span role="alert" className={classes['error-validation']}>
+                      {errors.idCategory.message}
+                    </span>
+                  )}
                 </div>
                 <div data-testid="eb-wrapper-date" className={classes.date}>
                   <label htmlFor="">
@@ -177,7 +193,11 @@ const EditBook = ({ book, categories, loadingTest = true }) => {
                     max={new Date().toISOString().split('T')[0]}
                     defaultChecked={book.publishAt}
                   />
-                  {errors.publishAt && <span role="alert">{errors.publishAt.message}</span>}
+                  {errors.publishAt && (
+                    <span role="alert" className={classes['error-validation']}>
+                      {errors.publishAt.message}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>

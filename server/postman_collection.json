@@ -1,8 +1,7 @@
 {
 	"info": {
-		"_postman_id": "c04f9751-5154-4786-a932-dcdb579ee530",
-		"name": "PHINCON (AUTH) 2-2-2024",
-		"description": "Backend app ini diperuntukan untuk sebuah perusahaan / shop rental buku. dimana penggunaan aplikasi hanya dapat dioperasikan oleh admin yang bekerja di toko tersebut. customer hanya dapat mengakses informasi pribadinya, melihat list buku, melihat list peminjaman, dan melihat detail buku. sehingga ketika customer ingin melakukan perubahan data, pembuatan anggota baru, dan sebagainya, customer harus mendaftarkan dirinya melalui admin yang telah tersedia.",
+		"_postman_id": "8c26c81c-4773-49b7-831f-d41f1726ee7f",
+		"name": "PHINCON (FULLSTACK) 2-5-2024",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "26453564"
 	},
@@ -17,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"cristine@gmail.com\",\r\n    \"password\": \"Phincon123!\"\r\n}",
+							"raw": "{\r\n    \"email\": \"admin_10@gmail.com\",\r\n    \"password\": \"Phincon123!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -25,14 +24,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/login",
-							"protocol": "http",
+							"raw": "{{API_URL}}/login",
 							"host": [
-								"localhost"
+								"{{API_URL}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"login"
 							]
 						},
@@ -43,11 +39,21 @@
 				{
 					"name": "[POST] Register Admin",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"SuperAdmin_3\",\r\n    \"email\": \"super_admin_3@gmail.com\",\r\n    \"password\": \"Phincon123!\",\r\n    \"confirmPassword\": \"Phincon123!\",\r\n    \"phone\": \"0123192421\",\r\n    \"address\": \"Jl Kota Kasablanka\"\r\n}",
+							"raw": "{\r\n    \"name\": \"admin_10\",\r\n    \"email\": \"admin_10@gmail.com\",\r\n    \"password\": \"Phincon123!\",\r\n    \"confirmPassword\": \"Phincon123!\",\r\n    \"phone\": \"01231924221\",\r\n    \"address\": \"Jl Kota Kasablanka\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -55,14 +61,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/register-admin",
-							"protocol": "http",
+							"raw": "{{API_URL}}/register-admin",
 							"host": [
-								"localhost"
+								"{{API_URL}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"register-admin"
 							]
 						},
@@ -77,7 +80,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"super_admin@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"email\": \"wrong_email@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -104,7 +107,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"credential\": \"616642\",\r\n    \"email\": \"super_admin@gmail.com\",\r\n    \"newPassword\": \"Password123!\",\r\n    \"confirmPassword\":\"Password123!\"\r\n}",
+							"raw": "{\r\n    \"credential\": \"124014\",\r\n    \"email\": \"super_admin@gmail.com\",\r\n    \"newPassword\": \"Password123!\",\r\n    \"confirmPassword\":\"Password123!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -125,7 +128,7 @@
 					"response": []
 				},
 				{
-					"name": "[POST] Change Password",
+					"name": "[PATCH] Change Password",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -141,7 +144,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"newPassword\": \"Phincon123!\",\r\n    \"confirmPassword\": \"Phincon123!\"\r\n}",
+							"raw": "{\r\n    \"newPassword\": \"Phincon123\",\r\n    \"confirmPassword\": \"Phincon123!\",\r\n    \"test\": \"Phincon123!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -158,6 +161,80 @@
 							]
 						},
 						"description": "change password berbeda dengan reset password. dikarenakan change password meminta headers berupa authorization bearer token. sehingga user perlu melakukan login terlebih dahulu untuk menggunakan endpoint ini."
+					},
+					"response": []
+				},
+				{
+					"name": "[PATCH] Edit Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Super Admin",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/peter/Downloads/360_F_180311099_Vlj8ufdHvec4onKSDLxxdrNiP6yX4PnP.jpg"
+								},
+								{
+									"key": "test",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}/profile",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Dashboard",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/dashboard",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"dashboard"
+							]
+						}
 					},
 					"response": []
 				}
@@ -298,13 +375,20 @@
 						"method": "PATCH",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Usaid Aka\",\r\n    \"phone\": \"\",\r\n    \"address\": \"aasdasd\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/peter/Downloads/download (1).jpg"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/customer/:id",
@@ -321,7 +405,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "3"
 								}
 							]
 						},
@@ -370,8 +454,81 @@
 				{
 					"name": "[GET] Get Customer Profile By Login",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/customer-profile",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"customer-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Get Role Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/customer-role",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"customer-role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] Get Role Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/admin-role",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"admin-role"
+							]
+						}
 					},
 					"response": []
 				}
@@ -425,13 +582,39 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"tast\",\r\n    \"author\": \"tast\",\r\n    \"idCategory\": 2\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "di samping-Muassaasd",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "Usaid Aka",
+									"type": "text"
+								},
+								{
+									"key": "idCategory",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "synopsis",
+									"value": "Lorem ipsum dolor asim met",
+									"type": "text"
+								},
+								{
+									"key": "publishAt",
+									"value": "2023",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/peter/Downloads/360_F_180311099_Vlj8ufdHvec4onKSDLxxdrNiP6yX4PnP.jpg"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/book/",
@@ -470,7 +653,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "2"
+									"value": "null"
 								}
 							]
 						},
@@ -494,13 +677,20 @@
 						"method": "PATCH",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"tesss\",\r\n    \"author\":\"asd\",\r\n    \"idCategory\": 2\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Bumi",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/peter/Downloads/logo-phincon.png"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/book/:id",
@@ -555,11 +745,28 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "100"
 								}
 							]
 						},
 						"description": "hanya dapat diakses oleh admin. agar penambahan list buku lebih tertata pencatatannya."
+					},
+					"response": []
+				},
+				{
+					"name": "[GET] All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/categories",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
 					},
 					"response": []
 				}
@@ -570,6 +777,9 @@
 			"item": [
 				{
 					"name": "[GET] Get All Lending Data",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -583,6 +793,15 @@
 						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8080/api/lending/",
 							"protocol": "http",
@@ -630,7 +849,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "12"
+									"value": "3"
 								}
 							]
 						},
@@ -655,7 +874,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"customerName\": \"Aka\",\r\n    \"bookName\" : \"tesss\"\r\n}",
+							"raw": "{\r\n    \"email\": \"anderson@gmail.com\",\r\n    \"idBook\" : \"1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -696,7 +915,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"\",\r\n    \"idBook\": null\r\n}",
+							"raw": "{\r\n    \"email\": \"super_admin@gmail.com\",\r\n    \"idBook\": \"2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -704,7 +923,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/lending/",
+							"raw": "http://localhost:8080/api/lending",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -712,15 +931,113 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"lending",
-								""
+								"lending"
 							]
 						},
 						"description": "hanya dapat diakses oleh admin. agar customer yang ingin mengembalikan buku harus terkonfimasi langsung oleh admin"
 					},
 					"response": []
+				},
+				{
+					"name": "[GET] Get My Lending List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/my-lending",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"my-lending"
+							]
+						}
+					},
+					"response": []
 				}
 			]
+		},
+		{
+			"name": "test post foto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "aka",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/peter/OneDrive/Pictures/pwdk doc/Pas Foto Usaid Alkamil square.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{API_URL}}/customer/test",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"customer",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get foto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/photo-book/default.jpeg",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"photo-book",
+						"default.jpeg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test delete foto",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/book-test/",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"book-test",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -745,13 +1062,13 @@
 	],
 	"variable": [
 		{
-			"key": "TOKEN",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkNyaXN0aW5lIEFsYmVydG8iLCJlbWFpbCI6ImNyaXN0aW5lQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MDY4NTY2ODcsImV4cCI6MTcwNjk0MzA4N30.TpwrMQk1i4dFWvujNHj5B7mdNe-y3aGiZBBU_W0Jr-U",
+			"key": "API_URL",
+			"value": "http://localhost:8080/api",
 			"type": "string"
 		},
 		{
-			"key": "API_URL",
-			"value": "http://localhost:8080/api",
+			"key": "TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjcsIm5hbWUiOiJhZG1pbl8xMCIsImVtYWlsIjoiYWRtaW5fMTBAZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwiaWF0IjoxNzA3NjY1Njc0LCJleHAiOjE3MDc3NTIwNzR9.bWBze9wdlYBbTWV8KnrDTuvoHjm9SvoDrw6MhKIbsbQ",
 			"type": "string"
 		}
 	]

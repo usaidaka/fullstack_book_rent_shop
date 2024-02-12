@@ -60,7 +60,11 @@ const RegisterLending = ({ books }) => {
               })}
               aria-invalid={errors.email ? 'true' : 'false'}
             />
-            {errors.email && <span role="alert">{errors.email.message}</span>}
+            {errors.email && (
+              <span role="alert" className={classes['error-validation']}>
+                {errors.email.message}
+              </span>
+            )}
           </div>
 
           <div data-testid="rl-wrapper-book" className={classes.wrapper}>
@@ -85,7 +89,11 @@ const RegisterLending = ({ books }) => {
                 </option>
               ))}
             </select>
-            {errors.idBook && <span role="alert">{errors.idBook.message}</span>}
+            {errors.idBook && (
+              <span role="alert" className={classes['error-validation']}>
+                {errors.idBook.message}
+              </span>
+            )}
           </div>
 
           <Button variant="contained" type="submit" disabled={loading}>

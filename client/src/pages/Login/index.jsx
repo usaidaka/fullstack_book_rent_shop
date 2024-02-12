@@ -68,7 +68,11 @@ const Login = () => {
               })}
               aria-invalid={errors.email ? 'true' : 'false'}
             />
-            {errors.email && <span role="alert">{errors.email.message}</span>}
+            {errors.email && (
+              <span role="alert" className={classes['error-validation']}>
+                {errors.email.message}
+              </span>
+            )}
           </div>
           <div data-testid="login-wrapper-password" className={classes.wrapper}>
             <label htmlFor="">
@@ -93,7 +97,11 @@ const Login = () => {
                 {visibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
               </div>
             </div>
-            {errors.password && <span role="alert">{errors.password.message}</span>}
+            {errors.password && (
+              <span role="alert" className={classes['error-validation']}>
+                {errors.password.message}
+              </span>
+            )}
           </div>
           <Button variant="contained" type="submit" size="small" disabled={loading}>
             Submit

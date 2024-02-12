@@ -73,7 +73,11 @@ const ChangePasswordCustomer = () => {
                 {visibility ? <VisibilityIcon /> : <VisibilityOffIcon />}
               </div>
             </div>
-            {errors.newPassword && <span role="alert">{errors.newPassword.message}</span>}
+            {errors.newPassword && (
+              <span role="alert" className={classes['error-validation']}>
+                {errors.newPassword.message}
+              </span>
+            )}
           </div>
 
           <div data-testid="cpc-wrapper-confirm-password" className={classes.wrapper}>
@@ -91,7 +95,11 @@ const ChangePasswordCustomer = () => {
               })}
               aria-invalid={errors.confirmPassword ? 'true' : 'false'}
             />
-            {errors.confirmPassword && <span role="alert">{errors.confirmPassword.message}</span>}
+            {errors.confirmPassword && (
+              <span role="alert" className={classes['error-validation']}>
+                {errors.confirmPassword.message}
+              </span>
+            )}
           </div>
 
           <Button variant="contained" type="submit" disabled={loading}>

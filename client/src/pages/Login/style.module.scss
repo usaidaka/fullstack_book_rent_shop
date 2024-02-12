@@ -1,5 +1,10 @@
 @import '../../styles/base.scss';
 
+.error-validation {
+  color: red;
+  font-size: 12px;
+}
+
 .container {
   display: flex;
   height: 100vh;

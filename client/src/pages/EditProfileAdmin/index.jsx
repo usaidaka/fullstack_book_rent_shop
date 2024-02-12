@@ -86,7 +86,11 @@ const EditProfileAdmin = ({ user }) => {
                 aria-invalid={errors.name ? 'true' : 'false'}
                 defaultValue={user.name}
               />
-              {errors.name && <span role="alert">{errors.name.message}</span>}
+              {errors.name && (
+                <span role="alert" className={classes['error-validation']}>
+                  {errors.name.message}
+                </span>
+              )}
             </div>
 
             <div data-testid="epa-wrapper-email" className={classes.wrapper}>
@@ -121,7 +125,11 @@ const EditProfileAdmin = ({ user }) => {
                 aria-invalid={errors.phone ? 'true' : 'false'}
                 defaultValue={user.phone}
               />
-              {errors.phone && <span role="alert">{errors.phone.message}</span>}
+              {errors.phone && (
+                <span role="alert" className={classes['error-validation']}>
+                  {errors.phone.message}
+                </span>
+              )}
             </div>
             <div data-testid="epa-wrapper-address" className={classes.wrapper}>
               <label htmlFor="">
@@ -138,7 +146,11 @@ const EditProfileAdmin = ({ user }) => {
                 aria-invalid={errors.address ? 'true' : 'false'}
                 defaultValue={user.address}
               />
-              {errors.address && <span role="alert">{errors.address.message}</span>}
+              {errors.address && (
+                <span role="alert" className={classes['error-validation']}>
+                  {errors.address.message}
+                </span>
+              )}
             </div>
           </div>
 

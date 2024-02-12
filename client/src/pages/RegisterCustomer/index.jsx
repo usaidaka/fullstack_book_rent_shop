@@ -66,7 +66,11 @@ const RegisterCustomer = () => {
                 })}
                 aria-invalid={errors.name ? 'true' : 'false'}
               />
-              {errors.name && <span role="alert">{errors.name.message}</span>}
+              {errors.name && (
+                <span role="alert" className={classes['error-validation']}>
+                  {errors.name.message}
+                </span>
+              )}
             </div>
 
             <div data-testid="rc-wrapper-email" className={classes.wrapper}>
@@ -83,7 +87,11 @@ const RegisterCustomer = () => {
                 })}
                 aria-invalid={errors.email ? 'true' : 'false'}
               />
-              {errors.email && <span role="alert">{errors.email.message}</span>}
+              {errors.email && (
+                <span role="alert" className={classes['error-validation']}>
+                  {errors.email.message}
+                </span>
+              )}
             </div>
           </div>
 
@@ -102,7 +110,11 @@ const RegisterCustomer = () => {
                 })}
                 aria-invalid={errors.phone ? 'true' : 'false'}
               />
-              {errors.phone && <span role="alert">{errors.phone.message}</span>}
+              {errors.phone && (
+                <span role="alert" className={classes['error-validation']}>
+                  {errors.phone.message}
+                </span>
+              )}
             </div>
             <div data-testid="rc-wrapper-address" className={classes.wrapper}>
               <label htmlFor="">
@@ -118,7 +130,11 @@ const RegisterCustomer = () => {
                 })}
                 aria-invalid={errors.phone ? 'true' : 'false'}
               />
-              {errors.address && <span role="alert">{errors.address.message}</span>}
+              {errors.address && (
+                <span role="alert" className={classes['error-validation']}>
+                  {errors.address.message}
+                </span>
+              )}
             </div>
           </div>
 
@@ -136,7 +152,11 @@ const RegisterCustomer = () => {
               })}
               aria-invalid={errors.password ? 'true' : 'false'}
             />
-            {errors.password && <span role="alert">{errors.password.message}</span>}
+            {errors.password && (
+              <span role="alert" className={classes['error-validation']}>
+                {errors.password.message}
+              </span>
+            )}
           </div>
 
           <div data-testid="rc-wrapper-confirm-password" className={classes.wrapper}>
@@ -154,7 +174,11 @@ const RegisterCustomer = () => {
               })}
               aria-invalid={errors.confirmPassword ? 'true' : 'false'}
             />
-            {errors.confirmPassword && <span role="alert">{errors.confirmPassword.message}</span>}
+            {errors.confirmPassword && (
+              <span role="alert" className={classes['error-validation']}>
+                {errors.confirmPassword.message}
+              </span>
+            )}
           </div>
 
           <Button variant="contained" type="submit" disabled={loading}>

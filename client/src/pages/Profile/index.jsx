@@ -78,7 +78,11 @@ const Profile = ({ user }) => {
                 aria-invalid={errors.name ? 'true' : 'false'}
                 defaultValue={user.name}
               />
-              {errors.name && <span role="alert">{errors.name.message}</span>}
+              {errors.name && (
+                <span role="alert" className={classes['error-validation']}>
+                  {errors.name.message}
+                </span>
+              )}
             </div>
 
             <div data-testid="profile-wrapper-email" className={classes.wrapper}>

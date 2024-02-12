@@ -77,7 +77,11 @@ const RegisterBook = ({ categories }) => {
                   })}
                   aria-invalid={errors.title ? 'true' : 'false'}
                 />
-                {errors.title && <span role="alert">{errors.title.message}</span>}
+                {errors.title && (
+                  <span role="alert" className={classes['error-validation']}>
+                    {errors.title.message}
+                  </span>
+                )}
               </div>
               <div data-testid="rb-wrapper-author" className={classes.wrapper}>
                 <label htmlFor="">
@@ -93,7 +97,11 @@ const RegisterBook = ({ categories }) => {
                   })}
                   aria-invalid={errors.author ? 'true' : 'false'}
                 />
-                {errors.author && <span role="alert">{errors.author.message}</span>}
+                {errors.author && (
+                  <span role="alert" className={classes['error-validation']}>
+                    {errors.author.message}
+                  </span>
+                )}
               </div>
             </div>
             <div data-testid="rb-main-wrapper-synopsis-category-date" className={classes['main-wrapper']}>
@@ -111,7 +119,11 @@ const RegisterBook = ({ categories }) => {
                   })}
                   aria-invalid={errors.author ? 'true' : 'false'}
                 />
-                {errors.synopsis && <span role="alert">{errors.synopsis.message}</span>}
+                {errors.synopsis && (
+                  <span role="alert" className={classes['error-validation']}>
+                    {errors.synopsis.message}
+                  </span>
+                )}
               </div>
               <div data-testid="rb-form-select" className={classes['form-select']}>
                 <div data-testid="rb-wrapper-select" className={classes.select}>
@@ -136,7 +148,11 @@ const RegisterBook = ({ categories }) => {
                       </option>
                     ))}
                   </select>
-                  {errors.idCategory && <span role="alert">{errors.idCategory.message}</span>}
+                  {errors.idCategory && (
+                    <span role="alert" className={classes['error-validation']}>
+                      {errors.idCategory.message}
+                    </span>
+                  )}
                 </div>
                 <div data-testid="rb-wrapper-date" className={classes.date}>
                   <label htmlFor="">
@@ -153,7 +169,11 @@ const RegisterBook = ({ categories }) => {
                     aria-invalid={errors.publishAt ? 'true' : 'false'}
                     max={new Date().toISOString().split('T')[0]}
                   />
-                  {errors.publishAt && <span role="alert">{errors.publishAt.message}</span>}
+                  {errors.publishAt && (
+                    <span role="alert" className={classes['error-validation']}>
+                      {errors.publishAt.message}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
