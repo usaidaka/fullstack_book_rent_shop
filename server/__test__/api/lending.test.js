@@ -37,7 +37,7 @@ describe("Lending", () => {
       apiUrl = "/lending";
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWluIiwiZW1haWwiOiJzdXBlcl9hZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiU3VwZXIiLCJpYXQiOjE3MDc0OTI3OTUsImV4cCI6MTcwNzU3OTE5NX0.Jrtp3zR494K2X1AYBC-1d0Il2UA4SGI2AzsyYu2BDY0",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NzMwMDg2LCJleHAiOjE3MDc4MTY0ODZ9.4dFiUnOQv2iRmfVN9LNeZk9LDuJqbkqlcXxpqQf4xeE",
       };
 
       mockAllLending = _.cloneDeep(MockAllLending);
@@ -77,7 +77,7 @@ describe("Lending", () => {
       apiUrl = "/lending";
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWluIiwiZW1haWwiOiJzdXBlcl9hZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiU3VwZXIiLCJpYXQiOjE3MDc0OTI3OTUsImV4cCI6MTcwNzU3OTE5NX0.Jrtp3zR494K2X1AYBC-1d0Il2UA4SGI2AzsyYu2BDY0",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NzMwMDg2LCJleHAiOjE3MDc4MTY0ODZ9.4dFiUnOQv2iRmfVN9LNeZk9LDuJqbkqlcXxpqQf4xeE",
       };
       payload = { email: "veronika@gmail.com", idBook: "1" };
 
@@ -195,7 +195,7 @@ describe("Lending", () => {
       apiUrl = "/lending/1";
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWluIiwiZW1haWwiOiJzdXBlcl9hZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiU3VwZXIiLCJpYXQiOjE3MDc0OTI3OTUsImV4cCI6MTcwNzU3OTE5NX0.Jrtp3zR494K2X1AYBC-1d0Il2UA4SGI2AzsyYu2BDY0",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NzMwMDg2LCJleHAiOjE3MDc4MTY0ODZ9.4dFiUnOQv2iRmfVN9LNeZk9LDuJqbkqlcXxpqQf4xeE",
       };
 
       mockLending = _.cloneDeep(MockLending);
@@ -239,7 +239,7 @@ describe("Lending", () => {
       apiUrl = "/lending";
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWluIiwiZW1haWwiOiJzdXBlcl9hZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiU3VwZXIiLCJpYXQiOjE3MDc0OTI3OTUsImV4cCI6MTcwNzU3OTE5NX0.Jrtp3zR494K2X1AYBC-1d0Il2UA4SGI2AzsyYu2BDY0",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NzMwMDg2LCJleHAiOjE3MDc4MTY0ODZ9.4dFiUnOQv2iRmfVN9LNeZk9LDuJqbkqlcXxpqQf4xeE",
       };
       payload = { email: "super_admin@gmail.com", idBook: "1" };
 
@@ -355,7 +355,7 @@ describe("Lending", () => {
       apiUrl = "/my-lending";
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWluIiwiZW1haWwiOiJzdXBlcl9hZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiU3VwZXIiLCJpYXQiOjE3MDc0OTI3OTUsImV4cCI6MTcwNzU3OTE5NX0.Jrtp3zR494K2X1AYBC-1d0Il2UA4SGI2AzsyYu2BDY0",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NzMwMDg2LCJleHAiOjE3MDc4MTY0ODZ9.4dFiUnOQv2iRmfVN9LNeZk9LDuJqbkqlcXxpqQf4xeE",
       };
 
       mockAllLending = _.cloneDeep(MockAllLending);

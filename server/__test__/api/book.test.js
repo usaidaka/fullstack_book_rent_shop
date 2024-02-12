@@ -104,7 +104,7 @@ describe("Book", () => {
       apiUrl = "/book";
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWluIiwiZW1haWwiOiJzdXBlcl9hZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiU3VwZXIiLCJpYXQiOjE3MDc0ODc5MzYsImV4cCI6MTcwNzU3NDMzNn0.ytwH96MlQceUUP3Fr-AzFHk-zJvVEa4FrWwvlTXtz_A",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NzMwMDg2LCJleHAiOjE3MDc4MTY0ODZ9.4dFiUnOQv2iRmfVN9LNeZk9LDuJqbkqlcXxpqQf4xeE",
       };
       payload = {
         title: "Anak Singkong",
@@ -197,7 +197,7 @@ describe("Book", () => {
       apiUrl = "/book/1";
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWluIiwiZW1haWwiOiJzdXBlcl9hZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiU3VwZXIiLCJpYXQiOjE3MDc0ODc5MzYsImV4cCI6MTcwNzU3NDMzNn0.ytwH96MlQceUUP3Fr-AzFHk-zJvVEa4FrWwvlTXtz_A",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NzMwMDg2LCJleHAiOjE3MDc4MTY0ODZ9.4dFiUnOQv2iRmfVN9LNeZk9LDuJqbkqlcXxpqQf4xeE",
       };
       payload = {
         title: "Anak Singkong",
@@ -309,7 +309,7 @@ describe("Book", () => {
       apiUrl = `/book/${id}`;
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWluIiwiZW1haWwiOiJzdXBlcl9hZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiU3VwZXIiLCJpYXQiOjE3MDc0ODc5MzYsImV4cCI6MTcwNzU3NDMzNn0.ytwH96MlQceUUP3Fr-AzFHk-zJvVEa4FrWwvlTXtz_A",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NzMwMDg2LCJleHAiOjE3MDc4MTY0ODZ9.4dFiUnOQv2iRmfVN9LNeZk9LDuJqbkqlcXxpqQf4xeE",
       };
 
       mockBook = _.cloneDeep(MockBook);

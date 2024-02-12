@@ -100,12 +100,12 @@ describe("Auth", () => {
       apiUrl = "/hello";
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NDY0ODYyLCJleHAiOjE3MDc1NTEyNjJ9.kEYl_gDgltwXhSPCBtQdK_clCi41B0sJGwoIF5nEwXE",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWluIiwiZW1haWwiOiJzdXBlcl9hZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiU3VwZXIiLCJpYXQiOjE3MDc3MzA1NDUsImV4cCI6MTcwNzgxNjk0NX0.cE_vHzsijD36tYI2eZY6IyEkBm292g6CalRQ0hT1sMg",
       };
 
       mockJsonWebTokenData = {
         id: 1,
-        name: "Super Admins",
+        name: "Super Admin",
         email: "super_admin@gmail.com",
         role: "Super",
         iat: 1707464862,
@@ -181,7 +181,7 @@ describe("Auth", () => {
       };
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NDY3MTgxLCJleHAiOjE3MDc1NTM1ODF9.dAvEuKVxqtAVIxqPEog1idQE2M89TVbMLvtgjQFSQms",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NzMwMDg2LCJleHAiOjE3MDc4MTY0ODZ9.4dFiUnOQv2iRmfVN9LNeZk9LDuJqbkqlcXxpqQf4xeE",
       };
 
       mockCustomer = _.cloneDeep(MockCustomer);
@@ -271,7 +271,7 @@ describe("Auth", () => {
       };
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NDY3MTgxLCJleHAiOjE3MDc1NTM1ODF9.dAvEuKVxqtAVIxqPEog1idQE2M89TVbMLvtgjQFSQms",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NzMwMDg2LCJleHAiOjE3MDc4MTY0ODZ9.4dFiUnOQv2iRmfVN9LNeZk9LDuJqbkqlcXxpqQf4xeE",
       };
 
       mockCustomer = _.cloneDeep(MockCustomer);
@@ -344,7 +344,7 @@ describe("Auth", () => {
       };
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NDY3MTgxLCJleHAiOjE3MDc1NTM1ODF9.dAvEuKVxqtAVIxqPEog1idQE2M89TVbMLvtgjQFSQms",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NzMwMDg2LCJleHAiOjE3MDc4MTY0ODZ9.4dFiUnOQv2iRmfVN9LNeZk9LDuJqbkqlcXxpqQf4xeE",
       };
 
       mockCustomer = _.cloneDeep(MockCustomer);
@@ -365,14 +365,14 @@ describe("Auth", () => {
         });
     });
 
-    test("Should Return 400: Name Already User", async () => {
+    test("Should Return 400: Name Already Used", async () => {
       payload.name = "Super Admin";
       getCustomer.mockResolvedValue(mockCustomer);
       updateCustomer.mockResolvedValue("SUCCESS");
       await Request(server).patch(apiUrl).set(header).send(payload).expect(400);
     });
 
-    test("Should Return 400: Phone Already User", async () => {
+    test("Should Return 400: Phone Already Used", async () => {
       payload.phone = "087512485142";
       getCustomer.mockResolvedValue(mockCustomer);
       updateCustomer.mockResolvedValue("SUCCESS");
@@ -518,7 +518,7 @@ describe("Auth", () => {
       apiUrl = "/dashboard";
       header = {
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NDY3MTgxLCJleHAiOjE3MDc1NTM1ODF9.dAvEuKVxqtAVIxqPEog1idQE2M89TVbMLvtgjQFSQms",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWlucyIsImVtYWlsIjoic3VwZXJfYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IlN1cGVyIiwiaWF0IjoxNzA3NzMwMDg2LCJleHAiOjE3MDc4MTY0ODZ9.4dFiUnOQv2iRmfVN9LNeZk9LDuJqbkqlcXxpqQf4xeE",
       };
       mockAllBook = _.cloneDeep(MockAllBook);
       mockAllCustomer = _.cloneDeep(MockAllCustomer);
